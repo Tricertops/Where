@@ -22,7 +22,7 @@
     self = [super init];
     if (self) {
         self->_source = source;
-        self->_countryCode = code;
+        self->_countryCode = [self.class canonizedCountryCode:code];
         NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
         self->_countryName = [posix displayNameForKey:NSLocaleCountryCode value:code];
         self->_timestamp = [NSDate new];
@@ -30,20 +30,29 @@
     return self;
 }
 
++ (NSString *)canonizedCountryCode:(NSString *)code {
+    NSString *identifier = [NSLocale localeIdentifierFromComponents:@{ NSLocaleCountryCode: code }];
+    NSLocale *locale = [NSLocale localeWithLocaleIdentifier:identifier];
+    return [locale objectForKey:NSLocaleCountryCode];
+}
+
 @end
 
 
 @implementation Where (Detection)
 
-+ (void)detectInstantly {
++ (void)initialize {
     NSLog(@"Where are you?");
+}
+
++ (void)detectInstantly {
     [self detectUsingLocale];
 }
 
 + (void)detectUsingLocale {
     NSString *country = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
     Where *instance = [[Where alloc] initWithSource:WhereSourceLocale countryCode:country];
-    NSLog(@"It seems like you are from %@.", instance.countryName);
+    NSLog(@"You prefer region of %@.", instance.countryName);
     [self update:instance];
 }
 
