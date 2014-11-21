@@ -7,17 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B32643D1A1FA013006B22AE /* Where.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B6AAB4D1A1F4E66000B5A40 /* Where.framework */; };
+		5B32643E1A1FA013006B22AE /* Where.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B6AAB4D1A1F4E66000B5A40 /* Where.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5B6AAB6D1A1F4E88000B5A40 /* Where.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B6AAB6B1A1F4E88000B5A40 /* Where.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5B6AAB6F1A1F90E6000B5A40 /* Where.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6AAB6E1A1F90E6000B5A40 /* Where.m */; };
 		5B6AABD01A1F97CE000B5A40 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6AABCF1A1F97CE000B5A40 /* AppDelegate.m */; };
 		5B6AABD31A1F97CE000B5A40 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6AABD21A1F97CE000B5A40 /* ViewController.m */; };
 		5B6AABD61A1F97CE000B5A40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B6AABD41A1F97CE000B5A40 /* Main.storyboard */; };
 		5B6AABD81A1F97CE000B5A40 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B6AABD71A1F97CE000B5A40 /* Images.xcassets */; };
-		5B6AABF01A1F9904000B5A40 /* Where.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B6AAB4D1A1F4E66000B5A40 /* Where.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5B6AABEE1A1F98DF000B5A40 /* PBXContainerItemProxy */ = {
+		5B32643F1A1FA013006B22AE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5B6AAB441A1F4E66000B5A40 /* Project object */;
 			proxyType = 1;
@@ -25,6 +26,20 @@
 			remoteInfo = Where;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5B3264411A1FA013006B22AE /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5B32643E1A1FA013006B22AE /* Where.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5B6AAB4D1A1F4E66000B5A40 /* Where.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Where.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,7 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B6AABF01A1F9904000B5A40 /* Where.framework in Frameworks */,
+				5B32643D1A1FA013006B22AE /* Where.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,11 +152,12 @@
 				5B6AABC41A1F97CE000B5A40 /* Sources */,
 				5B6AABC51A1F97CE000B5A40 /* Frameworks */,
 				5B6AABC61A1F97CE000B5A40 /* Resources */,
+				5B3264411A1FA013006B22AE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				5B6AABEF1A1F98DF000B5A40 /* PBXTargetDependency */,
+				5B3264401A1FA013006B22AE /* PBXTargetDependency */,
 			);
 			name = "Where Am I";
 			productName = "Where Am I";
@@ -224,10 +240,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5B6AABEF1A1F98DF000B5A40 /* PBXTargetDependency */ = {
+		5B3264401A1FA013006B22AE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5B6AAB4C1A1F4E66000B5A40 /* Where */;
-			targetProxy = 5B6AABEE1A1F98DF000B5A40 /* PBXContainerItemProxy */;
+			targetProxy = 5B32643F1A1FA013006B22AE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -400,6 +416,7 @@
 				5B6AAB651A1F4E66000B5A40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5B6AABE81A1F97CE000B5A40 /* Build configuration list for PBXNativeTarget "Where Am I" */ = {
 			isa = XCConfigurationList;
@@ -408,6 +425,7 @@
 				5B6AABEA1A1F97CE000B5A40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
