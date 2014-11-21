@@ -9,10 +9,6 @@
 #import "Where.h"
 
 
-const double WhereVersionNumber = 1;
-const unsigned char WhereVersionString[] = "1.0.0";
-
-
 @interface Where ()
 
 - (instancetype)initWithSource:(WhereSource)source countryCode:(NSString *)code;
