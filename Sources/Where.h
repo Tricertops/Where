@@ -7,6 +7,7 @@
 //
 
 @import UIKit;
+@import CoreTelephony;
 @import CoreLocation;
 
 
@@ -18,7 +19,7 @@ typedef enum : NSUInteger {
     WhereSourceNone = 0,
     WhereSourceLocale,      // Instant, not reliable, always.
     //TODO: WhereSourceTimeZone,    // Instant, reliable, always.
-    //TODO: WhereSourceCarrier,     // Instant, reliable, cellular.
+    WhereSourceCarrier,     // Instant, reliable, cellular.
     //TODO: WhereSourceIPAddress,   // Delayed, reliable, connection.
     //TODO: WhereSourceLocationServices, // Delayed, precise, permission.
 } WhereSource;
