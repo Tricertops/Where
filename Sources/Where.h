@@ -9,6 +9,7 @@
 @import UIKit;
 @import CoreTelephony;
 @import CoreLocation;
+#import <Where/NSLocale+Region.h>
 #import <Where/NSTimeZone+Region.h>
 
 
@@ -29,8 +30,8 @@ typedef enum : NSUInteger {
 @interface Where : NSObject
 
 @property (readonly) WhereSource source;
-@property (readonly) NSString *countryCode;
-@property (readonly) NSString *countryName;
+@property (readonly) NSString *regionCode;
+@property (readonly) NSString *regionName;
 //TODO: @property (readonly) CLLocationCoordinate2D coordinate;
 @property (readonly) NSDate *timestamp;
 

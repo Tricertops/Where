@@ -11,33 +11,25 @@
 
 @interface Where ()
 
-- (instancetype)initWithSource:(WhereSource)source countryCode:(NSString *)code;
+- (instancetype)initWithSource:(WhereSource)source region:(NSString *)regionCode;
 
 @end
 
 
 @implementation Where
 
-- (instancetype)initWithSource:(WhereSource)source countryCode:(NSString *)code {
-    NSString *canonized = [self.class canonizedCountryCode:code];
-    if ( ! canonized.length) return nil;
+- (instancetype)initWithSource:(WhereSource)source region:(NSString *)regionCode {
+    NSString *canonizedRegionCode = [NSLocale canonizeRegionCode:regionCode];
+    if ( ! canonizedRegionCode.length) return nil;
     
     self = [super init];
     if (self) {
         self->_source = source;
-        self->_countryCode = canonized;
-        NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-        self->_countryName = [posix displayNameForKey:NSLocaleCountryCode value:code];
+        self->_regionCode = canonizedRegionCode;
+        self->_regionName = [NSLocale nameOfRegion:canonizedRegionCode];
         self->_timestamp = [NSDate new];
     }
     return self;
-}
-
-+ (NSString *)canonizedCountryCode:(NSString *)code {
-    if ( ! code) return nil;
-    NSString *identifier = [NSLocale localeIdentifierFromComponents:@{ NSLocaleCountryCode: code }];
-    NSLocale *locale = [NSLocale localeWithLocaleIdentifier:identifier];
-    return [locale objectForKey:NSLocaleCountryCode];
 }
 
 @end
@@ -54,10 +46,10 @@
 }
 
 + (void)detectUsingLocale {
-    NSString *country = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
-    Where *instance = [[Where alloc] initWithSource:WhereSourceLocale countryCode:country];
+    NSString *regionCode = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
+    Where *instance = [[Where alloc] initWithSource:WhereSourceLocale region:regionCode];
     if (instance) {
-        NSLog(@"Hmm, you prefer region of %@.", instance.countryName);
+        NSLog(@"Hmm, you prefer region of %@.", instance.regionName);
         [self update:instance];
     }
 }
@@ -73,19 +65,19 @@
 }
 
 + (void)detectUsingCarrier {
-    NSString *country = [self network].subscriberCellularProvider.isoCountryCode;
-    Where *instance = [[Where alloc] initWithSource:WhereSourceCarrier countryCode:country];
+    NSString *regionCode = [self network].subscriberCellularProvider.isoCountryCode;
+    Where *instance = [[Where alloc] initWithSource:WhereSourceCarrier region:regionCode];
     if (instance) {
-        NSLog(@"Hmm, your cellular carrier is from %@.", instance.countryName);
+        NSLog(@"Hmm, your cellular carrier is from %@.", instance.regionName);
         [self update:instance];
     }
 }
 
 + (void)detectUsingTimeZone {
-    NSString *country = [[NSTimeZone systemTimeZone] regionCode];
-    Where *instance = [[Where alloc] initWithSource:WhereSourceTimeZone countryCode:country];
+    NSString *regionCode = [[NSTimeZone systemTimeZone] regionCode];
+    Where *instance = [[Where alloc] initWithSource:WhereSourceTimeZone region:regionCode];
     if (instance) {
-        NSLog(@"Hmm, you are in a time zone of %@.", instance.countryName);
+        NSLog(@"Hmm, you are in a time zone of %@.", instance.regionName);
         [self update:instance];
     }
 }
@@ -149,7 +141,7 @@ static BOOL isUpdating = NO;
 + (void)logBest {
     Where *instance = [self best];
     if (instance) {
-        NSLog(@"You must be in %@!", instance.countryName);
+        NSLog(@"You must be in %@!", instance.regionName);
     }
     else {
         NSLog(@"Sorry, I don’t know where you are :(");
