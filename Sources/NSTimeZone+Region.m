@@ -200,6 +200,7 @@
              @"Moncton": @"CA", // Atlantic Time
              @"Monterrey": @"MX", // Mexican Central Time
              @"Montevideo": @"UY",
+             @"Montreal": @"CA", // Eastern Time
              @"Montserrat": @"MS",
              @"Nassau": @"BS",
              @"New_York": @"US", // Eastern Time
@@ -232,6 +233,7 @@
              @"Santo_Domingo": @"DO",
              @"Sao_Paulo": @"BR",
              @"Scoresbysund": @"GL",
+             @"Shiprock": @"US", // = America/Denver
              @"Sitka": @"US", // Alaska Time
              @"St_Barthelemy": @"BL",
              @"St_Johns": @"CA", // Newfoundland Time
@@ -260,14 +262,15 @@
              @"Casey": @"AQ",
              @"Davis": @"AQ",
              @"DumontDUrville": @"AQ",
-             @"Macquarie": @"AU", // Australia
+             @"Macquarie": @"AQ",
              @"Mawson": @"AQ",
              @"McMurdo": @"AQ",
              @"Palmer": @"AQ",
              @"Rothera": @"AQ",
+             @"South_Pole": @"AQ", // Typicaly listed without a code
              @"Syowa": @"AQ",
+             @"Troll": @"AQ",
              @"Vostok": @"AQ",
-             
              };
 }
 
@@ -284,7 +287,7 @@
              @"Aden": @"YE",
              @"Almaty": @"KZ",
              @"Amman": @"JO",
-             @"Anadyr": @"RU", // Moscow+08
+             @"Anadyr": @"RU", // Moscow+09 (2014)
              @"Aqtau": @"KZ",
              @"Aqtobe": @"KZ",
              @"Ashgabat": @"TM",
@@ -295,6 +298,7 @@
              @"Beirut": @"LB",
              @"Bishkek": @"KG",
              @"Brunei": @"BN",
+             @"Chita": @"RU", // Moscow+05 (2014)
              @"Choibalsan": @"MN",
              @"Chongqing": @"CN",
              @"Colombo": @"LK",
@@ -309,30 +313,31 @@
              @"Ho_Chi_Minh": @"VN",
              @"Hong_Kong": @"HK",
              @"Hovd": @"MN",
-             @"Irkutsk": @"RU", // Moscow+05
+             @"Irkutsk": @"RU", // Moscow+05 (2014)
              @"Jakarta": @"ID",
              @"Jayapura": @"ID",
              @"Jerusalem": @"IL",
              @"Kabul": @"AF",
-             @"Kamchatka": @"RU", // Moscow+08
+             @"Kamchatka": @"RU", // Moscow+09 (2014)
              @"Karachi": @"PK",
              @"Kashgar": @"CN",
              @"Kathmandu": @"NP",
-             @"Khandyga": @"RU", // Moscow+06
+             @"Katmandu": @"NP", // = Asia/Kathmandu
+             @"Khandyga": @"RU", // Moscow+06 (2014)
              @"Kolkata": @"IN",
-             @"Krasnoyarsk": @"RU", // Moscow+04
+             @"Krasnoyarsk": @"RU", // Moscow+04 (2014)
              @"Kuala_Lumpur": @"MY",
              @"Kuching": @"MY",
              @"Kuwait": @"KW",
              @"Macau": @"MO",
-             @"Magadan": @"RU", // Moscow+08
+             @"Magadan": @"RU", // Moscow+07 (2014)
              @"Makassar": @"ID",
              @"Manila": @"PH",
              @"Muscat": @"OM",
              @"Nicosia": @"CY",
-             @"Novokuznetsk": @"RU", // Moscow+03
-             @"Novosibirsk": @"RU", // Moscow+03
-             @"Omsk": @"RU", // Moscow+03
+             @"Novokuznetsk": @"RU", // Moscow+04 (2014)
+             @"Novosibirsk": @"RU", // Moscow+03 (2014)
+             @"Omsk": @"RU", // Moscow+03 (2014)
              @"Oral": @"KZ",
              @"Phnom_Penh": @"KH",
              @"Pontianak": @"ID",
@@ -341,11 +346,12 @@
              @"Qyzylorda": @"KZ",
              @"Rangoon": @"MM",
              @"Riyadh": @"SA",
-             @"Sakhalin": @"RU", // Moscow+07
+             @"Sakhalin": @"RU", // Moscow+07 (2014)
              @"Samarkand": @"UZ",
              @"Seoul": @"KR",
              @"Shanghai": @"CN",
              @"Singapore": @"SG",
+             @"Srednekolymsk": @"RU", // Moscow+08 (2014)
              @"Taipei": @"TW",
              @"Tashkent": @"UZ",
              @"Tbilisi": @"GE",
@@ -354,11 +360,11 @@
              @"Tokyo": @"JP",
              @"Ulaanbaatar": @"MN",
              @"Urumqi": @"CN",
-             @"Ust-Nera": @"RU", // Moscow+07
+             @"Ust-Nera": @"RU", // Moscow+07 (2014)
              @"Vientiane": @"LA",
-             @"Vladivostok": @"RU", // Moscow+07
-             @"Yakutsk": @"RU", // Moscow+06
-             @"Yekaterinburg": @"RU", // Moscow+02
+             @"Vladivostok": @"RU", // Moscow+07 (2014)
+             @"Yakutsk": @"RU", // Moscow+06 (2014)
+             @"Yekaterinburg": @"RU", // Moscow+02 (2014)
              @"Yerevan": @"AM",
              };
 }
@@ -437,7 +443,7 @@
              @"Prague": @"CZ",
              @"Riga": @"LV",
              @"Rome": @"IT",
-             @"Samara": @"RU", // Moscow+00
+             @"Samara": @"RU", // Moscow+01 (2014)
              @"San_Marino": @"SM",
              @"Sarajevo": @"BA",
              @"Simferopol": @"UA",
@@ -509,12 +515,14 @@
              @"Palau": @"PW",
              @"Pitcairn": @"PN",
              @"Pohnpei": @"FM", // Micronesia
+             @"Ponape": @"FM", // = Pacific/Pohnpei
              @"Port_Moresby": @"PG", // Papua-New Guinea
              @"Rarotonga": @"CK",
              @"Saipan": @"MP",
              @"Tahiti": @"PF",
              @"Tarawa": @"KI", // Kiribati
              @"Tongatapu": @"TO", // Tonga
+             @"Truk": @"FM", // = Pacific/Chuuk
              @"Wake": @"UM",
              @"Wallis": @"WF",
              };
