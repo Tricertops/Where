@@ -9,6 +9,7 @@
 @import UIKit;
 @import CoreTelephony;
 @import CoreLocation;
+#import <Where/NSTimeZone+Region.h>
 
 
 FOUNDATION_EXPORT const double WhereVersionNumber;

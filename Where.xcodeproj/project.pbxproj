@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5B32643D1A1FA013006B22AE /* Where.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B6AAB4D1A1F4E66000B5A40 /* Where.framework */; };
 		5B32643E1A1FA013006B22AE /* Where.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B6AAB4D1A1F4E66000B5A40 /* Where.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5B3264441A207FAA006B22AE /* NSTimeZone+Region.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B3264421A207FAA006B22AE /* NSTimeZone+Region.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5B3264451A207FAA006B22AE /* NSTimeZone+Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3264431A207FAA006B22AE /* NSTimeZone+Region.m */; };
 		5B6AAB6D1A1F4E88000B5A40 /* Where.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B6AAB6B1A1F4E88000B5A40 /* Where.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5B6AAB6F1A1F90E6000B5A40 /* Where.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6AAB6E1A1F90E6000B5A40 /* Where.m */; };
 		5B6AABD01A1F97CE000B5A40 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6AABCF1A1F97CE000B5A40 /* AppDelegate.m */; };
@@ -42,6 +44,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5B3264421A207FAA006B22AE /* NSTimeZone+Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimeZone+Region.h"; sourceTree = "<group>"; };
+		5B3264431A207FAA006B22AE /* NSTimeZone+Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimeZone+Region.m"; sourceTree = "<group>"; };
 		5B6AAB4D1A1F4E66000B5A40 /* Where.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Where.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6AAB691A1F4E88000B5A40 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B6AAB6B1A1F4E88000B5A40 /* Where.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Where.h; sourceTree = "<group>"; };
@@ -97,6 +101,8 @@
 			children = (
 				5B6AAB6B1A1F4E88000B5A40 /* Where.h */,
 				5B6AAB6E1A1F90E6000B5A40 /* Where.m */,
+				5B3264421A207FAA006B22AE /* NSTimeZone+Region.h */,
+				5B3264431A207FAA006B22AE /* NSTimeZone+Region.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -121,6 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B6AAB6D1A1F4E88000B5A40 /* Where.h in Headers */,
+				5B3264441A207FAA006B22AE /* NSTimeZone+Region.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B3264451A207FAA006B22AE /* NSTimeZone+Region.m in Sources */,
 				5B6AAB6F1A1F90E6000B5A40 /* Where.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
