@@ -11,6 +11,16 @@
 
 #pragma mark - Location
 
+static NSString * WhereSourceDescription(WhereSource source) {
+    switch (source) {
+        case WhereSourceNone: return @"Unwnown";
+        case WhereSourceLocale: return @"Locale";
+        case WhereSourceCarrier: return @"Carrier";
+        case WhereSourceTimeZone: return @"Time Zone";
+        default: return @"Other";
+    }
+}
+
 @interface Where ()
 
 + (instancetype)instanceWithSource:(WhereSource)source region:(NSString *)regionCode;
@@ -37,6 +47,11 @@
 - (NSComparisonResult)compareQuality:(Where *)other {
     return ([@(self.source) compare:@(other.source)]
             ?: [self.timestamp compare:other.timestamp]);
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@ (%@) from %@ at %@",
+            self->_regionName, self->_regionCode, WhereSourceDescription(self->_source), self->_timestamp];
 }
 
 @end
