@@ -12,7 +12,7 @@
 @interface NSTimeZone (Country)
 
 - (NSString *)regionCode;
-//TODO: + (NSArray *)timeZonesForRegion:(NSString *)countryCode;
++ (NSArray *)timeZonesForRegion:(NSString *)code;
 
 @end
 

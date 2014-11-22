@@ -16,6 +16,20 @@
     return [[self.class regionCodes] valueForKeyPath:keypath];
 }
 
++ (NSArray *)timeZonesForRegion:(NSString *)code {
+    if ( ! code) return nil;
+    NSParameterAssert(code.length == 2);
+    
+    NSMutableSet *zones = [NSMutableSet new];
+    for (NSString *identifier in [NSTimeZone knownTimeZoneNames]) {
+        NSTimeZone *zone = [NSTimeZone timeZoneWithName:identifier];
+        if ([code isEqualToString:[zone regionCode]]) {
+            [zones addObject:zone];
+        }
+    }
+    return [zones allObjects];
+}
+
 + (NSDictionary *)regionCodes {
     static NSDictionary *codes = nil;
     static dispatch_once_t onceToken;
