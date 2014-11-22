@@ -38,21 +38,21 @@ typedef enum : NSUInteger {
 @end
 
 
+typedef enum : NSUInteger {
+    WhereOptionNone                = 0,
+    WhereOptionUpdateContinuously  = 1,
+    //TODO: WhereOptionUseInternet         = 2,
+    //TODO: WhereOptionUseLocationServices = 4 | WhereOptionUseInternet,
+    //TODO: WhereOptionAskForPermission    = 8 | WhereOptionUseLocationServices,
+    WhereOptionDefault = WhereOptionNone,
+} WhereOptions;
+
+
 @interface Where (Detection)
 
-// Instant
-+ (void)detectInstantly;
++ (Where *)detect;
++ (void)detectWithOptions:(WhereOptions)options;
 
-// Asynchronous
-//TODO: + (void)startDetection;
-//TODO: + (BOOL)isDetecting;
-//TODO: + (void)stopDetection;
-
-// Updating
-+ (BOOL)isUpdating;
-+ (void)setUpdating:(BOOL)isUpdating;
-
-// Instances
 + (Where *)best;
 + (NSArray *)all;
 + (Where *)forSource:(WhereSource)source;

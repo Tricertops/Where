@@ -20,8 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [Where detectInstantly];
-    [Where setUpdating:YES];
+    [Where detect];
 }
 
 @end

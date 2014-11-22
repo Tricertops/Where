@@ -37,12 +37,42 @@
 
 @implementation Where (Detection)
 
-+ (void)detectInstantly {
++ (Where *)detect {
+    [self detectWithOptions:WhereOptionDefault];
+    [self logBest];
+    return [self best];
+}
+
++ (void)detectWithOptions:(WhereOptions)options {
     NSLog(@"Where are you?");
     [self detectUsingLocale];
     [self detectUsingCarrier];
     [self detectUsingTimeZone];
-    [self logBest];
+    
+    //TODO: Run network request.
+    //TODO: Ask for Location Services permission.
+    //TODO: Detect using Core Location.
+    
+    if (options & WhereOptionUpdateContinuously) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(detectUsingLocale)
+                                                     name:NSCurrentLocaleDidChangeNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(detectUsingTimeZone)
+                                                     name:NSSystemTimeZoneDidChangeNotification
+                                                   object:nil];
+        [[self network] setSubscriberCellularProviderDidUpdateNotifier:^(CTCarrier *carrier) {
+            [self detectUsingCarrier];
+        }];
+        //TODO: Detect network changes.
+        //TODO: Keep CMLocationManager running.
+    }
+    else {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        [[self network] setSubscriberCellularProviderDidUpdateNotifier:nil];
+        //TODO: Stop CMLocationManager.
+    }
 }
 
 + (void)detectUsingLocale {
@@ -53,7 +83,6 @@
         [self update:instance];
     }
 }
-
 
 + (CTTelephonyNetworkInfo *)network {
     static CTTelephonyNetworkInfo *network = nil;
@@ -82,44 +111,12 @@
     }
 }
 
-static BOOL isUpdating = NO;
-
-+ (BOOL)isUpdating {
-    return isUpdating;
-}
-
-+ (void)setUpdating:(BOOL)shouldUpdate {
-    isUpdating = shouldUpdate;
-    if (shouldUpdate) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(detectUsingLocale)
-                                                     name:NSCurrentLocaleDidChangeNotification
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(detectUsingTimeZone)
-                                                     name:NSSystemTimeZoneDidChangeNotification
-                                                   object:nil];
-        [[self network] setSubscriberCellularProviderDidUpdateNotifier:^(CTCarrier *carrier) {
-            [self detectUsingCarrier];
-        }];
-    }
-    else {
-        [[NSNotificationCenter defaultCenter] removeObserver:self];
-        [[self network] setSubscriberCellularProviderDidUpdateNotifier:nil];
-    }
-}
-
 + (void)update:(Where *)instance {
     NSParameterAssert(instance);
     if ( ! instance) return;
     if (instance.source == WhereSourceNone) return;
     
-    Where *previousBest = [self best];
     [[self bySource] setObject:instance forKey:@(instance.source)];
-    Where *newBest = [self best];
-    if (previousBest != newBest) {
-        [self logBest];
-    }
     [[NSNotificationCenter defaultCenter] postNotificationName:WhereDidUpdateNotification object:instance];
 }
 
