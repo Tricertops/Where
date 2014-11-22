@@ -169,7 +169,7 @@ static NSString * WhereSourceDescription(WhereSource source) {
 }
 
 + (Where *)best {
-    return [[self all] firstObject];
+    return [[self all] lastObject];
 }
 
 + (NSArray *)all {
