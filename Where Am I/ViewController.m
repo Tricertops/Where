@@ -21,6 +21,7 @@
     [super viewDidLoad];
     
     [Where detectInstantly];
+    [Where setUpdating:YES];
 }
 
 @end

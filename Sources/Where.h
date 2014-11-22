@@ -48,8 +48,8 @@ typedef enum : NSUInteger {
 //TODO: + (void)stopDetection;
 
 // Updating
-//TODO: + (BOOL)isUpdating;
-//TODO: + (void)setUpdating:(BOOL)isUpdating;
++ (BOOL)isUpdating;
++ (void)setUpdating:(BOOL)isUpdating;
 
 // Instances
 + (Where *)best;

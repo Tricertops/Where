@@ -50,13 +50,7 @@
     [self detectUsingLocale];
     [self detectUsingCarrier];
     [self detectUsingTimeZone];
-    Where *instance = [self best];
-    if (instance) {
-        NSLog(@"You are in %@, aren’t you?", instance.countryName);
-    }
-    else {
-        NSLog(@"Fuck you, I don’t know.");
-    }
+    [self logBest];
 }
 
 + (void)detectUsingLocale {
@@ -68,9 +62,18 @@
     }
 }
 
+
++ (CTTelephonyNetworkInfo *)network {
+    static CTTelephonyNetworkInfo *network = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        network = [CTTelephonyNetworkInfo new];
+    });
+    return network;
+}
+
 + (void)detectUsingCarrier {
-    CTTelephonyNetworkInfo *network = [CTTelephonyNetworkInfo new];
-    NSString *country = network.subscriberCellularProvider.isoCountryCode;
+    NSString *country = [self network].subscriberCellularProvider.isoCountryCode;
     Where *instance = [[Where alloc] initWithSource:WhereSourceCarrier countryCode:country];
     if (instance) {
         NSLog(@"Hmm, your cellular carrier is from %@.", instance.countryName);
@@ -87,12 +90,44 @@
     }
 }
 
+static BOOL isUpdating = NO;
+
++ (BOOL)isUpdating {
+    return isUpdating;
+}
+
++ (void)setUpdating:(BOOL)shouldUpdate {
+    isUpdating = shouldUpdate;
+    if (shouldUpdate) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(detectUsingLocale)
+                                                     name:NSCurrentLocaleDidChangeNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(detectUsingTimeZone)
+                                                     name:NSSystemTimeZoneDidChangeNotification
+                                                   object:nil];
+        [[self network] setSubscriberCellularProviderDidUpdateNotifier:^(CTCarrier *carrier) {
+            [self detectUsingCarrier];
+        }];
+    }
+    else {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        [[self network] setSubscriberCellularProviderDidUpdateNotifier:nil];
+    }
+}
+
 + (void)update:(Where *)instance {
     NSParameterAssert(instance);
     if ( ! instance) return;
     if (instance.source == WhereSourceNone) return;
     
+    Where *previousBest = [self best];
     [[self bySource] setObject:instance forKey:@(instance.source)];
+    Where *newBest = [self best];
+    if (previousBest != newBest) {
+        [self logBest];
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:WhereDidUpdateNotification object:instance];
 }
 
@@ -109,6 +144,16 @@
     return ([self forSource:WhereSourceTimeZone]
             ?: [self forSource:WhereSourceCarrier]
             ?: [self forSource:WhereSourceLocale]);
+}
+
++ (void)logBest {
+    Where *instance = [self best];
+    if (instance) {
+        NSLog(@"You must be in %@!", instance.countryName);
+    }
+    else {
+        NSLog(@"Sorry, I don’t know where you are :(");
+    }
 }
 
 + (NSArray *)all {
