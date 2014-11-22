@@ -27,7 +27,8 @@ FOUNDATION_EXPORT const unsigned char WhereVersionString[];
 
 #pragma mark - Location
 
-//! These are all possible sources of location data used by this framework.
+/*! These are all possible sources of location data used by this framework. Alcual values are important, because they
+ *  represent relative quality. The higher, the better. */
 typedef enum : NSUInteger {
     /*! The source is unknown. */
     WhereSourceNone = 0,
@@ -65,7 +66,8 @@ typedef enum : NSUInteger {
 @property (readonly) WhereSource source;
 //! Time, when the data was produced.
 @property (readonly) NSDate *timestamp;
-//TODO: - (NSComparisonResult)compareQuality:(Where *)other;
+//! Compares source and the timestamp to find out which is better.
+- (NSComparisonResult)compareQuality:(Where *)other;
 
 //! 2-letter ISO 3166-1 code of the associated region.
 @property (readonly) NSString *regionCode;
@@ -112,9 +114,9 @@ typedef enum : NSUInteger {
 //! Starts detection with given options. Method +best returns the detected location.
 + (void)detectWithOptions:(WhereOptions)options;
 
-//! The best detected location, so far.
+//! The best detected location, so far. “Best” is found using -compareQuality:
 + (Where *)best;
-//! The latest location from every enabled source.
+//! The latest location from every enabled source, sorted by quality.
 + (NSArray *)all;
 //! Returns the last location from given source, if any.
 + (Where *)forSource:(WhereSource)source;

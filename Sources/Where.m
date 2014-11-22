@@ -34,6 +34,11 @@
     return instance;
 }
 
+- (NSComparisonResult)compareQuality:(Where *)other {
+    return ([@(self.source) compare:@(other.source)]
+            ?: [self.timestamp compare:other.timestamp]);
+}
+
 @end
 
 
@@ -143,19 +148,17 @@
     static NSMutableDictionary *dictionary = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        dictionary = [NSMutableDictionary dictionaryWithCapacity:4];
+        dictionary = [NSMutableDictionary dictionaryWithCapacity:6];
     });
     return dictionary;
 }
 
 + (Where *)best {
-    return ([self forSource:WhereSourceTimeZone]
-            ?: [self forSource:WhereSourceCarrier]
-            ?: [self forSource:WhereSourceLocale]);
+    return [[self all] firstObject];
 }
 
 + (NSArray *)all {
-    return [[self bySource] allValues];
+    return [[[self bySource] allValues] sortedArrayUsingSelector:@selector(compareQuality:)];
 }
 
 + (Where *)forSource:(WhereSource)source {
