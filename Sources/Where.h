@@ -46,19 +46,20 @@ typedef enum : NSUInteger {
      *  The value of this source _doesn’t_ change when the user uses roaming while travelling. */
     WhereSourceCarrier = 2,
     
+    /*! External IP address was used.
+     *  The associated location is the region/country of Internet Service Provider, which may be the home cellular
+     *  carrier or, when connected to the Wi-Fi, the local ISP.
+     *  When the user uses roaming while travelling, the ISP _doesn’t_ change and reports IP address of home country.
+     *  This source is asynchronous and therefore disabled by default. */
+    WhereSourceIPAddress = 3,
+    
     /*! NSTimeZone was used.
      *  The associated location is the region/country of the actual position of the user. This is the most reliable
      *  source of data available offline.
      *  By default, the system time zone is set using user’s current location. As the user travels, the device updates
      *  the system time zone automatically. This way, we can use Location Services indirectly.
      *  The system time zone may be changed by the user manually, in which case it may be incorrect. */
-    WhereSourceTimeZone = 3,
-    
-    /*! External IP address was used.
-     *  The associated location is the region/country of Internet Service Provider, which may be foreign cellular
-     *  carrier (roaming).
-     *  This source is asynchronous and therefore disabled by default. */
-    WhereSourceIPAddress = 4,
+    WhereSourceTimeZone = 4,
     
     //TODO: WhereSourceLocationServices,
 } WhereSource;
