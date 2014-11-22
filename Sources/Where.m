@@ -82,7 +82,10 @@ static NSString * WhereSourceDescription(WhereSource source) {
     [self detectUsingCarrier];
     [self detectUsingTimeZone];
     
-    //TODO: Run network request.
+    if (options & WhereOptionUseInternet) {
+        [self startDetectionUsingIPAddress];
+    }
+    
     //TODO: Ask for Location Services permission.
     //TODO: Detect using Core Location.
     
@@ -143,6 +146,33 @@ static NSString * WhereSourceDescription(WhereSource source) {
     Where *instance = [Where instanceWithSource:WhereSourceTimeZone region:regionCode];
     if (instance) {
         NSLog(@"Hmm, you are in a time zone of %@.", instance.regionName);
+        [self update:instance];
+    }
+}
+
++ (void)startDetectionUsingIPAddress {
+    NSURL *geobytesURL = [NSURL URLWithString:@"http://www.geobytes.com/IpLocator.htm?GetLocation&template=json.txt"];
+    [[[NSURLSession sharedSession] dataTaskWithURL:geobytesURL
+                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                    [self finishDetectionUsingIPAddressWithResponse:data];
+                                }] resume];
+}
+
++ (void)finishDetectionUsingIPAddressWithResponse:(NSData *)response {
+    if ( ! response.length) return;
+    
+    id JSON = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    if ( ! [JSON isKindOfClass:[NSDictionary class]]) return;
+    
+    NSDictionary *dictionary = JSON[@"geobytes"];
+    if ( ! [dictionary isKindOfClass:[NSDictionary class]]) return;
+    
+    NSString *regionCode = dictionary[@"iso2"];
+    if ( ! [regionCode isKindOfClass:[NSString class]]) return;
+    
+    Where *instance = [Where instanceWithSource:WhereSourceIPAddress region:regionCode];
+    if (instance) {
+        NSLog(@"Hmm, you are connected to the Internet in %@.", instance.regionName);
         [self update:instance];
     }
 }

@@ -52,7 +52,12 @@ typedef enum : NSUInteger {
      *  The system time zone may be changed by the user manually, in which case it may be incorrect. */
     WhereSourceTimeZone = 3,
     
-    //TODO: WhereSourceIPAddress,
+    /*! External IP address was used.
+     *  The associated location is the region/country of Internet Service Provider, which may be foreign cellular
+     *  carrier (roaming).
+     *  This source is asynchronous and therefore disabled by default. */
+    WhereSourceIPAddress = 4,
+    
     //TODO: WhereSourceLocationServices,
 } WhereSource;
 
@@ -90,16 +95,20 @@ typedef enum : NSUInteger {
 /*! Options that may be passed to +detectWithOptions: method. */
 typedef enum : NSUInteger {
     /*! No special behavior. */
-    WhereOptionNone                = 0,
+    WhereOptionNone = kNilOptions,
     
-    /*! The option used by +detect method. Only uses Locale, Carrier and Time Zone sources. */
+    /*! The option used by +detect method. Only uses Locale, Carrier and TimeZone sources. */
     WhereOptionDefault = WhereOptionNone,
     
     /*! Cause the framework to observe changes in the sources and update the detected region.
      *  Posts WhereDidUpdateNotification when such change occur. */
-    WhereOptionUpdateContinuously  = 1,
+    WhereOptionUpdateContinuously = 1,
     
-    //TODO: WhereOptionUseInternet         = 2,
+    /*! Enables use of IPAddress source, which needs to send an URL request to a webservice. Webservice can find a
+     *  region/country associated with the client’s IP address. When the request finishes, a WhereDidUpdateNotification
+     *  is posted. */
+    WhereOptionUseInternet = 2,
+    
     //TODO: WhereOptionUseLocationServices = 4 | WhereOptionUseInternet,
     //TODO: WhereOptionAskForPermission    = 8 | WhereOptionUseLocationServices,
     
@@ -124,7 +133,8 @@ typedef enum : NSUInteger {
 @end
 
 
-/*! A notification posted when WhereOptionUpdateContinuously was specified and any source produced new location data.
+/*! A notification posted when any source produced new location. This may happen when one of these options were
+ *  specified: UpdateContinuously or UseInternet.
  *  Sender of the notifiction is the newly produced instance. */
 extern NSString * const WhereDidUpdateNotification;
 
