@@ -11,7 +11,10 @@
 
 @interface NSTimeZone (Country)
 
+//! Region code associated with the time zone.
 - (NSString *)regionCode;
+
+//! Returns all time zones associated with given region.
 + (NSArray *)timeZonesForRegion:(NSString *)code;
 
 @end

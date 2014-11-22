@@ -67,7 +67,7 @@ typedef enum : NSUInteger {
 @property (readonly) NSDate *timestamp;
 //TODO: - (NSComparisonResult)compareQuality:(Where *)other;
 
-//! ISO 3166-1 alpha-2 code of the associated region.
+//! 2-letter ISO 3166-1 code of the associated region.
 @property (readonly) NSString *regionCode;
 //! Name of the region formatted using current locale.
 @property (readonly) NSString *regionName;

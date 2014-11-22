@@ -20,8 +20,7 @@
 
 + (NSString *)nameOfRegion:(NSString *)regionCode {
     if ( ! regionCode) return nil;
-    NSLocale *posix = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    return [posix displayNameForKey:NSLocaleCountryCode value:regionCode];
+    return [[NSLocale currentLocale] displayNameForKey:NSLocaleCountryCode value:regionCode];
 }
 
 @end
