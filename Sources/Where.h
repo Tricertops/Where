@@ -19,8 +19,8 @@ FOUNDATION_EXPORT const unsigned char WhereVersionString[];
 typedef enum : NSUInteger {
     WhereSourceNone = 0,
     WhereSourceLocale,      // Instant, not reliable, always.
-    //TODO: WhereSourceTimeZone,    // Instant, reliable, always.
     WhereSourceCarrier,     // Instant, reliable, cellular.
+    WhereSourceTimeZone,    // Instant, reliable, always.
     //TODO: WhereSourceIPAddress,   // Delayed, reliable, connection.
     //TODO: WhereSourceLocationServices, // Delayed, precise, permission.
 } WhereSource;

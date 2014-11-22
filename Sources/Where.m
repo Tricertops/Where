@@ -49,6 +49,7 @@
     NSLog(@"Where are you?");
     [self detectUsingLocale];
     [self detectUsingCarrier];
+    [self detectUsingTimeZone];
     Where *instance = [self best];
     if (instance) {
         NSLog(@"You are in %@, aren’t you?", instance.countryName);
@@ -77,6 +78,15 @@
     }
 }
 
++ (void)detectUsingTimeZone {
+    NSString *country = [[NSTimeZone systemTimeZone] regionCode];
+    Where *instance = [[Where alloc] initWithSource:WhereSourceTimeZone countryCode:country];
+    if (instance) {
+        NSLog(@"Hmm, you are in a time zone of %@.", instance.countryName);
+        [self update:instance];
+    }
+}
+
 + (void)update:(Where *)instance {
     NSParameterAssert(instance);
     if ( ! instance) return;
@@ -96,7 +106,9 @@
 }
 
 + (Where *)best {
-    return [self forSource:WhereSourceCarrier] ?: [self forSource:WhereSourceLocale];
+    return ([self forSource:WhereSourceTimeZone]
+            ?: [self forSource:WhereSourceCarrier]
+            ?: [self forSource:WhereSourceLocale]);
 }
 
 + (NSArray *)all {
