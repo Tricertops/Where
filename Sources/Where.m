@@ -101,12 +101,15 @@ static NSString * WhereSourceDescription(WhereSource source) {
         [[self network] setSubscriberCellularProviderDidUpdateNotifier:^(CTCarrier *carrier) {
             [self detectUsingCarrier];
         }];
-        //TODO: Detect network changes.
+        
+        SCNetworkReachabilitySetDispatchQueue([self reachability], dispatch_get_main_queue());
+        
         //TODO: Keep CMLocationManager running.
     }
     else {
         [[NSNotificationCenter defaultCenter] removeObserver:self];
         [[self network] setSubscriberCellularProviderDidUpdateNotifier:nil];
+        SCNetworkReachabilitySetDispatchQueue([self reachability], nil);
         //TODO: Stop CMLocationManager.
     }
 }
@@ -118,6 +121,25 @@ static NSString * WhereSourceDescription(WhereSource source) {
         network = [CTTelephonyNetworkInfo new];
     });
     return network;
+}
+
++ (SCNetworkReachabilityRef)reachability {
+    static SCNetworkReachabilityRef reachability = NULL;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        struct sockaddr_in zeroAddress;
+        bzero(&zeroAddress, sizeof(zeroAddress));
+        zeroAddress.sin_len = sizeof(zeroAddress);
+        zeroAddress.sin_family = AF_INET;
+        
+        reachability = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
+        SCNetworkReachabilitySetCallback(reachability, &WhereReachabilityCallback, NULL);
+    });
+    return reachability;
+}
+
+static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void *info) {
+    [Where startDetectionUsingIPAddress];
 }
 
 
@@ -151,6 +173,7 @@ static NSString * WhereSourceDescription(WhereSource source) {
 }
 
 + (void)startDetectionUsingIPAddress {
+    NSLog(@"Hmm, let me check the Internet...");
     NSURL *geobytesURL = [NSURL URLWithString:@"http://www.geobytes.com/IpLocator.htm?GetLocation&template=json.txt"];
     [[[NSURLSession sharedSession] dataTaskWithURL:geobytesURL
                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {

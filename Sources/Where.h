@@ -8,6 +8,8 @@
 
 @import UIKit;
 @import CoreTelephony;
+@import SystemConfiguration;
+@import Darwin.POSIX.netinet;
 @import CoreLocation;
 #import <Where/NSLocale+Region.h>
 #import <Where/NSTimeZone+Region.h>

@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [Where detectWithOptions:WhereOptionUseInternet];
+    [Where detectWithOptions:(WhereOptionUseInternet | WhereOptionUpdateContinuously)];
 }
 
 @end
