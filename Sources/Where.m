@@ -91,7 +91,7 @@ static NSString * WhereSourceDescription(WhereSource source) {
     if (options & WhereOptionAskForPermission) {
         NSString *usage = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationWhenInUseUsageDescription"];
         if ( ! usage) {
-            NSLog(@"Hmm, you should include NSLocationWhenInUseUsageDescription in your Info.plist to make AskForPermission option work.");
+            NSLog(@"You should include NSLocationWhenInUseUsageDescription in your Info.plist to make AskForPermission option work.");
         }
         [[self locationManager] requestWhenInUseAuthorization];
     }
@@ -168,7 +168,7 @@ static NSString * WhereSourceDescription(WhereSource source) {
     NSString *regionCode = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
     Where *instance = [Where instanceWithSource:WhereSourceLocale region:regionCode];
     if (instance) {
-        NSLog(@"Hmm, you prefer region of %@.", instance.regionName);
+        NSLog(@"You prefer region of %@.", instance.regionName);
         [self update:instance];
     }
 }
@@ -177,7 +177,7 @@ static NSString * WhereSourceDescription(WhereSource source) {
     NSString *regionCode = [self network].subscriberCellularProvider.isoCountryCode;
     Where *instance = [Where instanceWithSource:WhereSourceCarrier region:regionCode];
     if (instance) {
-        NSLog(@"Hmm, your cellular carrier is from %@.", instance.regionName);
+        NSLog(@"Your cellular carrier is from %@.", instance.regionName);
         [self update:instance];
     }
 }
@@ -186,20 +186,20 @@ static NSString * WhereSourceDescription(WhereSource source) {
     NSString *regionCode = [[NSTimeZone systemTimeZone] regionCode];
     Where *instance = [Where instanceWithSource:WhereSourceTimeZone region:regionCode];
     if (instance) {
-        NSLog(@"Hmm, you are in a time zone of %@.", instance.regionName);
+        NSLog(@"You are in a time zone of %@.", instance.regionName);
         [self update:instance];
     }
 }
 
 + (void)startDetectionUsingIPAddress {
-    NSLog(@"Hmm, let me check the Internet...");
+    NSLog(@"Let me check the Internet...");
     NSURL *geobytesURL = [NSURL URLWithString:@"http://www.geobytes.com/IpLocator.htm?GetLocation&template=json.txt"];
     [[[NSURLSession sharedSession] dataTaskWithURL:geobytesURL
                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                         BOOL ok = [self finishDetectionUsingIPAddressWithResponse:data];
                                         if ( ! ok) {
-                                            NSLog(@"Hmm, failed to check the Internet :(");
+                                            NSLog(@"Failed to check the Internet :(");
                                         }
                                     }];
                                 }] resume];
@@ -219,7 +219,7 @@ static NSString * WhereSourceDescription(WhereSource source) {
     
     Where *instance = [Where instanceWithSource:WhereSourceIPAddress region:regionCode];
     if (instance) {
-        NSLog(@"Hmm, you are connected to the Internet in %@.", instance.regionName);
+        NSLog(@"You are connected to the Internet in %@.", instance.regionName);
         [self update:instance];
         return YES;
     }
