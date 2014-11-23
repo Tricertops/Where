@@ -111,15 +111,6 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
         }
     }
     {
-        // IP Address
-        BOOL useInternet = WhereHasOption(options, WhereOptionUseInternet);
-        if (useInternet) {
-            [self startDetectionUsingIPAddress];
-        }
-        dispatch_queue_t queue = (useInternet && continuous ? dispatch_get_main_queue() : nil);
-        SCNetworkReachabilitySetDispatchQueue([self reachability], queue);
-    }
-    {
         // Time Zone
         [self detectUsingTimeZone];
         if (continuous) {
@@ -128,6 +119,15 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
                                                          name:NSSystemTimeZoneDidChangeNotification
                                                        object:nil];
         }
+    }
+    {
+        // IP Address
+        BOOL useInternet = WhereHasOption(options, WhereOptionUseInternet);
+        if (useInternet) {
+            [self startDetectionUsingIPAddress];
+        }
+        dispatch_queue_t queue = (useInternet && continuous ? dispatch_get_main_queue() : nil);
+        SCNetworkReachabilitySetDispatchQueue([self reachability], queue);
     }
     {
         // Location Services
