@@ -25,23 +25,26 @@ static NSString * WhereSourceDescription(WhereSource source) {
 
 @interface Where ()
 
-+ (instancetype)instanceWithSource:(WhereSource)source region:(NSString *)regionCode;
++ (instancetype)instanceWithSource:(WhereSource)source
+                            region:(NSString *)regionCode
+                        coordinate:(CLLocationCoordinate2D)coordinate;
 
 @end
 
 
 @implementation Where
 
-+ (instancetype)instanceWithSource:(WhereSource)source region:(NSString *)regionCode {
-    NSString *canonizedRegionCode = [NSLocale canonizeRegionCode:regionCode];
++ (instancetype)instanceWithSource:(WhereSource)source region:(NSString *)region coordinate:(CLLocationCoordinate2D)coord {
+    NSString *canonizedRegionCode = [NSLocale canonizeRegionCode:region];
     if ( ! canonizedRegionCode.length) return nil;
     
     Where *instance = [super new];
     if (instance) {
         instance->_source = source;
+        instance->_timestamp = [NSDate new];
         instance->_regionCode = canonizedRegionCode;
         instance->_regionName = [NSLocale nameOfRegion:canonizedRegionCode];
-        instance->_timestamp = [NSDate new];
+        instance->_coordinate = coord;
     }
     return instance;
 }
@@ -202,8 +205,10 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
 #pragma mark Sources
 
 + (void)detectUsingLocale {
-    NSString *regionCode = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
-    Where *instance = [Where instanceWithSource:WhereSourceLocale region:regionCode];
+    NSLocale *locale = [NSLocale currentLocale];
+    Where *instance = [Where instanceWithSource:WhereSourceLocale
+                                         region:[locale regionCode]
+                                     coordinate:[locale regionCoordinate]];
     if (instance) {
         NSLog(@"You prefer region of %@.", instance.regionName);
         [self update:instance];
@@ -212,7 +217,9 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
 
 + (void)detectUsingCarrier {
     NSString *regionCode = [self network].subscriberCellularProvider.isoCountryCode;
-    Where *instance = [Where instanceWithSource:WhereSourceCarrier region:regionCode];
+    Where *instance = [Where instanceWithSource:WhereSourceCarrier
+                                         region:regionCode
+                                     coordinate:[NSLocale coordinateForRegion:regionCode]];
     if (instance) {
         NSLog(@"Your cellular carrier is from %@.", instance.regionName);
         [self update:instance];
@@ -221,7 +228,9 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
 
 + (void)detectUsingTimeZone {
     NSString *regionCode = [[NSTimeZone systemTimeZone] regionCode];
-    Where *instance = [Where instanceWithSource:WhereSourceTimeZone region:regionCode];
+    Where *instance = [Where instanceWithSource:WhereSourceTimeZone
+                                         region:regionCode
+                                     coordinate:[NSLocale coordinateForRegion:regionCode]]; //TODO: NSTimeZone.coordinate
     if (instance) {
         NSLog(@"You are in a time zone of %@.", instance.regionName);
         [self update:instance];
@@ -254,7 +263,9 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
     NSString *regionCode = dictionary[@"iso2"];
     if ( ! [regionCode isKindOfClass:[NSString class]]) return NO;
     
-    Where *instance = [Where instanceWithSource:WhereSourceIPAddress region:regionCode];
+    Where *instance = [Where instanceWithSource:WhereSourceIPAddress
+                                         region:regionCode
+                                     coordinate:kCLLocationCoordinate2DInvalid]; //TODO: From the dictionary.
     if (instance) {
         NSLog(@"You are connected to the Internet in %@.", instance.regionName);
         [self update:instance];
@@ -322,7 +333,9 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
     [[self geocoder] cancelGeocode];
     [[self geocoder] reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
         CLPlacemark *placemark = placemarks.firstObject;
-        Where *instance = [Where instanceWithSource:WhereSourceLocationServices region:placemark.ISOcountryCode];
+        Where *instance = [Where instanceWithSource:WhereSourceLocationServices
+                                             region:placemark.ISOcountryCode
+                                         coordinate:location.coordinate];
         if (instance) {
             NSLog(@"You are in %@.", instance.regionName);
             [self update:instance];
