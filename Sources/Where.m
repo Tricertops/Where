@@ -17,8 +17,10 @@ static NSString * WhereSourceDescription(WhereSource source) {
         case WhereSourceLocale: return @"Locale";
         case WhereSourceCarrier: return @"Carrier";
         case WhereSourceTimeZone: return @"Time Zone";
-        default: return @"Other";
+        case WhereSourceIPAddress: return @"IP Address";
+        case WhereSourceLocationServices: return @"Location Services";
     }
+    return @"Other";
 }
 
 @interface Where ()
