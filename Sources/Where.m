@@ -111,6 +111,15 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
         }
     }
     {
+        // IP Address
+        BOOL useInternet = WhereHasOption(options, WhereOptionUseInternet);
+        if (useInternet) {
+            [self startDetectionUsingIPAddress];
+        }
+        dispatch_queue_t queue = (useInternet && continuous ? dispatch_get_main_queue() : nil);
+        SCNetworkReachabilitySetDispatchQueue([self reachability], queue);
+    }
+    {
         // Time Zone
         [self detectUsingTimeZone];
         if (continuous) {
@@ -121,17 +130,7 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
         }
     }
     {
-        // IP Address
-        BOOL useInternet = WhereHasOption(options, WhereOptionUseInternet);
-        if (useInternet) {
-            [self startDetectionUsingIPAddress];
-        }
-        dispatch_queue_t queue = (useInternet && continuous ? dispatch_get_main_queue() : nil);
-        SCNetworkReachabilitySetDispatchQueue([self reachability], queue);
-    }
-    {
         // Location Services
-        BOOL useLocation = WhereHasOption(options, WhereOptionUseLocationServices);
         if (WhereHasOption(options, WhereOptionAskForPermission)) {
             NSString *usage = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationWhenInUseUsageDescription"];
             if ( ! usage) {
@@ -139,10 +138,13 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
             }
             [[self locationManager] requestWhenInUseAuthorization];
         }
-        
+        BOOL useLocation = WhereHasOption(options, WhereOptionUseLocationServices);
         if (useLocation) {
             NSLog(@"Let me use Location Services...");
             [[self locationManager] startUpdatingLocation];
+        }
+        else {
+            [[self locationManager] stopUpdatingLocation];
         }
         CLLocationDistance filter = (useLocation && continuous ? 100 : CLLocationDistanceMax);
         [[self locationManager] setDistanceFilter:filter];
