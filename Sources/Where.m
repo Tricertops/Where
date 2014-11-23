@@ -181,7 +181,9 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
     NSURL *geobytesURL = [NSURL URLWithString:@"http://www.geobytes.com/IpLocator.htm?GetLocation&template=json.txt"];
     [[[NSURLSession sharedSession] dataTaskWithURL:geobytesURL
                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                    [self finishDetectionUsingIPAddressWithResponse:data];
+                                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                        [self finishDetectionUsingIPAddressWithResponse:data];
+                                    }];
                                 }] resume];
 }
 
