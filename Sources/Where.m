@@ -80,49 +80,53 @@ static NSString * WhereSourceDescription(WhereSource source) {
 
 + (void)detectWithOptions:(WhereOptions)options {
     NSLog(@"Where are you?");
-    [self detectUsingLocale];
-    [self detectUsingCarrier];
-    [self detectUsingTimeZone];
-    
-    if (options & WhereOptionUseInternet) {
-        [self startDetectionUsingIPAddress];
-    }
-    
-    if (options & WhereOptionAskForPermission) {
-        NSString *usage = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationWhenInUseUsageDescription"];
-        if ( ! usage) {
-            NSLog(@"You should include NSLocationWhenInUseUsageDescription in your Info.plist to make AskForPermission option work.");
-        }
-        [[self locationManager] requestWhenInUseAuthorization];
-    }
-    
-    if (options & WhereOptionUseLocationServices) {
-        NSLog(@"Let me use Location Services...");
-        [[self locationManager] startUpdatingLocation];
-    }
-    
-    if (options & WhereOptionUpdateContinuously) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(detectUsingLocale)
-                                                     name:NSCurrentLocaleDidChangeNotification
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(detectUsingTimeZone)
-                                                     name:NSSystemTimeZoneDidChangeNotification
-                                                   object:nil];
-        [[self network] setSubscriberCellularProviderDidUpdateNotifier:^(CTCarrier *carrier) {
-            [self detectUsingCarrier];
-        }];
-        
-        SCNetworkReachabilitySetDispatchQueue([self reachability], dispatch_get_main_queue());
-        
-        //TODO: Keep CMLocationManager running.
-    }
-    else {
+    BOOL continuous = WhereHasOption(options, WhereOptionUpdateContinuously);
+    if ( ! continuous) {
         [[NSNotificationCenter defaultCenter] removeObserver:self];
-        [[self network] setSubscriberCellularProviderDidUpdateNotifier:nil];
-        SCNetworkReachabilitySetDispatchQueue([self reachability], nil);
-        //TODO: Stop CMLocationManager.
+    }
+    {
+        // Locale
+        [self detectUsingLocale];
+        if (continuous) {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(detectUsingLocale)
+                                                         name:NSCurrentLocaleDidChangeNotification
+                                                       object:nil];
+        }
+    }
+    {
+        // Carrier
+        [self detectUsingCarrier];
+        if (continuous) {
+            [[self network] setSubscriberCellularProviderDidUpdateNotifier:^(CTCarrier *carrier) {
+                [self detectUsingCarrier];
+            }];
+        }
+        else {
+            [[self network] setSubscriberCellularProviderDidUpdateNotifier:nil];
+        }
+    }
+    {
+        // Time Zone
+        [self detectUsingTimeZone];
+        if (continuous) {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(detectUsingTimeZone)
+                                                         name:NSSystemTimeZoneDidChangeNotification
+                                                       object:nil];
+        }
+    }
+    {
+        // IP Address
+        BOOL useInternet = WhereHasOption(options, WhereOptionUseInternet);
+        if (useInternet) {
+            [self startDetectionUsingIPAddress];
+        }
+        dispatch_queue_t queue = (useInternet && continuous ? dispatch_get_main_queue() : nil);
+        SCNetworkReachabilitySetDispatchQueue([self reachability], queue);
+    }
+    {
+        // Location Services
     }
 }
 
@@ -196,14 +200,14 @@ static NSString * WhereSourceDescription(WhereSource source) {
     NSLog(@"Let me check the Internet...");
     NSURL *geobytesURL = [NSURL URLWithString:@"http://www.geobytes.com/IpLocator.htm?GetLocation&template=json.txt"];
     [[[NSURLSession sharedSession] dataTaskWithURL:geobytesURL
-                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                        BOOL ok = [self finishDetectionUsingIPAddressWithResponse:data];
-                                        if ( ! ok) {
-                                            NSLog(@"Failed to check the Internet :(");
-                                        }
-                                    }];
-                                }] resume];
+                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                         BOOL ok = [self finishDetectionUsingIPAddressWithResponse:data];
+                                         if ( ! ok) {
+                                             NSLog(@"Failed to check the Internet :(");
+                                         }
+                                     }];
+                                 }] resume];
 }
 
 + (BOOL)finishDetectionUsingIPAddressWithResponse:(NSData *)response {
