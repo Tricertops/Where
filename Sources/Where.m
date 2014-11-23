@@ -139,7 +139,9 @@ static NSString * WhereSourceDescription(WhereSource source) {
 }
 
 static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void *info) {
-    [Where startDetectionUsingIPAddress];
+    if (flags & kSCNetworkReachabilityFlagsReachable) {
+        [Where startDetectionUsingIPAddress];
+    }
 }
 
 
