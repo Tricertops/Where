@@ -18,9 +18,13 @@
     return [locale objectForKey:NSLocaleCountryCode];
 }
 
++ (instancetype)standardLocale {
+    return [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+}
+
 + (NSString *)nameOfRegion:(NSString *)regionCode {
     if ( ! regionCode) return nil;
-    return [[NSLocale currentLocale] displayNameForKey:NSLocaleCountryCode value:regionCode];
+    return [[NSLocale standardLocale] displayNameForKey:NSLocaleCountryCode value:regionCode];
 }
 
 @end

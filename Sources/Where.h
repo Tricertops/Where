@@ -85,7 +85,7 @@ typedef enum : NSUInteger {
 
 //! 2-letter ISO 3166-1 code of the associated region.
 @property (readonly) NSString *regionCode;
-//! Name of the region formatted using current locale.
+//! Name of the region formatted using standardized English locale.
 @property (readonly) NSString *regionName;
 
 //TODO: @property (readonly) CLLocationCoordinate2D coordinate;
