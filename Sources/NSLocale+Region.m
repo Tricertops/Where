@@ -40,7 +40,7 @@
 
 #pragma mark Coordinates
 
-- (CLLocationCoordinate2D)regionCoordinates {
+- (CLLocationCoordinate2D)regionCoordinate {
     return [NSLocale coordinateForRegion:self.regionCode];
 }
 
@@ -49,6 +49,8 @@
     if ( ! canonized.length) return kCLLocationCoordinate2DInvalid;
     
     NSArray *array = [[self regionCoordinates] objectForKey:canonized];
+    if (array.count != 2) return kCLLocationCoordinate2DInvalid;
+    
     return CLLocationCoordinate2DMake([array[0] doubleValue], [array[1] doubleValue]);
 }
 

@@ -34,7 +34,7 @@
 #pragma mark Coordinates
 
 //! Returns middle coordinates for region which this locale represents.
-- (CLLocationCoordinate2D)regionCoordinates;
+- (CLLocationCoordinate2D)regionCoordinate;
 
 //! Returns middle coordinates for given region.
 + (CLLocationCoordinate2D)coordinateForRegion:(NSString *)regionCode;
