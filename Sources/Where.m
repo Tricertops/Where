@@ -263,9 +263,20 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
     NSString *regionCode = dictionary[@"iso2"];
     if ( ! [regionCode isKindOfClass:[NSString class]]) return NO;
     
+    CLLocationCoordinate2D coord = kCLLocationCoordinate2DInvalid;
+    NSNumber *lat = dictionary[@"latitude"];
+    NSNumber *lng = dictionary[@"longitude"];
+    if ([lat isKindOfClass:[NSNumber class]] && [lng isKindOfClass:[NSNumber class]]) {
+        coord = CLLocationCoordinate2DMake(lat.doubleValue, lng.doubleValue);
+    }
+    else {
+        // Fallback
+        coord = [NSLocale coordinateForRegion:regionCode];
+    }
+    
     Where *instance = [Where instanceWithSource:WhereSourceIPAddress
                                          region:regionCode
-                                     coordinate:kCLLocationCoordinate2DInvalid]; //TODO: From the dictionary.
+                                     coordinate:coord];
     if (instance) {
         NSLog(@"You are connected to the Internet in %@.", instance.regionName);
         [self update:instance];
