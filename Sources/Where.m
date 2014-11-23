@@ -131,6 +131,21 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
     }
     {
         // Location Services
+        BOOL useLocation = WhereHasOption(options, WhereOptionUseLocationServices);
+        if (WhereHasOption(options, WhereOptionAskForPermission)) {
+            NSString *usage = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationWhenInUseUsageDescription"];
+            if ( ! usage) {
+                NSLog(@"You should include NSLocationWhenInUseUsageDescription in your Info.plist to make AskForPermission option work.");
+            }
+            [[self locationManager] requestWhenInUseAuthorization];
+        }
+        
+        if (useLocation) {
+            NSLog(@"Let me use Location Services...");
+            [[self locationManager] startUpdatingLocation];
+        }
+        CLLocationDistance filter = (useLocation && continuous ? 100 : CLLocationDistanceMax);
+        [[self locationManager] setDistanceFilter:filter];
     }
 }
 
@@ -163,7 +178,6 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         locationManager = [CLLocationManager new];
-        locationManager.distanceFilter = 100;
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
         locationManager.delegate = (Class<CLLocationManagerDelegate>)self;
     });
@@ -247,8 +261,8 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
     BOOL isAccurate = (location.horizontalAccuracy <= manager.desiredAccuracy);
     NSTimeInterval recent = 60; // 1 minute
     BOOL isRecent = ([location.timestamp timeIntervalSinceNow] > -recent);
-    if (isAccurate && isRecent) {
-        //TODO: Continue when the option was specified.
+    BOOL shouldContinue = (manager.distanceFilter < CLLocationDistanceMax);
+    if ( ! shouldContinue && isAccurate && isRecent) {
         [manager stopUpdatingLocation];
     }
     

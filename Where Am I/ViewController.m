@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [Where detectWithOptions:(WhereOptionUseInternet | WhereOptionUpdateContinuously)];
+    [Where detectWithOptions:(WhereOptionUseInternet | WhereOptionUseLocationServices | WhereOptionUpdateContinuously)];
 }
 
 @end
