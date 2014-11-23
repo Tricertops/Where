@@ -182,28 +182,33 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
     [[[NSURLSession sharedSession] dataTaskWithURL:geobytesURL
                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                        [self finishDetectionUsingIPAddressWithResponse:data];
+                                        BOOL ok = [self finishDetectionUsingIPAddressWithResponse:data];
+                                        if ( ! ok) {
+                                            NSLog(@"Hmm, failed to check the Internet :(");
+                                        }
                                     }];
                                 }] resume];
 }
 
-+ (void)finishDetectionUsingIPAddressWithResponse:(NSData *)response {
-    if ( ! response.length) return;
++ (BOOL)finishDetectionUsingIPAddressWithResponse:(NSData *)response {
+    if ( ! response.length) return NO;
     
     id JSON = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-    if ( ! [JSON isKindOfClass:[NSDictionary class]]) return;
+    if ( ! [JSON isKindOfClass:[NSDictionary class]]) return NO;
     
     NSDictionary *dictionary = JSON[@"geobytes"];
-    if ( ! [dictionary isKindOfClass:[NSDictionary class]]) return;
+    if ( ! [dictionary isKindOfClass:[NSDictionary class]]) return NO;
     
     NSString *regionCode = dictionary[@"iso2"];
-    if ( ! [regionCode isKindOfClass:[NSString class]]) return;
+    if ( ! [regionCode isKindOfClass:[NSString class]]) return NO;
     
     Where *instance = [Where instanceWithSource:WhereSourceIPAddress region:regionCode];
     if (instance) {
         NSLog(@"Hmm, you are connected to the Internet in %@.", instance.regionName);
         [self update:instance];
+        return YES;
     }
+    return NO;
 }
 
 
