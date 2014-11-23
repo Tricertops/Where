@@ -151,6 +151,9 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
     }
 }
 
+
+#pragma mark State
+
 + (CTTelephonyNetworkInfo *)network {
     static CTTelephonyNetworkInfo *network = nil;
     static dispatch_once_t onceToken;
@@ -184,6 +187,15 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
         locationManager.delegate = (Class<CLLocationManagerDelegate>)self;
     });
     return locationManager;
+}
+
++ (CLGeocoder *)geocoder {
+    static CLGeocoder *geocoder = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        geocoder = [CLGeocoder new];
+    });
+    return geocoder;
 }
 
 
@@ -283,7 +295,8 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
     }
     NSLog(@"%@", message);
     
-    [self startGeocoding:location];
+    [self cancelPreviousPerformRequestsWithTarget:self]; //TODO: Cancels everything.
+    [self performSelector:@selector(startGeocoding:) withObject:location afterDelay:0.25];
 }
 
 + (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
@@ -305,7 +318,19 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
 }
 
 + (void)startGeocoding:(CLLocation *)location {
-    //TODO: Geocode.
+    NSLog(@"Geocoding your current location...");
+    [[self geocoder] cancelGeocode];
+    [[self geocoder] reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        CLPlacemark *placemark = placemarks.firstObject;
+        Where *instance = [Where instanceWithSource:WhereSourceLocationServices region:placemark.ISOcountryCode];
+        if (instance) {
+            NSLog(@"You are in %@.", instance.regionName);
+            [self update:instance];
+        }
+        else {
+            NSLog(@"Failed to geocode your location :(");
+        }
+    }];
 }
 
 
