@@ -106,12 +106,12 @@ typedef enum : NSUInteger {
     /*! No special behavior. */
     WhereOptionNone = kNilOptions,
     
-    /*! The option used by +detect method. Only uses Locale, Carrier and TimeZone sources. */
-    WhereOptionDefault = WhereOptionNone,
-    
     /*! Cause the framework to observe changes in the sources and update the detected region.
      *  Posts WhereDidUpdateNotification when such change occur. */
     WhereOptionUpdateContinuously = 1,
+    
+    /*! The option used by +detect method. Only uses Locale, Carrier and TimeZone sources and updates them. */
+    WhereOptionDefault = WhereOptionUpdateContinuously,
     
     /*! Enables use of IPAddress source, which needs to send an URL request to a webservice. Webservice can find a
      *  region/country associated with the client’s IP address. When the request finishes, a WhereDidUpdateNotification
@@ -136,7 +136,7 @@ typedef enum : NSUInteger {
 /*! Class methods that manage and create */
 @interface Where (Detection)
 
-//! Uses default options and returns the detected location.
+//! Uses default options (WhereOptionDefault) and returns the detected location (+best).
 + (Where *)detect;
 //! Starts detection with given options. Method +best returns the detected location.
 + (void)detectWithOptions:(WhereOptions)options;
