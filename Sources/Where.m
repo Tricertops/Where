@@ -97,7 +97,8 @@ static NSString * WhereSourceDescription(WhereSource source) {
     }
     
     if (options & WhereOptionUseLocationServices) {
-        //TODO: Detect using Core Location.
+        NSLog(@"Let me use Location Services...");
+        [[self locationManager] startUpdatingLocation];
     }
     
     if (options & WhereOptionUpdateContinuously) {
@@ -230,6 +231,57 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
     if (flags & kSCNetworkReachabilityFlagsReachable) {
         [Where startDetectionUsingIPAddress];
     }
+}
+
++ (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    CLLocation *location = locations.lastObject;
+    
+    BOOL isAccurate = (location.horizontalAccuracy <= manager.desiredAccuracy);
+    NSTimeInterval recent = 60; // 1 minute
+    BOOL isRecent = ([location.timestamp timeIntervalSinceNow] > -recent);
+    if (isAccurate && isRecent) {
+        //TODO: Continue when the option was specified.
+        [manager stopUpdatingLocation];
+    }
+    
+    NSDateComponentsFormatter *formatter = [NSDateComponentsFormatter new];
+    formatter.calendar = nil;
+    formatter.unitsStyle = NSDateComponentsFormatterUnitsStyleFull;
+    NSTimeInterval interval = -location.timestamp.timeIntervalSinceNow;
+    NSMutableString *message = [NSMutableString new];
+    [message appendString:@"Got your "];
+    [message appendString:(isAccurate? @"accurate" : @"inaccurate")];
+    if (isRecent) {
+        [message appendString:@" recent location..."];
+    }
+    else {
+        [message appendFormat:@" location from %@ ago...", [formatter stringFromTimeInterval:interval]];
+    }
+    NSLog(@"%@", message);
+    
+    [self startGeocoding:location];
+}
+
++ (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"Failed to get your location :(");
+}
+
++ (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    switch (status) {
+        case kCLAuthorizationStatusRestricted: {
+            NSLog(@"Location Services are restricted :(");
+            break;
+        }
+        case kCLAuthorizationStatusDenied: {
+            NSLog(@"Location Services are denied :(");
+            break;
+        }
+        default: break;
+    }
+}
+
++ (void)startGeocoding:(CLLocation *)location {
+    //TODO: Geocode.
 }
 
 
