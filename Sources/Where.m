@@ -61,6 +61,10 @@ static NSString * WhereSourceDescription(WhereSource source) {
 
 #pragma mark -
 
+static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
+    return (mask & option) == option;
+}
+
 @implementation Where (Detection)
 
 
