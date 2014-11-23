@@ -120,14 +120,16 @@ typedef enum : NSUInteger {
     
     /*! Enables use of LocationServices source, which will use CoreLocation and needs user’s permission. Your app is 
      *  responsible for requesting the permission, or also pass AskForPermission option.
-     *  Location will be detected with a limited precision and then geolocated to a country code, thus this option
+     *  Location will be detected with a limited accuracy and then geolocated to a country code, thus this option
      *  implies UseInternet option.
-     *  After the initial location is received with given precision, the detection will be stopped, unless option
+     *  After the initial location is received with given accuracy, the detection will be stopped, unless option
      *  UpdateContinuously is also specified. */
     WhereOptionUseLocationServices = 4 | WhereOptionUseInternet,
     
     /*! In addition to basic behavior of UseLocationServices option, this option tell the framework to ask for 
-     *  Location Services permission using -requestWhenInUseAuthorization. */
+     *  Location Services permission using -requestWhenInUseAuthorization.
+     *  To make this option actualy work, you have to include NSLocationWhenInUseUsageDescription key in application’s
+     *  Info.plist with appropriate usage description string. */
     WhereOptionAskForPermission    = 8 | WhereOptionUseLocationServices,
     
 } WhereOptions;

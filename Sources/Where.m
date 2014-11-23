@@ -88,8 +88,17 @@ static NSString * WhereSourceDescription(WhereSource source) {
         [self startDetectionUsingIPAddress];
     }
     
-    //TODO: Ask for Location Services permission.
-    //TODO: Detect using Core Location.
+    if (options & WhereOptionAskForPermission) {
+        NSString *usage = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationWhenInUseUsageDescription"];
+        if ( ! usage) {
+            NSLog(@"Hmm, you should include NSLocationWhenInUseUsageDescription in your Info.plist to make AskForPermission option work.");
+        }
+        [[self locationManager] requestWhenInUseAuthorization];
+    }
+    
+    if (options & WhereOptionUseLocationServices) {
+        //TODO: Detect using Core Location.
+    }
     
     if (options & WhereOptionUpdateContinuously) {
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -140,10 +149,16 @@ static NSString * WhereSourceDescription(WhereSource source) {
     return reachability;
 }
 
-static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void *info) {
-    if (flags & kSCNetworkReachabilityFlagsReachable) {
-        [Where startDetectionUsingIPAddress];
-    }
++ (CLLocationManager *)locationManager {
+    static CLLocationManager *locationManager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        locationManager = [CLLocationManager new];
+        locationManager.distanceFilter = 100;
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+        locationManager.delegate = (Class<CLLocationManagerDelegate>)self;
+    });
+    return locationManager;
 }
 
 
@@ -209,6 +224,12 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
         return YES;
     }
     return NO;
+}
+
+static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void *info) {
+    if (flags & kSCNetworkReachabilityFlagsReachable) {
+        [Where startDetectionUsingIPAddress];
+    }
 }
 
 
