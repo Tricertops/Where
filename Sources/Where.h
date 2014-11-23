@@ -8,7 +8,7 @@
 
 @import UIKit;
 @import CoreTelephony;
-@import SystemConfiguration;
+@import SystemConfiguration.SCNetworkReachability;
 @import Darwin.POSIX.netinet;
 @import CoreLocation;
 #import <Where/NSLocale+Region.h>
@@ -50,7 +50,7 @@ typedef enum : NSUInteger {
      *  The associated location is the region/country of Internet Service Provider, which may be the home cellular
      *  carrier or, when connected to the Wi-Fi, the local ISP.
      *  When the user uses roaming while travelling, the ISP _doesn’t_ change and reports IP address of home country.
-     *  This source is asynchronous and therefore disabled by default. */
+     *  This source is asynchronous and therefore disabled by default, pass UseInternet option to enable. */
     WhereSourceIPAddress = 3,
     
     /*! NSTimeZone was used.
@@ -61,7 +61,13 @@ typedef enum : NSUInteger {
      *  The system time zone may be changed by the user manually, in which case it may be incorrect. */
     WhereSourceTimeZone = 4,
     
-    //TODO: WhereSourceLocationServices,
+    /*! CLLocationManager was used.
+     *  The associated location is the current region/country of the user.
+     *  This is the most reliable source of data, but requires user’s permission and locating takes significant time.
+     *  This source is disabled by default, pass UseLocationServices to enable.
+     *  Pass AskForPermission option to let the framework ask the user for permission. */
+    WhereSourceLocationServices = 5,
+    
 } WhereSource;
 
 
@@ -95,7 +101,7 @@ typedef enum : NSUInteger {
 
 #pragma mark - Detection
 
-/*! Options that may be passed to +detectWithOptions: method. */
+/*! Options that may be passed to +detectWithOptions: method. You can combine them, but some option imply other ones. */
 typedef enum : NSUInteger {
     /*! No special behavior. */
     WhereOptionNone = kNilOptions,
@@ -112,8 +118,17 @@ typedef enum : NSUInteger {
      *  is posted. */
     WhereOptionUseInternet = 2,
     
-    //TODO: WhereOptionUseLocationServices = 4 | WhereOptionUseInternet,
-    //TODO: WhereOptionAskForPermission    = 8 | WhereOptionUseLocationServices,
+    /*! Enables use of LocationServices source, which will use CoreLocation and needs user’s permission. Your app is 
+     *  responsible for requesting the permission, or also pass AskForPermission option.
+     *  Location will be detected with a limited precision and then geolocated to a country code, thus this option
+     *  implies UseInternet option.
+     *  After the initial location is received with given precision, the detection will be stopped, unless option
+     *  UpdateContinuously is also specified. */
+    WhereOptionUseLocationServices = 4 | WhereOptionUseInternet,
+    
+    /*! In addition to basic behavior of UseLocationServices option, this option tell the framework to ask for 
+     *  Location Services permission using -requestWhenInUseAuthorization. */
+    WhereOptionAskForPermission    = 8 | WhereOptionUseLocationServices,
     
 } WhereOptions;
 
