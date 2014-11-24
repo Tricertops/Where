@@ -157,7 +157,8 @@ typedef enum : NSUInteger {
 
 
 /*! A notification posted when any source produced new location. This may happen when one of these options were
- *  specified: UpdateContinuously or UseInternet.
- *  Sender of the notifiction is the newly produced instance. */
+ *  specified: UpdateContinuously, UseInternet or UseLocationServices.
+ *  This notification may also be posted when a source has been disabled and its data was cleared.
+ *  Sender of the notifiction is the newly produced instance or nil, when an instance was removed. */
 extern NSString * const WhereDidUpdateNotification;
 

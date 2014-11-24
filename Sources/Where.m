@@ -133,6 +133,10 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
                 [self startDetectionUsingIPAddress];
             }
         }
+        else {
+            [self clear:WhereSourceCellularIPAddress];
+            [self clear:WhereSourceWiFiIPAddress];
+        }
         dispatch_queue_t queue = (useInternet && shouldObserve ? dispatch_get_main_queue() : nil);
         SCNetworkReachabilitySetDispatchQueue([self reachability], queue);
     }
@@ -157,6 +161,7 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
         }
         else {
             [[self locationManager] stopUpdatingLocation];
+            [self clear:WhereSourceLocationServices];
         }
     }
     
@@ -288,11 +293,10 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
         coord = [NSLocale coordinateForRegion:regionCode];
     }
     
-    WhereSource sourceToClear = (viaWiFi? WhereSourceCellularIPAddress : WhereSourceWiFiIPAddress);
-    [[self bySource] removeObjectForKey:@(sourceToClear)];
+    [self clear:(viaWiFi? WhereSourceCellularIPAddress : WhereSourceWiFiIPAddress)];
     
-    WhereSource sourceToUpdate = (viaWiFi? WhereSourceWiFiIPAddress : WhereSourceCellularIPAddress);
-    Where *instance = [Where instanceWithSource:sourceToUpdate
+    WhereSource source = (viaWiFi? WhereSourceWiFiIPAddress : WhereSourceCellularIPAddress);
+    Where *instance = [Where instanceWithSource:source
                                          region:regionCode
                                      coordinate:coord];
     if (instance) {
@@ -389,6 +393,11 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
     
     [[self bySource] setObject:instance forKey:@(instance.source)];
     [[NSNotificationCenter defaultCenter] postNotificationName:WhereDidUpdateNotification object:instance];
+}
+
++ (void)clear:(WhereSource)source {
+    [[self bySource] removeObjectForKey:@(source)];
+    [[NSNotificationCenter defaultCenter] postNotificationName:WhereDidUpdateNotification object:nil];
 }
 
 + (NSMutableDictionary *)bySource {
