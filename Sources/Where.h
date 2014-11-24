@@ -142,8 +142,8 @@ typedef enum : NSUInteger {
 /*! Class methods that manage and create */
 @interface Where (Detection)
 
-//! Uses default options (WhereOptionDefault) and returns the detected location (+best).
-+ (Where *)detect;
+//! Framework will detect location using default options. Results are available immediately. Don’t call.
++ (void)initialize __unavailable;
 //! Starts detection with given options. Method +best returns the detected location.
 + (void)detectWithOptions:(WhereOptions)options;
 

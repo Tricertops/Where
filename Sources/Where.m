@@ -74,85 +74,98 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
 
 #pragma mark Detection
 
-+ (Where *)detect {
++ (void)initialize {
+    NSLog(@"Where are you?");
     [self detectWithOptions:WhereOptionDefault];
-    Where *instance = [self best];
-    if (instance) {
-        NSLog(@"You must be in %@!", instance.regionName);
-    }
-    else {
-        NSLog(@"Sorry, I don’t know where you are :(");
-    }
-    return [self best];
 }
 
-+ (void)detectWithOptions:(WhereOptions)options {
-    NSLog(@"Where are you?");
-    BOOL continuous = WhereHasOption(options, WhereOptionUpdateContinuously);
-    if ( ! continuous) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self];
-    }
++ (void)detectWithOptions:(WhereOptions)currentOptions {
+    static WhereOptions previousOptions = WhereOptionNone;
+    
+    BOOL isUpToDate = WhereHasOption(previousOptions, WhereOptionUpdateContinuously);
+    BOOL shouldObserve = WhereHasOption(currentOptions, WhereOptionUpdateContinuously);
+
     {
         // Locale
-        [self detectUsingLocale];
-        if (continuous) {
-            [[NSNotificationCenter defaultCenter] addObserver:self
-                                                     selector:@selector(detectUsingLocale)
-                                                         name:NSCurrentLocaleDidChangeNotification
-                                                       object:nil];
+        if ( ! isUpToDate) {
+            [self detectUsingLocale];
+            if (shouldObserve) {
+                [[NSNotificationCenter defaultCenter] addObserver:self
+                                                         selector:@selector(detectUsingLocale)
+                                                             name:NSCurrentLocaleDidChangeNotification
+                                                           object:nil];
+            }
+        }
+        else if ( ! shouldObserve) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:NSCurrentLocaleDidChangeNotification object:nil];
         }
     }
     {
         // Carrier
-        [self detectUsingCarrier];
-        if (continuous) {
-            [[self network] setSubscriberCellularProviderDidUpdateNotifier:^(CTCarrier *carrier) {
-                [self detectUsingCarrier];
-            }];
+        if ( ! isUpToDate) {
+            [self detectUsingCarrier];
+            if (shouldObserve) {
+                [[self network] setSubscriberCellularProviderDidUpdateNotifier:^(CTCarrier *carrier) {
+                    [self detectUsingCarrier];
+                }];
+            }
         }
-        else {
+        else if ( ! shouldObserve) {
             [[self network] setSubscriberCellularProviderDidUpdateNotifier:nil];
         }
     }
     {
         // Time Zone
-        [self detectUsingTimeZone];
-        if (continuous) {
-            [[NSNotificationCenter defaultCenter] addObserver:self
-                                                     selector:@selector(detectUsingTimeZone)
-                                                         name:NSSystemTimeZoneDidChangeNotification
-                                                       object:nil];
+        if ( ! isUpToDate) {
+            [self detectUsingTimeZone];
+            if (shouldObserve) {
+                [[NSNotificationCenter defaultCenter] addObserver:self
+                                                         selector:@selector(detectUsingTimeZone)
+                                                             name:NSSystemTimeZoneDidChangeNotification
+                                                           object:nil];
+            }
+        }
+        else if ( ! shouldObserve) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:NSSystemTimeZoneDidChangeNotification object:nil];
         }
     }
     {
         // IP Address
-        BOOL useInternet = WhereHasOption(options, WhereOptionUseInternet);
+        BOOL useInternet = WhereHasOption(currentOptions, WhereOptionUseInternet);
         if (useInternet) {
-            [self startDetectionUsingIPAddress];
+            BOOL wasUsingInternet = WhereHasOption(previousOptions, WhereOptionUseInternet);
+            if ( ! wasUsingInternet || ! isUpToDate) {
+                [self startDetectionUsingIPAddress];
+            }
         }
-        dispatch_queue_t queue = (useInternet && continuous ? dispatch_get_main_queue() : nil);
+        dispatch_queue_t queue = (useInternet && shouldObserve ? dispatch_get_main_queue() : nil);
         SCNetworkReachabilitySetDispatchQueue([self reachability], queue);
     }
     {
         // Location Services
-        if (WhereHasOption(options, WhereOptionAskForPermission)) {
+        if (WhereHasOption(currentOptions, WhereOptionAskForPermission)) {
             NSString *usage = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationWhenInUseUsageDescription"];
             if ( ! usage) {
                 NSLog(@"You should include NSLocationWhenInUseUsageDescription in your Info.plist to make AskForPermission option work.");
             }
             [[self locationManager] requestWhenInUseAuthorization];
         }
-        BOOL useLocation = WhereHasOption(options, WhereOptionUseLocationServices);
+        BOOL useLocation = WhereHasOption(currentOptions, WhereOptionUseLocationServices);
+        CLLocationDistance filter = (useLocation && shouldObserve ? 100 : CLLocationDistanceMax);
+        [[self locationManager] setDistanceFilter:filter];
         if (useLocation) {
-            NSLog(@"Let me use Location Services...");
-            [[self locationManager] startUpdatingLocation];
+            BOOL wasUsingLocation = WhereHasOption(previousOptions, WhereOptionUseLocationServices);
+            if ( ! wasUsingLocation || isUpToDate) {
+                NSLog(@"Let me use Location Services...");
+                [[self locationManager] startUpdatingLocation];
+            }
         }
         else {
             [[self locationManager] stopUpdatingLocation];
         }
-        CLLocationDistance filter = (useLocation && continuous ? 100 : CLLocationDistanceMax);
-        [[self locationManager] setDistanceFilter:filter];
     }
+    
+    previousOptions = currentOptions;
 }
 
 
