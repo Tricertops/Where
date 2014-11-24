@@ -14,6 +14,9 @@
 @interface ViewController : UIViewController
 
 @property IBOutlet UISegmentedControl *segmentControl;
+@property IBOutlet UISwitch *internetSwitch;
+@property IBOutlet UISwitch *locationSwitch;
+
 @property IBOutlet MKMapView *mapView;
 @property MKPointAnnotation *travelAnnotation;
 @property MKPointAnnotation *homeAnnotation;
@@ -46,10 +49,18 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update) name:WhereDidUpdateNotification object:nil];
     
-    [Where detectWithOptions:(WhereOptionUseInternet
-                              | WhereOptionUseLocationServices
-                              | WhereOptionAskForPermission
-                              | WhereOptionUpdateContinuously)];
+    [self detect];
+}
+
+- (IBAction)detect {
+    WhereOptions options = WhereOptionUpdateContinuously;
+    if (self.internetSwitch.on) {
+        options |= WhereOptionUseInternet;
+    }
+    if (self.locationSwitch.on) {
+        options |= WhereOptionAskForPermission;
+    }
+    [Where detectWithOptions:options];
 }
 
 - (IBAction)update {
