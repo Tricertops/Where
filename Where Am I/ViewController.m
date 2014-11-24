@@ -56,6 +56,11 @@
     WhereOptions options = WhereOptionUpdateContinuously;
     if (self.internetSwitch.on) {
         options |= WhereOptionUseInternet;
+        self.locationSwitch.enabled = YES;
+    }
+    else {
+        self.locationSwitch.enabled = NO;
+        [self.locationSwitch setOn:NO animated:YES];
     }
     if (self.locationSwitch.on) {
         options |= WhereOptionAskForPermission;
