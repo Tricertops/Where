@@ -417,8 +417,8 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
 
 + (Where *)amI {
     return [self forSource:WhereSourceLocationServices]
-        ?: [self forSource:WhereSourceWiFiIPAddress]
-        ?: [self forSource:WhereSourceTimeZone];
+        ?: [self forSource:WhereSourceTimeZone]
+        ?: [self forSource:WhereSourceWiFiIPAddress];
 }
 
 + (Where *)forSource:(WhereSource)source {

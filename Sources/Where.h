@@ -52,18 +52,18 @@ typedef enum : NSUInteger {
      *  This source is asynchronous and therefore disabled by default, pass UseInternet option to enable. */
     WhereSourceCellularIPAddress = 3,
     
+    /*! Wi-Fi external IP address was used.
+     *  The associated location is the region/country of the Intrnet Service Provider.
+     *  This source is asynchronous and therefore disabled by default, pass UseInternet option to enable. */
+    WhereSourceWiFiIPAddress = 4,
+    
     /*! NSTimeZone was used.
      *  The associated location is the region/country of the actual position of the user. This is the most reliable
      *  source of data available offline.
      *  By default, the system time zone is set using user’s current location. As the user travels, the device updates
      *  the system time zone automatically. This way, we can use Location Services indirectly.
      *  The system time zone may be changed by the user manually, in which case it may be incorrect. */
-    WhereSourceTimeZone = 4,
-    
-    /*! Wi-Fi external IP address was used.
-     *  The associated location is the region/country of the Intrnet Service Provider.
-     *  This source is asynchronous and therefore disabled by default, pass UseInternet option to enable. */
-    WhereSourceWiFiIPAddress = 5,
+    WhereSourceTimeZone = 5,
     
     /*! CLLocationManager was used.
      *  The associated location is the current region/country of the user.

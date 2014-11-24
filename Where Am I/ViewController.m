@@ -75,8 +75,8 @@
         [self.mapView selectAnnotation:self.homeAnnotation animated:YES];
     }
     
-    WhereSource source1 = (isTravel? WhereSourceTimeZone : WhereSourceLocale);
-    WhereSource source2 = (isTravel? WhereSourceWiFiIPAddress : WhereSourceCarrier);
+    WhereSource source1 = (isTravel? WhereSourceWiFiIPAddress : WhereSourceLocale);
+    WhereSource source2 = (isTravel? WhereSourceTimeZone : WhereSourceCarrier);
     WhereSource source3 = (isTravel? WhereSourceLocationServices : WhereSourceCellularIPAddress);
     
     self.source1Title.text = [self sourceTitle:source1];
