@@ -16,8 +16,9 @@ static NSString * WhereSourceDescription(WhereSource source) {
         case WhereSourceNone: return @"Unwnown";
         case WhereSourceLocale: return @"Locale";
         case WhereSourceCarrier: return @"Carrier";
+        case WhereSourceCellularIPAddress: return @"Cellular IP Address";
         case WhereSourceTimeZone: return @"Time Zone";
-        case WhereSourceIPAddress: return @"IP Address";
+        case WhereSourceWiFiIPAddress: return @"Wi-Fi IP Address";
         case WhereSourceLocationServices: return @"Location Services";
     }
     return @"Other";
@@ -239,11 +240,16 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
 
 + (void)startDetectionUsingIPAddress {
     NSLog(@"Let me check the Internet...");
+    
+    SCNetworkReachabilityFlags flags = 0;
+    SCNetworkReachabilityGetFlags([self reachability], &flags);
+    BOOL viaWiFi = (flags & kSCNetworkReachabilityFlagsIsWWAN) == 0;
+    
     NSURL *geobytesURL = [NSURL URLWithString:@"http://www.geobytes.com/IpLocator.htm?GetLocation&template=json.txt"];
     [[[NSURLSession sharedSession] dataTaskWithURL:geobytesURL
                                  completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                      [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                         BOOL ok = [self finishDetectionUsingIPAddressWithResponse:data];
+                                         BOOL ok = [self finishDetectionUsingIPAddressWithResponse:data WiFi:viaWiFi];
                                          if ( ! ok) {
                                              NSLog(@"Failed to check the Internet :(");
                                          }
@@ -251,7 +257,7 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
                                  }] resume];
 }
 
-+ (BOOL)finishDetectionUsingIPAddressWithResponse:(NSData *)response {
++ (BOOL)finishDetectionUsingIPAddressWithResponse:(NSData *)response WiFi:(BOOL)viaWiFi {
     if ( ! response.length) return NO;
     
     id JSON = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
@@ -274,11 +280,12 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
         coord = [NSLocale coordinateForRegion:regionCode];
     }
     
-    Where *instance = [Where instanceWithSource:WhereSourceIPAddress
+    WhereSource source = (viaWiFi? WhereSourceWiFiIPAddress : WhereSourceCellularIPAddress);
+    Where *instance = [Where instanceWithSource:source
                                          region:regionCode
                                      coordinate:coord];
     if (instance) {
-        NSLog(@"You are connected to the Internet in %@.", instance.regionName);
+        NSLog(@"You are connected to the Internet via %@ in %@.", (viaWiFi? @"Wi-Fi" : @"cellular"), instance.regionName);
         [self update:instance];
         return YES;
     }
@@ -286,7 +293,9 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
 }
 
 static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void *info) {
-    if (flags & kSCNetworkReachabilityFlagsReachable) {
+    BOOL isReachable = (flags & kSCNetworkReachabilityFlagsReachable) != 0;
+    
+    if (isReachable) {
         [Where startDetectionUsingIPAddress];
     }
 }
@@ -343,6 +352,8 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
     NSLog(@"Geocoding your current location...");
     [[self geocoder] cancelGeocode];
     [[self geocoder] reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if ([error.domain isEqualToString:kCLErrorDomain] && error.code == kCLErrorGeocodeCanceled) return;
+        
         CLPlacemark *placemark = placemarks.firstObject;
         Where *instance = [Where instanceWithSource:WhereSourceLocationServices
                                              region:placemark.ISOcountryCode

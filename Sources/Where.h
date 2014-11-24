@@ -46,12 +46,11 @@ typedef enum : NSUInteger {
      *  The value of this source _doesn’t_ change when the user uses roaming while travelling. */
     WhereSourceCarrier = 2,
     
-    /*! External IP address was used.
-     *  The associated location is the region/country of Internet Service Provider, which may be the home cellular
-     *  carrier or, when connected to the Wi-Fi, the local ISP.
-     *  When the user uses roaming while travelling, the ISP _doesn’t_ change and reports IP address of home country.
+    /*! Cellular external IP address was used.
+     *  The associated location is the region/country of user’s home carrier.
+     *  When the user uses roaming while travelling, the location from this source _doesn’t_ change.
      *  This source is asynchronous and therefore disabled by default, pass UseInternet option to enable. */
-    WhereSourceIPAddress = 3,
+    WhereSourceCellularIPAddress = 3,
     
     /*! NSTimeZone was used.
      *  The associated location is the region/country of the actual position of the user. This is the most reliable
@@ -61,12 +60,17 @@ typedef enum : NSUInteger {
      *  The system time zone may be changed by the user manually, in which case it may be incorrect. */
     WhereSourceTimeZone = 4,
     
+    /*! Wi-Fi external IP address was used.
+     *  The associated location is the region/country of the Intrnet Service Provider.
+     *  This source is asynchronous and therefore disabled by default, pass UseInternet option to enable. */
+    WhereSourceWiFiIPAddress = 5,
+    
     /*! CLLocationManager was used.
      *  The associated location is the current region/country of the user.
      *  This is the most reliable source of data, but requires user’s permission and locating takes significant time.
      *  This source is disabled by default, pass UseLocationServices to enable.
      *  Pass AskForPermission option to let the framework ask the user for permission. */
-    WhereSourceLocationServices = 5,
+    WhereSourceLocationServices = 6,
     
 } WhereSource;
 
@@ -126,11 +130,11 @@ typedef enum : NSUInteger {
      *  UpdateContinuously is also specified. */
     WhereOptionUseLocationServices = 4 | WhereOptionUseInternet,
     
-    /*! In addition to basic behavior of UseLocationServices option, this option tell the framework to ask for 
+    /*! In addition to basic behavior of UseLocationServices option, this option tells the framework to ask for
      *  Location Services permission using -requestWhenInUseAuthorization.
      *  To make this option actualy work, you have to include NSLocationWhenInUseUsageDescription key in application’s
      *  Info.plist with appropriate usage description string. */
-    WhereOptionAskForPermission    = 8 | WhereOptionUseLocationServices,
+    WhereOptionAskForPermission = 8 | WhereOptionUseLocationServices,
     
 } WhereOptions;
 
