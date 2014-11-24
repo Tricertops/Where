@@ -18,6 +18,18 @@
 @property MKPointAnnotation *travelAnnotation;
 @property MKPointAnnotation *homeAnnotation;
 
+@property IBOutlet UILabel *source1Title;
+@property IBOutlet UILabel *source2Title;
+@property IBOutlet UILabel *source3Title;
+
+@property IBOutlet UILabel *source1Region;
+@property IBOutlet UILabel *source2Region;
+@property IBOutlet UILabel *source3Region;
+
+@property IBOutlet UILabel *source1Code;
+@property IBOutlet UILabel *source2Code;
+@property IBOutlet UILabel *source3Code;
+
 @end
 
 
@@ -34,20 +46,39 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update) name:WhereDidUpdateNotification object:nil];
     
-    [Where detectWithOptions:(WhereOptionUseInternet | WhereOptionUseLocationServices | WhereOptionUpdateContinuously)];
+    [Where detectWithOptions:(WhereOptionUseInternet
+                              | WhereOptionUseLocationServices
+                              | WhereOptionAskForPermission
+                              | WhereOptionUpdateContinuously)];
 }
 
 - (IBAction)update {
     [self updateAnnotation:self.homeAnnotation withLocation:[Where isHome]];
     [self updateAnnotation:self.travelAnnotation withLocation:[Where amI]];
     
-    NSUInteger selected = self.segmentControl.selectedSegmentIndex;
-    if (selected == 0 && [self.mapView.annotations containsObject:self.travelAnnotation]) {
+    BOOL isTravel = (self.segmentControl.selectedSegmentIndex == 0);
+    if (isTravel && [self.mapView.annotations containsObject:self.travelAnnotation]) {
         [self.mapView selectAnnotation:self.travelAnnotation animated:YES];
     }
-    else if (selected == 1 && [self.mapView.annotations containsObject:self.homeAnnotation]) {
+    if ( ! isTravel && [self.mapView.annotations containsObject:self.homeAnnotation]) {
         [self.mapView selectAnnotation:self.homeAnnotation animated:YES];
     }
+    
+    WhereSource source1 = (isTravel? WhereSourceTimeZone : WhereSourceLocale);
+    WhereSource source2 = (isTravel? WhereSourceWiFiIPAddress : WhereSourceCarrier);
+    WhereSource source3 = (isTravel? WhereSourceLocationServices : WhereSourceCellularIPAddress);
+    
+    self.source1Title.text = [self sourceTitle:source1];
+    self.source2Title.text = [self sourceTitle:source2];
+    self.source3Title.text = [self sourceTitle:source3];
+    
+    self.source1Region.text = [[Where forSource:source1] regionName];
+    self.source2Region.text = [[Where forSource:source2] regionName];
+    self.source3Region.text = [[Where forSource:source3] regionName];
+    
+    self.source1Code.text = [[Where forSource:source1] regionCode];
+    self.source2Code.text = [[Where forSource:source2] regionCode];
+    self.source3Code.text = [[Where forSource:source3] regionCode];
 }
 
 - (void)updateAnnotation:(MKPointAnnotation *)annotation withLocation:(Where *)location {
@@ -59,6 +90,19 @@
     else {
         [self.mapView removeAnnotation:annotation];
     }
+}
+
+- (NSString *)sourceTitle:(WhereSource)source {
+    switch (source) {
+        case WhereSourceNone: return @"Unwnown";
+        case WhereSourceLocale: return @"Locale";
+        case WhereSourceCarrier: return @"Carrier";
+        case WhereSourceCellularIPAddress: return @"Cellular IP";
+        case WhereSourceTimeZone: return @"Time Zone";
+        case WhereSourceWiFiIPAddress: return @"Wi-Fi IP";
+        case WhereSourceLocationServices: return @"Location";
+    }
+    return @"Unknown";
 }
 
 @end
