@@ -50,11 +50,6 @@ static NSString * WhereSourceDescription(WhereSource source) {
     return instance;
 }
 
-- (NSComparisonResult)compareQuality:(Where *)other {
-    return ([@(self.source) compare:@(other.source)]
-            ?: [self.timestamp compare:other.timestamp]);
-}
-
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@ (%@) from %@ at %@",
             self->_regionName, self->_regionCode, WhereSourceDescription(self->_source), self->_timestamp];
@@ -293,8 +288,11 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
         coord = [NSLocale coordinateForRegion:regionCode];
     }
     
-    WhereSource source = (viaWiFi? WhereSourceWiFiIPAddress : WhereSourceCellularIPAddress);
-    Where *instance = [Where instanceWithSource:source
+    WhereSource sourceToClear = (viaWiFi? WhereSourceCellularIPAddress : WhereSourceWiFiIPAddress);
+    [[self bySource] removeObjectForKey:@(sourceToClear)];
+    
+    WhereSource sourceToUpdate = (viaWiFi? WhereSourceWiFiIPAddress : WhereSourceCellularIPAddress);
+    Where *instance = [Where instanceWithSource:sourceToUpdate
                                          region:regionCode
                                      coordinate:coord];
     if (instance) {
@@ -402,12 +400,16 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
     return dictionary;
 }
 
-+ (Where *)best {
-    return [[self all] lastObject];
++ (Where *)isHome {
+    return [self forSource:WhereSourceCellularIPAddress]
+        ?: [self forSource:WhereSourceCarrier]
+        ?: [self forSource:WhereSourceLocale];
 }
 
-+ (NSArray *)all {
-    return [[[self bySource] allValues] sortedArrayUsingSelector:@selector(compareQuality:)];
++ (Where *)amI {
+    return [self forSource:WhereSourceLocationServices]
+        ?: [self forSource:WhereSourceWiFiIPAddress]
+        ?: [self forSource:WhereSourceTimeZone];
 }
 
 + (Where *)forSource:(WhereSource)source {

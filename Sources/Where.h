@@ -84,8 +84,6 @@ typedef enum : NSUInteger {
 @property (readonly) WhereSource source;
 //! Time, when the data was produced.
 @property (readonly) NSDate *timestamp;
-//! Compares source and the timestamp to find out which is better.
-- (NSComparisonResult)compareQuality:(Where *)other;
 
 //! 2-letter ISO 3166-1 code of the associated region.
 @property (readonly) NSString *regionCode;
@@ -144,14 +142,15 @@ typedef enum : NSUInteger {
 
 //! Framework will detect location using default options. Results are available immediately. Don’t call.
 + (void)initialize __unavailable;
-//! Starts detection with given options. Method +best returns the detected location.
+//! Starts detection with given custom options. Default detection runs without external action.
 + (void)detectWithOptions:(WhereOptions)options;
 
-//! The best detected location, so far. “Best” is found using -compareQuality:
-+ (Where *)best;
-//! The latest location from every enabled source, sorted by quality.
-+ (NSArray *)all;
-//! Returns the last location from given source, if any.
+//! Where is home? The home location of the user.
++ (Where *)isHome;
+//! Where am I? The current location of the user (while travelling).
++ (Where *)amI;
+
+//! Returns the last location from given source, if available.
 + (Where *)forSource:(WhereSource)source;
 
 @end
