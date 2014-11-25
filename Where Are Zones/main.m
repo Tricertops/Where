@@ -67,13 +67,18 @@ int main(int argc, const char * argv[]) {
     NSURL *targetURL = [projectURL URLByAppendingPathComponent:@"Where Are Zones" isDirectory:YES];
     NSURL *tzURL = [targetURL URLByAppendingPathComponent:@"tz" isDirectory:YES];
     NSURL *zoneTabURL = [tzURL URLByAppendingPathComponent:@"zone.tab" isDirectory:NO];
-    
-    NSError *error = nil;
-    NSString *zoneTabString = [NSString stringWithContentsOfURL:zoneTabURL encoding:NSASCIIStringEncoding error:&error];
-    if ( ! zoneTabString) [self fail:error];
-    
-    [self loadZoneTab:zoneTabString];
-    
+    {
+        NSError *error = nil;
+        NSString *zoneTabString = [NSString stringWithContentsOfURL:zoneTabURL encoding:NSUTF8StringEncoding error:&error];
+        if ( ! zoneTabString) [self fail:error];
+        [self loadZoneTab:zoneTabString];
+    }{
+        NSError *error = nil;
+        NSURL *backwardURL = [tzURL URLByAppendingPathComponent:@"backward" isDirectory:NO];
+        NSString *backwardString = [NSString stringWithContentsOfURL:backwardURL encoding:NSUTF8StringEncoding error:&error];
+        if ( ! backwardString) [self fail:error];
+        [self loadBackward:backwardString];
+    }
     NSSortDescriptor *byIdentifier = [NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:YES];
     [self.zones sortUsingDescriptors:@[ byIdentifier ]];
     
@@ -90,6 +95,27 @@ int main(int argc, const char * argv[]) {
         zone.region = columns[0];
         zone.cooridnate = [self coordinateFromString:columns[1]];
         zone.comment = (columns.count > 3? columns[3] : nil);
+        
+        [self.zones addObject:zone];
+    }
+}
+
+
+- (void)loadBackward:(NSString *)backward {
+    NSArray *lines = [self linesFromString:backward];
+    for (NSString *line in lines) {
+        NSArray *columns = [line componentsSeparatedByString:@"\t"];
+        columns = [columns filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length > 0"]];
+        if ( ! [columns[0] isEqualToString:@"Link"]) [self fail:nil];
+        
+        Zone *link = [self zoneForIdentifier:columns[1]];
+        if ( ! link) continue;
+        
+        Zone *zone = [Zone new];
+        zone.identifier = columns[2];
+        zone.region = link.region;
+        zone.cooridnate = link.cooridnate;
+        zone.comment = [NSString stringWithFormat:@"Link: %@", link.identifier];
         
         [self.zones addObject:zone];
     }
@@ -128,6 +154,16 @@ int main(int argc, const char * argv[]) {
 
 
 #pragma mark Helpers
+
+
+- (Zone *)zoneForIdentifier:(NSString *)identifier {
+    for (Zone *zone in self.zones) {
+        if ([zone.identifier isEqualToString:identifier]) {
+            return zone;
+        }
+    }
+    return nil;
+}
 
 
 - (Coordinate)coordinateFromString:(NSString *)string {
