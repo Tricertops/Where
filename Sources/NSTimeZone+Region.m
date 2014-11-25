@@ -14,8 +14,14 @@
 
 
 - (NSString *)regionCode {
-    NSArray *components = [[self.class timeZoneComponents] objectForKey:self.name];
+    NSArray *components = [[self.class timeZoneRegionComponents] objectForKey:self.name];
     return components.firstObject;
+}
+
+
+- (CLLocationCoordinate2D)coordinate {
+    NSArray *components = [[self.class timeZoneRegionComponents] objectForKey:self.name];
+    return CLLocationCoordinate2DMake([components[1] doubleValue], [components[2] doubleValue]);
 }
 
 
@@ -24,7 +30,7 @@
     if ( ! code) return nil;
     
     NSMutableArray *zones = [NSMutableArray new];
-    [[self.class timeZoneComponents] enumerateKeysAndObjectsUsingBlock:^(NSString *identifier, NSArray *components, BOOL *stop) {
+    [[self.class timeZoneRegionComponents] enumerateKeysAndObjectsUsingBlock:^(NSString *identifier, NSArray *components, BOOL *stop) {
         if ([code isEqualToString:components.firstObject]) {
             [zones addObject:[NSTimeZone timeZoneWithName:identifier]];
         }
@@ -35,7 +41,7 @@
 
 #pragma mark -
 
-+ (NSDictionary *)timeZoneComponents {
++ (NSDictionary *)timeZoneRegionComponents {
     static NSDictionary *codes = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

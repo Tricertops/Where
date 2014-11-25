@@ -7,12 +7,16 @@
 //
 
 @import Foundation;
+@import CoreLocation.CLLocation;
 
 
 @interface NSTimeZone (Country)
 
 //! Region code associated with the time zone.
 - (NSString *)regionCode;
+
+//! Region coordinate associated with the time zone.
+- (CLLocationCoordinate2D)coordinate;
 
 //! Returns all time zones associated with given region.
 + (NSArray *)timeZonesForRegion:(NSString *)code;
