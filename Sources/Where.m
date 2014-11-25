@@ -241,10 +241,10 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
 }
 
 + (void)detectUsingTimeZone {
-    NSString *regionCode = [[NSTimeZone systemTimeZone] regionCode];
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
     Where *instance = [Where instanceWithSource:WhereSourceTimeZone
-                                         region:regionCode
-                                     coordinate:[NSLocale coordinateForRegion:regionCode]]; //TODO: NSTimeZone.coordinate
+                                         region:zone.regionCode
+                                     coordinate:zone.coordinate];
     if (instance) {
         NSLog(@"You are in a time zone of %@.", instance.regionName);
         [self update:instance];
@@ -341,7 +341,7 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
     }
     NSLog(@"%@", message);
     
-    [self cancelPreviousPerformRequestsWithTarget:self]; //TODO: Cancels everything.
+    [self cancelPreviousPerformRequestsWithTarget:self]; //NOTE: Cancels everything.
     [self performSelector:@selector(startGeocoding:) withObject:location afterDelay:0.25];
 }
 

@@ -89,7 +89,7 @@ typedef enum : NSUInteger {
 @property (readonly) NSString *regionCode;
 //! Name of the region formatted using standardized English locale.
 @property (readonly) NSString *regionName;
-//! Detected coordinates, typically a middle of region or time zone.
+//! Detected coordinates, typically a middle of region or time zone city.
 @property (readonly) CLLocationCoordinate2D coordinate;
 
 //! Don’t create instances of this class.

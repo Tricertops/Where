@@ -15,7 +15,7 @@
 //! Region code associated with the time zone.
 - (NSString *)regionCode;
 
-//! Region coordinate associated with the time zone.
+//! Coordinate for the city associated with the time zone.
 - (CLLocationCoordinate2D)coordinate;
 
 //! Returns all time zones associated with given region.
