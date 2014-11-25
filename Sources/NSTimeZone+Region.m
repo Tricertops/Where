@@ -210,6 +210,7 @@
                   @"America/Moncton": @[ @"CA", @46.10000, @-63.21667 ], // Atlantic Time - New Brunswick
                   @"America/Monterrey": @[ @"MX", @25.66667, @-99.68333 ], // Mexican Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas away from US border
                   @"America/Montevideo": @[ @"UY", @-33.11667, @-55.81667 ],
+                  @"America/Montreal": @[ @"CA", @43.65000, @-78.61667 ], // Link: America/Toronto
                   @"America/Montserrat": @[ @"MS", @16.71667, @-61.78333 ],
                   @"America/Nassau": @[ @"BS", @25.08333, @-76.65000 ],
                   @"America/New_York": @[ @"US", @40.71417, @-73.99361 ], // Eastern Time

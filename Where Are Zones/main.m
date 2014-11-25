@@ -78,6 +78,8 @@ int main(int argc, const char * argv[]) {
         NSString *backwardString = [NSString stringWithContentsOfURL:backwardURL encoding:NSUTF8StringEncoding error:&error];
         if ( ! backwardString) [self fail:error];
         [self loadBackward:backwardString];
+    }{
+        [self addManualEntries];
     }
     NSSortDescriptor *byIdentifier = [NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:YES];
     [self.zones sortUsingDescriptors:@[ byIdentifier ]];
@@ -108,17 +110,19 @@ int main(int argc, const char * argv[]) {
         columns = [columns filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length > 0"]];
         if ( ! [columns[0] isEqualToString:@"Link"]) [self fail:nil];
         
-        Zone *link = [self zoneForIdentifier:columns[1]];
-        if ( ! link) continue;
-        
-        Zone *zone = [Zone new];
-        zone.identifier = columns[2];
-        zone.region = link.region;
-        zone.cooridnate = link.cooridnate;
-        zone.comment = [NSString stringWithFormat:@"Link: %@", link.identifier];
+        Zone *zone = [self createZone:columns[2] linkTo:columns[1]];
+        if ( ! zone) continue;
         
         [self.zones addObject:zone];
     }
+}
+
+
+- (void)addManualEntries {
+    // On the 2013e release of the tz database, America/Montreal was one of the zones removed from zone.tab, but it is still available in the northamerica file. It was because the group maintaining the database "incorrectly thought that Montreal differed from Toronto in the early 1970s".
+    // NSTimeZone list this zone in +knowTimeZoneNames array.
+    Zone *montreal = [self createZone:@"America/Montreal" linkTo:@"America/Toronto"];
+    [self.zones addObject:montreal];
 }
 
 
@@ -163,6 +167,20 @@ int main(int argc, const char * argv[]) {
         }
     }
     return nil;
+}
+
+
+- (Zone *)createZone:(NSString *)identifier linkTo:(NSString *)linkIdentifier {
+    Zone *link = [self zoneForIdentifier:linkIdentifier];
+    if ( ! link) return nil;
+    
+    Zone *zone = [Zone new];
+    zone.identifier = identifier;
+    zone.region = link.region;
+    zone.cooridnate = link.cooridnate;
+    zone.comment = [NSString stringWithFormat:@"Link: %@", link.identifier];
+    
+    return zone;
 }
 
 
