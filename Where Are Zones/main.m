@@ -115,8 +115,8 @@ int main(int argc, const char * argv[]) {
     NSMutableArray *lines = [NSMutableArray new];
     for (Zone *zone in self.zones) {
         //    @"Europe/Bratislava": @[ @"SK", @48.15, @17.11666 ],
-        NSString *comment = (zone.comment? [NSString stringWithFormat:@", @\"%@\"", zone.comment] : @"");
-        NSString *line = [NSString stringWithFormat:@"    @\"%@\": @[ @\"%@\", @%.5f, @%.5f%@ ],",
+        NSString *comment = (zone.comment? [NSString stringWithFormat:@" // %@", zone.comment] : @"");
+        NSString *line = [NSString stringWithFormat:@"    @\"%@\": @[ @\"%@\", @%.5f, @%.5f ],%@",
                           zone.identifier, zone.region, zone.cooridnate.latitude, zone.cooridnate.longitude, comment];
         [lines addObject:line];
     }
