@@ -1,0 +1,3 @@
+[submodule "Where Are Zones/tz"]
+	path = Where Are Zones/tz
+	url = https://github.com/eggert/tz.git

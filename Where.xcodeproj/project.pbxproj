@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B189F441A247DE20098A968 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B189F431A247DE20098A968 /* main.m */; };
 		5B32643D1A1FA013006B22AE /* Where.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B6AAB4D1A1F4E66000B5A40 /* Where.framework */; };
 		5B32643E1A1FA013006B22AE /* Where.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B6AAB4D1A1F4E66000B5A40 /* Where.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5B3264441A207FAA006B22AE /* NSTimeZone+Region.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B3264421A207FAA006B22AE /* NSTimeZone+Region.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -32,6 +33,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		5B189F3F1A247DE20098A968 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		5B3264411A1FA013006B22AE /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -46,6 +56,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5B189F411A247DE20098A968 /* Where Are Zones */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Where Are Zones"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B189F431A247DE20098A968 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5B189F481A247F230098A968 /* tz */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tz; sourceTree = "<group>"; };
 		5B3264421A207FAA006B22AE /* NSTimeZone+Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimeZone+Region.h"; sourceTree = "<group>"; };
 		5B3264431A207FAA006B22AE /* NSTimeZone+Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimeZone+Region.m"; sourceTree = "<group>"; };
 		5B3264461A20B16B006B22AE /* NSLocale+Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLocale+Region.h"; sourceTree = "<group>"; };
@@ -63,6 +76,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5B189F3E1A247DE20098A968 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5B6AAB491A1F4E66000B5A40 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -81,12 +101,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B189F421A247DE20098A968 /* Where Are Zones */ = {
+			isa = PBXGroup;
+			children = (
+				5B189F431A247DE20098A968 /* main.m */,
+				5B189F481A247F230098A968 /* tz */,
+			);
+			path = "Where Are Zones";
+			sourceTree = "<group>";
+		};
 		5B6AAB431A1F4E66000B5A40 = {
 			isa = PBXGroup;
 			children = (
 				5B6AAB691A1F4E88000B5A40 /* Info.plist */,
 				5B6AAB6A1A1F4E88000B5A40 /* Sources */,
 				5B6AABC91A1F97CE000B5A40 /* Where Am I */,
+				5B189F421A247DE20098A968 /* Where Are Zones */,
 				5B6AAB4E1A1F4E66000B5A40 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -96,6 +126,7 @@
 			children = (
 				5B6AAB4D1A1F4E66000B5A40 /* Where.framework */,
 				5B6AABC81A1F97CE000B5A40 /* Where Am I.app */,
+				5B189F411A247DE20098A968 /* Where Are Zones */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -141,6 +172,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		5B189F401A247DE20098A968 /* Where Are Zones */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B189F471A247DE20098A968 /* Build configuration list for PBXNativeTarget "Where Are Zones" */;
+			buildPhases = (
+				5B189F3D1A247DE20098A968 /* Sources */,
+				5B189F3E1A247DE20098A968 /* Frameworks */,
+				5B189F3F1A247DE20098A968 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Where Are Zones";
+			productName = "Where Are Zones";
+			productReference = 5B189F411A247DE20098A968 /* Where Are Zones */;
+			productType = "com.apple.product-type.tool";
+		};
 		5B6AAB4C1A1F4E66000B5A40 /* Where */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5B6AAB631A1F4E66000B5A40 /* Build configuration list for PBXNativeTarget "Where" */;
@@ -187,6 +235,9 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Triceratops;
 				TargetAttributes = {
+					5B189F401A247DE20098A968 = {
+						CreatedOnToolsVersion = 6.1;
+					};
 					5B6AAB4C1A1F4E66000B5A40 = {
 						CreatedOnToolsVersion = 6.1;
 					};
@@ -210,6 +261,7 @@
 			targets = (
 				5B6AAB4C1A1F4E66000B5A40 /* Where */,
 				5B6AABC71A1F97CE000B5A40 /* Where Am I */,
+				5B189F401A247DE20098A968 /* Where Are Zones */,
 			);
 		};
 /* End PBXProject section */
@@ -234,6 +286,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5B189F3D1A247DE20098A968 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B189F441A247DE20098A968 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5B6AAB481A1F4E66000B5A40 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -275,6 +335,29 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5B189F451A247DE20098A968 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		5B189F461A247DE20098A968 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		5B6AAB611A1F4E66000B5A40 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -302,6 +385,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"PROJECT_DIR=@\\\"\"${PROJECT_DIR}\"\\\"",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -416,6 +500,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5B189F471A247DE20098A968 /* Build configuration list for PBXNativeTarget "Where Are Zones" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B189F451A247DE20098A968 /* Debug */,
+				5B189F461A247DE20098A968 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		5B6AAB471A1F4E66000B5A40 /* Build configuration list for PBXProject "Where" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
