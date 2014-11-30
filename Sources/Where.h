@@ -11,8 +11,8 @@
 @import SystemConfiguration.SCNetworkReachability;
 @import Darwin.POSIX.netinet;
 @import CoreLocation;
-#import <Where/NSLocale+Region.h>
-#import <Where/NSTimeZone+Region.h>
+#import "NSLocale+Region.h"
+#import "NSTimeZone+Region.h"
 
 
 /*! This small framework provides a way to locate the user of the current device.
