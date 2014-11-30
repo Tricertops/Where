@@ -147,7 +147,9 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
             if ( ! usage) {
                 NSLog(@"You should include NSLocationWhenInUseUsageDescription in your Info.plist to make AskForPermission option work.");
             }
-            [[self locationManager] requestWhenInUseAuthorization];
+            if ([[self locationManager] respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+                [[self locationManager] requestWhenInUseAuthorization];
+            }
         }
         BOOL useLocation = WhereHasOption(currentOptions, WhereOptionUseLocationServices);
         CLLocationDistance filter = (useLocation && shouldObserve ? 100 : CLLocationDistanceMax);
