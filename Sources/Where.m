@@ -74,7 +74,40 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
     [self detectWithOptions:WhereOptionDefault];
 }
 
++ (Where *)detectDebugging {
+    static Where *debugging = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *option = [[NSUserDefaults standardUserDefaults] stringForKey:@"WhereDebug"];
+        if ( ! option) return;
+        
+        NSString *regionCode = [NSLocale canonizeRegionCode:option];
+        if (regionCode) {
+            debugging = [Where instanceWithSource:WhereSourceNone
+                                           region:regionCode
+                                       coordinate:[NSLocale coordinateForRegion:regionCode]];
+        }
+        NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:option];
+        if (timeZone) {
+            debugging = [Where instanceWithSource:WhereSourceNone
+                                           region:timeZone.regionCode
+                                       coordinate:timeZone.coordinate];
+        }
+        
+        if (debugging) {
+            NSLog(@"We will pretend you are in %@.", debugging.regionName);
+        }
+    });
+    return debugging;
+}
+
 + (void)detectWithOptions:(WhereOptions)currentOptions {
+    Where *debugging = [self detectDebugging];
+    if (debugging) {
+        [self update:debugging];
+        return;
+    }
+    
     static WhereOptions previousOptions = WhereOptionNone;
     
     BOOL isUpToDate = WhereHasOption(previousOptions, WhereOptionUpdateContinuously);
@@ -412,13 +445,15 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
 }
 
 + (Where *)isHome {
-    return [self forSource:WhereSourceCellularIPAddress]
+    return [self detectDebugging]
+        ?: [self forSource:WhereSourceCellularIPAddress]
         ?: [self forSource:WhereSourceCarrier]
         ?: [self forSource:WhereSourceLocale];
 }
 
 + (Where *)amI {
-    return [self forSource:WhereSourceLocationServices]
+    return [self detectDebugging]
+        ?: [self forSource:WhereSourceLocationServices]
         ?: [self forSource:WhereSourceTimeZone]
         ?: [self forSource:WhereSourceWiFiIPAddress];
 }

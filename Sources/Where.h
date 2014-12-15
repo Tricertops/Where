@@ -22,6 +22,16 @@
  *  This framework doesn’t use CoreLocation and doesn’t need Location Services permissions.
  */
 
+#if DEBUG
+/*! Pass “-WhereDebug” as a launch argument, with a value as ISO code or a Time Zone identifier to test specific
+ *  location. When specified, the framework will ignore any other detection mechanisms and the source of the instances
+ *  will be None. Examples:
+ *    -WhereDebug US
+ *    -WhereDebug SVK
+ *    -WhereDebug Asia/Tokyo
+ */
+#endif
+
 
 FOUNDATION_EXPORT const double WhereVersionNumber;
 FOUNDATION_EXPORT const unsigned char WhereVersionString[];
