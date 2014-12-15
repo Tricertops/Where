@@ -76,6 +76,7 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
 
 + (Where *)detectDebugging {
     static Where *debugging = nil;
+#if DEBUG
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSString *option = [[NSUserDefaults standardUserDefaults] stringForKey:@"WhereDebug"];
@@ -98,6 +99,7 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
             NSLog(@"We will pretend you are in %@.", debugging.regionName);
         }
     });
+#endif
     return debugging;
 }
 
