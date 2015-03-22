@@ -178,7 +178,7 @@ int main(int argc, const char * argv[]) {
     zone.identifier = identifier;
     zone.region = link.region;
     zone.cooridnate = link.cooridnate;
-    zone.comment = [NSString stringWithFormat:@"Link: %@", link.identifier];
+    zone.comment = [NSString stringWithFormat:@"Link: %@", link.identifier]; //TODO: Store link
     
     return zone;
 }
