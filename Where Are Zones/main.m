@@ -35,6 +35,7 @@ static Coordinate const CoordinateZero = { .latitude = 0, .longitude = .0 };
 @property NSString *identifier;
 @property NSString *region;
 @property Coordinate cooridnate;
+@property NSString *link;
 @property NSString *comment;
 
 @end
@@ -78,8 +79,6 @@ int main(int argc, const char * argv[]) {
         NSString *backwardString = [NSString stringWithContentsOfURL:backwardURL encoding:NSUTF8StringEncoding error:&error];
         if ( ! backwardString) [self fail:error];
         [self loadBackward:backwardString];
-    }{
-        [self addManualEntries];
     }
     NSSortDescriptor *byIdentifier = [NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:YES];
     [self.zones sortUsingDescriptors:@[ byIdentifier ]];
@@ -118,14 +117,6 @@ int main(int argc, const char * argv[]) {
 }
 
 
-- (void)addManualEntries {
-    // On the 2013e release of the tz database, America/Montreal was one of the zones removed from zone.tab, but it is still available in the northamerica file. It was because the group maintaining the database "incorrectly thought that Montreal differed from Toronto in the early 1970s".
-    // NSTimeZone list this zone in +knowTimeZoneNames array.
-    Zone *montreal = [self createZone:@"America/Montreal" linkTo:@"America/Toronto"];
-    [self.zones addObject:montreal];
-}
-
-
 - (void)serializeToPropertyList {
     NSMutableDictionary *plist = [NSMutableDictionary new];
     for (Zone *zone in self.zones) {
@@ -145,9 +136,15 @@ int main(int argc, const char * argv[]) {
     NSMutableArray *lines = [NSMutableArray new];
     for (Zone *zone in self.zones) {
         //    @"Europe/Bratislava": @[ @"SK", @48.15, @17.11666 ],
-        NSString *comment = (zone.comment? [NSString stringWithFormat:@" // %@", zone.comment] : @"");
-        NSString *line = [NSString stringWithFormat:@"    @\"%@\": @[ @\"%@\", @%.5f, @%.5f ],%@",
-                          zone.identifier, zone.region, zone.cooridnate.latitude, zone.cooridnate.longitude, comment];
+        NSMutableString *line = [NSMutableString new];
+        [line appendFormat:@"    @\"%@\": @[ ", zone.identifier];
+        [line appendFormat:@"@\"%@\"", zone.region];
+        [line appendFormat:@", @%.5f", zone.cooridnate.latitude];
+        [line appendFormat:@", @%.5f", zone.cooridnate.longitude];
+        if (zone.link.length) [line appendFormat:@", @\"%@\"", zone.link];
+        [line appendFormat:@" ],"];
+        if (zone.comment.length) [line appendFormat:@" // %@", zone.comment];
+        
         [lines addObject:line];
     }
     NSLog(@"Code: \n%@", [lines componentsJoinedByString:@"\n"]);
@@ -178,7 +175,7 @@ int main(int argc, const char * argv[]) {
     zone.identifier = identifier;
     zone.region = link.region;
     zone.cooridnate = link.cooridnate;
-    zone.comment = [NSString stringWithFormat:@"Link: %@", link.identifier]; //TODO: Store link
+    zone.link = link.identifier;
     
     return zone;
 }

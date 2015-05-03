@@ -69,7 +69,7 @@
                   @"Africa/Addis_Ababa": @[ @"ET", @9.03333, @38.70000 ],
                   @"Africa/Algiers": @[ @"DZ", @36.78333, @3.05000 ],
                   @"Africa/Asmara": @[ @"ER", @15.33333, @38.88333 ],
-                  @"Africa/Asmera": @[ @"ER", @15.33333, @38.88333, @"Africa/Asmara" ], // Link
+                  @"Africa/Asmera": @[ @"KE", @-0.71667, @36.81667, @"Africa/Nairobi" ],
                   @"Africa/Bamako": @[ @"ML", @12.65000, @-8.00000 ],
                   @"Africa/Bangui": @[ @"CF", @4.36667, @18.58333 ],
                   @"Africa/Banjul": @[ @"GM", @13.46667, @-15.35000 ],
@@ -114,7 +114,7 @@
                   @"Africa/Ouagadougou": @[ @"BF", @12.36667, @-0.48333 ],
                   @"Africa/Porto-Novo": @[ @"BJ", @6.48333, @2.61667 ],
                   @"Africa/Sao_Tome": @[ @"ST", @0.33333, @6.73333 ],
-                  @"Africa/Timbuktu": @[ @"CI", @5.31667, @-3.96667, @"Africa/Abidjan" ], // Link
+                  @"Africa/Timbuktu": @[ @"CI", @5.31667, @-3.96667, @"Africa/Abidjan" ],
                   @"Africa/Tripoli": @[ @"LY", @32.90000, @13.18333 ],
                   @"Africa/Tunis": @[ @"TN", @36.80000, @10.18333 ],
                   @"Africa/Windhoek": @[ @"NA", @-21.43333, @17.10000 ],
@@ -125,7 +125,7 @@
                   @"America/Araguaina": @[ @"BR", @-6.80000, @-47.80000 ], // Tocantins
                   @"America/Argentina/Buenos_Aires": @[ @"AR", @-33.40000, @-57.55000 ], // Buenos Aires (BA, CF)
                   @"America/Argentina/Catamarca": @[ @"AR", @-27.53333, @-64.21667 ], // Catamarca (CT), Chubut (CH)
-                  @"America/Argentina/ComodRivadavia": @[ @"AR", @-27.53333, @-64.21667, @"America/Argentina/Catamarca" ], // Link
+                  @"America/Argentina/ComodRivadavia": @[ @"AR", @-27.53333, @-64.21667, @"America/Argentina/Catamarca" ],
                   @"America/Argentina/Cordoba": @[ @"AR", @-30.60000, @-63.81667 ], // most locations (CB, CC, CN, ER, FM, MN, SE, SF)
                   @"America/Argentina/Jujuy": @[ @"AR", @-23.81667, @-64.70000 ], // Jujuy (JY)
                   @"America/Argentina/La_Rioja": @[ @"AR", @-28.56667, @-65.15000 ], // La Rioja (LR)
@@ -139,7 +139,7 @@
                   @"America/Aruba": @[ @"AW", @12.50000, @-68.03333 ],
                   @"America/Asuncion": @[ @"PY", @-24.73333, @-56.33333 ],
                   @"America/Atikokan": @[ @"CA", @48.75861, @-90.37833 ], // Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut
-                  @"America/Atka": @[ @"US", @51.88000, @-175.34194, @"America/Adak" ], // Link
+                  @"America/Atka": @[ @"US", @51.88000, @-175.34194, @"America/Adak" ],
                   @"America/Bahia": @[ @"BR", @-11.01667, @-37.48333 ], // Bahia
                   @"America/Bahia_Banderas": @[ @"MX", @20.80000, @-104.75000 ], // Mexican Central Time - Bahia de Banderas
                   @"America/Barbados": @[ @"BB", @13.10000, @-58.38333 ],
@@ -149,18 +149,18 @@
                   @"America/Boa_Vista": @[ @"BR", @2.81667, @-59.33333 ], // Roraima
                   @"America/Bogota": @[ @"CO", @4.60000, @-73.91667 ],
                   @"America/Boise": @[ @"US", @43.61361, @-115.79750 ], // Mountain Time - south Idaho & east Oregon
-                  @"America/Buenos_Aires": @[ @"AR", @-33.40000, @-57.55000, @"America/Argentina/Buenos_Aires" ], // Link
+                  @"America/Buenos_Aires": @[ @"AR", @-33.40000, @-57.55000, @"America/Argentina/Buenos_Aires" ],
                   @"America/Cambridge_Bay": @[ @"CA", @69.11389, @-104.94722 ], // Mountain Time - west Nunavut
                   @"America/Campo_Grande": @[ @"BR", @-19.55000, @-53.38333 ], // Mato Grosso do Sul
-                  @"America/Cancun": @[ @"MX", @21.08333, @-85.23333 ], // Central Time - Quintana Roo
+                  @"America/Cancun": @[ @"MX", @21.08333, @-85.23333 ], // Eastern Standard Time - Quintana Roo
                   @"America/Caracas": @[ @"VE", @10.50000, @-65.06667 ],
-                  @"America/Catamarca": @[ @"AR", @-27.53333, @-64.21667, @"America/Argentina/Catamarca" ], // Link
+                  @"America/Catamarca": @[ @"AR", @-27.53333, @-64.21667, @"America/Argentina/Catamarca" ],
                   @"America/Cayenne": @[ @"GF", @4.93333, @-51.66667 ],
                   @"America/Cayman": @[ @"KY", @19.30000, @-80.61667 ],
                   @"America/Chicago": @[ @"US", @41.85000, @-86.35000 ], // Central Time
                   @"America/Chihuahua": @[ @"MX", @28.63333, @-105.91667 ], // Mexican Mountain Time - Chihuahua away from US border
-                  @"America/Coral_Harbour": @[ @"CA", @48.75861, @-90.37833, @"America/Atikokan" ], // Link
-                  @"America/Cordoba": @[ @"AR", @-30.60000, @-63.81667, @"America/Argentina/Cordoba" ], // Link
+                  @"America/Coral_Harbour": @[ @"CA", @48.75861, @-90.37833, @"America/Atikokan" ],
+                  @"America/Cordoba": @[ @"AR", @-30.60000, @-63.81667, @"America/Argentina/Cordoba" ],
                   @"America/Costa_Rica": @[ @"CR", @9.93333, @-83.91667 ],
                   @"America/Creston": @[ @"CA", @49.10000, @-115.48333 ], // Mountain Standard Time - Creston, British Columbia
                   @"America/Cuiaba": @[ @"BR", @-14.41667, @-55.91667 ], // Mato Grosso
@@ -174,8 +174,8 @@
                   @"America/Edmonton": @[ @"CA", @53.55000, @-112.53333 ], // Mountain Time - Alberta, east British Columbia & west Saskatchewan
                   @"America/Eirunepe": @[ @"BR", @-5.33333, @-68.13333 ], // W Amazonas
                   @"America/El_Salvador": @[ @"SV", @13.70000, @-88.80000 ],
-                  @"America/Ensenada": @[ @"MX", @32.53333, @-116.98333, @"America/Tijuana" ], // Link
-                  @"America/Fort_Wayne": @[ @"US", @39.76833, @-85.84194, @"America/Indiana/Indianapolis" ], // Link
+                  @"America/Ensenada": @[ @"MX", @32.53333, @-116.98333, @"America/Tijuana" ],
+                  @"America/Fort_Wayne": @[ @"US", @39.76833, @-85.84194, @"America/Indiana/Indianapolis" ],
                   @"America/Fortaleza": @[ @"BR", @-2.28333, @-37.50000 ], // NE Brazil (MA, PI, CE, RN, PB)
                   @"America/Glace_Bay": @[ @"CA", @46.20000, @-58.05000 ], // Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971
                   @"America/Godthab": @[ @"GL", @64.18333, @-50.26667 ], // most locations
@@ -197,20 +197,20 @@
                   @"America/Indiana/Vevay": @[ @"US", @38.74778, @-84.93278 ], // Eastern Time - Indiana - Switzerland County
                   @"America/Indiana/Vincennes": @[ @"US", @38.67722, @-86.47139 ], // Eastern Time - Indiana - Daviess, Dubois, Knox & Martin Counties
                   @"America/Indiana/Winamac": @[ @"US", @41.05139, @-85.39694 ], // Eastern Time - Indiana - Pulaski County
-                  @"America/Indianapolis": @[ @"US", @39.76833, @-85.84194, @"America/Indiana/Indianapolis" ], // Link
+                  @"America/Indianapolis": @[ @"US", @39.76833, @-85.84194, @"America/Indiana/Indianapolis" ],
                   @"America/Inuvik": @[ @"CA", @68.34972, @-132.28333 ], // Mountain Time - west Northwest Territories
                   @"America/Iqaluit": @[ @"CA", @63.73333, @-67.53333 ], // Eastern Time - east Nunavut - most locations
                   @"America/Jamaica": @[ @"JM", @17.96806, @-75.20667 ],
-                  @"America/Jujuy": @[ @"AR", @-23.81667, @-64.70000, @"America/Argentina/Jujuy" ], // Link
+                  @"America/Jujuy": @[ @"AR", @-23.81667, @-64.70000, @"America/Argentina/Jujuy" ],
                   @"America/Juneau": @[ @"US", @58.30194, @-133.58028 ], // Alaska Time - Alaska panhandle
                   @"America/Kentucky/Louisville": @[ @"US", @38.25417, @-84.24056 ], // Eastern Time - Kentucky - Louisville area
                   @"America/Kentucky/Monticello": @[ @"US", @36.82972, @-83.15083 ], // Eastern Time - Kentucky - Wayne County
-                  @"America/Knox_IN": @[ @"US", @41.29583, @-85.37500, @"America/Indiana/Knox" ], // Link
+                  @"America/Knox_IN": @[ @"US", @41.29583, @-85.37500, @"America/Indiana/Knox" ],
                   @"America/Kralendijk": @[ @"BQ", @12.15083, @-67.72333 ],
                   @"America/La_Paz": @[ @"BO", @-15.50000, @-67.85000 ],
                   @"America/Lima": @[ @"PE", @-11.95000, @-76.95000 ],
                   @"America/Los_Angeles": @[ @"US", @34.05222, @-117.75722 ], // Pacific Time
-                  @"America/Louisville": @[ @"US", @38.25417, @-84.24056, @"America/Kentucky/Louisville" ], // Link
+                  @"America/Louisville": @[ @"US", @38.25417, @-84.24056, @"America/Kentucky/Louisville" ],
                   @"America/Lower_Princes": @[ @"SX", @18.05139, @-62.95278 ],
                   @"America/Maceio": @[ @"BR", @-8.33333, @-34.28333 ], // Alagoas, Sergipe
                   @"America/Managua": @[ @"NI", @12.15000, @-85.71667 ],
@@ -219,7 +219,7 @@
                   @"America/Martinique": @[ @"MQ", @14.60000, @-60.91667 ],
                   @"America/Matamoros": @[ @"MX", @25.83333, @-96.50000 ], // US Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas near US border
                   @"America/Mazatlan": @[ @"MX", @23.21667, @-105.58333 ], // Mountain Time - S Baja, Nayarit, Sinaloa
-                  @"America/Mendoza": @[ @"AR", @-31.11667, @-67.18333, @"America/Argentina/Mendoza" ], // Link
+                  @"America/Mendoza": @[ @"AR", @-31.11667, @-67.18333, @"America/Argentina/Mendoza" ],
                   @"America/Menominee": @[ @"US", @45.10778, @-86.38583 ], // Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties
                   @"America/Merida": @[ @"MX", @20.96667, @-88.38333 ], // Central Time - Campeche, Yucatan
                   @"America/Metlakatla": @[ @"US", @55.12694, @-130.42361 ], // Pacific Standard Time - Annette Island, Alaska
@@ -228,7 +228,7 @@
                   @"America/Moncton": @[ @"CA", @46.10000, @-63.21667 ], // Atlantic Time - New Brunswick
                   @"America/Monterrey": @[ @"MX", @25.66667, @-99.68333 ], // Mexican Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas away from US border
                   @"America/Montevideo": @[ @"UY", @-33.11667, @-55.81667 ],
-                  @"America/Montreal": @[ @"CA", @43.65000, @-78.61667, @"America/Toronto" ], // Link
+                  @"America/Montreal": @[ @"CA", @43.65000, @-78.61667, @"America/Toronto" ],
                   @"America/Montserrat": @[ @"MS", @16.71667, @-61.78333 ],
                   @"America/Nassau": @[ @"BS", @25.08333, @-76.65000 ],
                   @"America/New_York": @[ @"US", @40.71417, @-73.99361 ], // Eastern Time
@@ -245,7 +245,7 @@
                   @"America/Phoenix": @[ @"US", @33.44833, @-111.92667 ], // Mountain Standard Time - Arizona (except Navajo)
                   @"America/Port-au-Prince": @[ @"HT", @18.53333, @-71.66667 ],
                   @"America/Port_of_Spain": @[ @"TT", @10.65000, @-60.48333 ],
-                  @"America/Porto_Acre": @[ @"BR", @-8.03333, @-66.20000, @"America/Rio_Branco" ], // Link
+                  @"America/Porto_Acre": @[ @"BR", @-8.03333, @-66.20000, @"America/Rio_Branco" ],
                   @"America/Porto_Velho": @[ @"BR", @-7.23333, @-62.10000 ], // Rondonia
                   @"America/Puerto_Rico": @[ @"PR", @18.46833, @-65.89389 ],
                   @"America/Rainy_River": @[ @"CA", @48.71667, @-93.43333 ], // Central Time - Rainy River & Fort Frances, Ontario
@@ -254,14 +254,14 @@
                   @"America/Regina": @[ @"CA", @50.40000, @-103.35000 ], // Central Standard Time - Saskatchewan - most locations
                   @"America/Resolute": @[ @"CA", @74.69556, @-93.17083 ], // Central Time - Resolute, Nunavut
                   @"America/Rio_Branco": @[ @"BR", @-8.03333, @-66.20000 ], // Acre
-                  @"America/Rosario": @[ @"AR", @-30.60000, @-63.81667, @"America/Argentina/Cordoba" ], // Link
+                  @"America/Rosario": @[ @"AR", @-30.60000, @-63.81667, @"America/Argentina/Cordoba" ],
                   @"America/Santa_Isabel": @[ @"MX", @30.30000, @-113.13333 ], // Mexican Pacific Time - Baja California away from US border
                   @"America/Santarem": @[ @"BR", @-1.56667, @-53.13333 ], // W Para
                   @"America/Santiago": @[ @"CL", @-32.55000, @-69.33333 ], // most locations
                   @"America/Santo_Domingo": @[ @"DO", @18.46667, @-68.10000 ],
                   @"America/Sao_Paulo": @[ @"BR", @-22.46667, @-45.38333 ], // S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)
                   @"America/Scoresbysund": @[ @"GL", @70.48333, @-20.03333 ], // Scoresbysund / Ittoqqortoormiit
-                  @"America/Shiprock": @[ @"US", @39.73917, @-103.01583, @"America/Denver" ], // Link
+                  @"America/Shiprock": @[ @"US", @39.73917, @-103.01583, @"America/Denver" ],
                   @"America/Sitka": @[ @"US", @57.17639, @-134.69806 ], // Alaska Time - southeast Alaska panhandle
                   @"America/St_Barthelemy": @[ @"BL", @17.88333, @-61.15000 ],
                   @"America/St_Johns": @[ @"CA", @47.56667, @-51.28333 ], // Newfoundland Time, including SE Labrador
@@ -277,7 +277,7 @@
                   @"America/Toronto": @[ @"CA", @43.65000, @-78.61667 ], // Eastern Time - Ontario & Quebec - most locations
                   @"America/Tortola": @[ @"VG", @18.45000, @-63.38333 ],
                   @"America/Vancouver": @[ @"CA", @49.26667, @-122.88333 ], // Pacific Time - west British Columbia
-                  @"America/Virgin": @[ @"TT", @10.65000, @-60.48333, @"America/Port_of_Spain" ], // Link
+                  @"America/Virgin": @[ @"TT", @10.65000, @-60.48333, @"America/Port_of_Spain" ],
                   @"America/Whitehorse": @[ @"CA", @60.71667, @-134.95000 ], // Pacific Time - south Yukon
                   @"America/Winnipeg": @[ @"CA", @49.88333, @-96.85000 ], // Central Time - Manitoba & west Ontario
                   @"America/Yakutat": @[ @"US", @59.54694, @-138.27278 ], // Alaska Time - Alaska panhandle neck
@@ -290,7 +290,7 @@
                   @"Antarctica/McMurdo": @[ @"AQ", @-76.16667, @166.60000 ], // McMurdo, South Pole, Scott (New Zealand time)
                   @"Antarctica/Palmer": @[ @"AQ", @-63.20000, @-63.90000 ], // Palmer Station, Anvers Island
                   @"Antarctica/Rothera": @[ @"AQ", @-66.43333, @-67.86667 ], // Rothera Station, Adelaide Island
-                  @"Antarctica/South_Pole": @[ @"NZ", @-35.13333, @174.76667, @"Pacific/Auckland" ], // Link
+                  @"Antarctica/South_Pole": @[ @"NZ", @-35.13333, @174.76667, @"Pacific/Auckland" ],
                   @"Antarctica/Syowa": @[ @"AQ", @-68.99389, @39.59000 ], // Syowa Station, E Ongul I
                   @"Antarctica/Troll": @[ @"AQ", @-71.98861, @2.53500 ], // Troll Station, Queen Maud Land
                   @"Antarctica/Vostok": @[ @"AQ", @-77.60000, @106.90000 ], // Vostok Station, Lake Vostok
@@ -302,7 +302,7 @@
                   @"Asia/Aqtau": @[ @"KZ", @44.51667, @50.26667 ], // Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)
                   @"Asia/Aqtobe": @[ @"KZ", @50.28333, @57.16667 ], // Aqtobe (Aktobe)
                   @"Asia/Ashgabat": @[ @"TM", @37.95000, @58.38333 ],
-                  @"Asia/Ashkhabad": @[ @"TM", @37.95000, @58.38333, @"Asia/Ashgabat" ], // Link
+                  @"Asia/Ashkhabad": @[ @"TM", @37.95000, @58.38333, @"Asia/Ashgabat" ],
                   @"Asia/Baghdad": @[ @"IQ", @33.35000, @44.41667 ],
                   @"Asia/Bahrain": @[ @"BH", @26.38333, @50.58333 ],
                   @"Asia/Baku": @[ @"AZ", @40.38333, @49.85000 ],
@@ -310,20 +310,20 @@
                   @"Asia/Beirut": @[ @"LB", @33.88333, @35.50000 ],
                   @"Asia/Bishkek": @[ @"KG", @42.90000, @74.60000 ],
                   @"Asia/Brunei": @[ @"BN", @4.93333, @114.91667 ],
-                  @"Asia/Calcutta": @[ @"IN", @22.53333, @88.36667, @"Asia/Kolkata" ], // Link
+                  @"Asia/Calcutta": @[ @"IN", @22.53333, @88.36667, @"Asia/Kolkata" ],
                   @"Asia/Chita": @[ @"RU", @52.05000, @113.46667 ], // Moscow+06 (Moscow+05 after 2014-10-26) - Zabaykalsky
                   @"Asia/Choibalsan": @[ @"MN", @48.06667, @114.50000 ], // Dornod, Sukhbaatar
-                  @"Asia/Chongqing": @[ @"CN", @31.23333, @121.46667, @"Asia/Shanghai" ], // Link
-                  @"Asia/Chungking": @[ @"CN", @31.23333, @121.46667, @"Asia/Shanghai" ], // Link
+                  @"Asia/Chongqing": @[ @"CN", @31.23333, @121.46667, @"Asia/Shanghai" ],
+                  @"Asia/Chungking": @[ @"CN", @31.23333, @121.46667, @"Asia/Shanghai" ],
                   @"Asia/Colombo": @[ @"LK", @6.93333, @79.85000 ],
-                  @"Asia/Dacca": @[ @"BD", @23.71667, @90.41667, @"Asia/Dhaka" ], // Link
+                  @"Asia/Dacca": @[ @"BD", @23.71667, @90.41667, @"Asia/Dhaka" ],
                   @"Asia/Damascus": @[ @"SY", @33.50000, @36.30000 ],
                   @"Asia/Dhaka": @[ @"BD", @23.71667, @90.41667 ],
                   @"Asia/Dili": @[ @"TL", @-7.45000, @125.58333 ],
                   @"Asia/Dubai": @[ @"AE", @25.30000, @55.30000 ],
                   @"Asia/Dushanbe": @[ @"TJ", @38.58333, @68.80000 ],
                   @"Asia/Gaza": @[ @"PS", @31.50000, @34.46667 ], // Gaza Strip
-                  @"Asia/Harbin": @[ @"CN", @31.23333, @121.46667, @"Asia/Shanghai" ], // Link
+                  @"Asia/Harbin": @[ @"CN", @31.23333, @121.46667, @"Asia/Shanghai" ],
                   @"Asia/Hebron": @[ @"PS", @31.53333, @35.09500 ], // West Bank
                   @"Asia/Ho_Chi_Minh": @[ @"VN", @10.75000, @106.66667 ],
                   @"Asia/Hong_Kong": @[ @"HK", @22.28333, @114.15000 ],
@@ -335,16 +335,16 @@
                   @"Asia/Kabul": @[ @"AF", @34.51667, @69.20000 ],
                   @"Asia/Kamchatka": @[ @"RU", @53.01667, @158.65000 ], // Moscow+08 (Moscow+09 after 2014-10-26) - Kamchatka
                   @"Asia/Karachi": @[ @"PK", @24.86667, @67.05000 ],
-                  @"Asia/Kashgar": @[ @"CN", @43.80000, @87.58333, @"Asia/Urumqi" ], // Link
+                  @"Asia/Kashgar": @[ @"CN", @43.80000, @87.58333, @"Asia/Urumqi" ],
                   @"Asia/Kathmandu": @[ @"NP", @27.71667, @85.31667 ],
-                  @"Asia/Katmandu": @[ @"NP", @27.71667, @85.31667, @"Asia/Kathmandu" ], // Link
+                  @"Asia/Katmandu": @[ @"NP", @27.71667, @85.31667, @"Asia/Kathmandu" ],
                   @"Asia/Khandyga": @[ @"RU", @62.65639, @135.55389 ], // Moscow+06 - Tomponsky, Ust-Maysky
                   @"Asia/Kolkata": @[ @"IN", @22.53333, @88.36667 ],
                   @"Asia/Krasnoyarsk": @[ @"RU", @56.01667, @92.83333 ], // Moscow+04 - Yenisei River
                   @"Asia/Kuala_Lumpur": @[ @"MY", @3.16667, @101.70000 ], // peninsular Malaysia
                   @"Asia/Kuching": @[ @"MY", @1.55000, @110.33333 ], // Sabah & Sarawak
                   @"Asia/Kuwait": @[ @"KW", @29.33333, @47.98333 ],
-                  @"Asia/Macao": @[ @"MO", @22.23333, @113.58333, @"Asia/Macau" ], // Link
+                  @"Asia/Macao": @[ @"MO", @22.23333, @113.58333, @"Asia/Macau" ],
                   @"Asia/Macau": @[ @"MO", @22.23333, @113.58333 ],
                   @"Asia/Magadan": @[ @"RU", @59.56667, @150.80000 ], // Moscow+08 (Moscow+07 after 2014-10-26) - Magadan
                   @"Asia/Makassar": @[ @"ID", @-4.88333, @119.40000 ], // east & south Borneo, Sulawesi (Celebes), Bali, Nusa Tengarra, west Timor
@@ -362,7 +362,7 @@
                   @"Asia/Qyzylorda": @[ @"KZ", @44.80000, @65.46667 ], // Qyzylorda (Kyzylorda, Kzyl-Orda)
                   @"Asia/Rangoon": @[ @"MM", @16.78333, @96.16667 ],
                   @"Asia/Riyadh": @[ @"SA", @24.63333, @46.71667 ],
-                  @"Asia/Saigon": @[ @"VN", @10.75000, @106.66667, @"Asia/Ho_Chi_Minh" ], // Link
+                  @"Asia/Saigon": @[ @"VN", @10.75000, @106.66667, @"Asia/Ho_Chi_Minh" ],
                   @"Asia/Sakhalin": @[ @"RU", @46.96667, @142.70000 ], // Moscow+07 - Sakhalin Island
                   @"Asia/Samarkand": @[ @"UZ", @39.66667, @66.80000 ], // west Uzbekistan
                   @"Asia/Seoul": @[ @"KR", @37.55000, @126.96667 ],
@@ -373,13 +373,13 @@
                   @"Asia/Tashkent": @[ @"UZ", @41.33333, @69.30000 ], // east Uzbekistan
                   @"Asia/Tbilisi": @[ @"GE", @41.71667, @44.81667 ],
                   @"Asia/Tehran": @[ @"IR", @35.66667, @51.43333 ],
-                  @"Asia/Tel_Aviv": @[ @"IL", @31.78056, @35.22389, @"Asia/Jerusalem" ], // Link
-                  @"Asia/Thimbu": @[ @"BT", @27.46667, @89.65000, @"Asia/Thimphu" ], // Link
+                  @"Asia/Tel_Aviv": @[ @"IL", @31.78056, @35.22389, @"Asia/Jerusalem" ],
+                  @"Asia/Thimbu": @[ @"BT", @27.46667, @89.65000, @"Asia/Thimphu" ],
                   @"Asia/Thimphu": @[ @"BT", @27.46667, @89.65000 ],
                   @"Asia/Tokyo": @[ @"JP", @35.65444, @139.74472 ],
-                  @"Asia/Ujung_Pandang": @[ @"ID", @-4.88333, @119.40000, @"Asia/Makassar" ], // Link
+                  @"Asia/Ujung_Pandang": @[ @"ID", @-4.88333, @119.40000, @"Asia/Makassar" ],
                   @"Asia/Ulaanbaatar": @[ @"MN", @47.91667, @106.88333 ], // most locations
-                  @"Asia/Ulan_Bator": @[ @"MN", @47.91667, @106.88333, @"Asia/Ulaanbaatar" ], // Link
+                  @"Asia/Ulan_Bator": @[ @"MN", @47.91667, @106.88333, @"Asia/Ulaanbaatar" ],
                   @"Asia/Urumqi": @[ @"CN", @43.80000, @87.58333 ], // Xinjiang Time
                   @"Asia/Ust-Nera": @[ @"RU", @64.56028, @143.22667 ], // Moscow+07 - Oymyakonsky
                   @"Asia/Vientiane": @[ @"LA", @17.96667, @102.60000 ],
@@ -391,59 +391,59 @@
                   @"Atlantic/Bermuda": @[ @"BM", @32.28333, @-63.23333 ],
                   @"Atlantic/Canary": @[ @"ES", @28.10000, @-14.60000 ], // Canary Islands
                   @"Atlantic/Cape_Verde": @[ @"CV", @14.91667, @-22.48333 ],
-                  @"Atlantic/Faeroe": @[ @"FO", @62.01667, @-5.23333, @"Atlantic/Faroe" ], // Link
+                  @"Atlantic/Faeroe": @[ @"FO", @62.01667, @-5.23333, @"Atlantic/Faroe" ],
                   @"Atlantic/Faroe": @[ @"FO", @62.01667, @-5.23333 ],
-                  @"Atlantic/Jan_Mayen": @[ @"NO", @59.91667, @10.75000, @"Europe/Oslo" ], // Link
+                  @"Atlantic/Jan_Mayen": @[ @"NO", @59.91667, @10.75000, @"Europe/Oslo" ],
                   @"Atlantic/Madeira": @[ @"PT", @32.63333, @-15.10000 ], // Madeira Islands
                   @"Atlantic/Reykjavik": @[ @"IS", @64.15000, @-20.15000 ],
                   @"Atlantic/South_Georgia": @[ @"GS", @-53.73333, @-35.46667 ],
                   @"Atlantic/St_Helena": @[ @"SH", @-14.08333, @-4.30000 ],
                   @"Atlantic/Stanley": @[ @"FK", @-50.30000, @-56.15000 ],
-                  @"Australia/ACT": @[ @"AU", @-32.13333, @151.21667, @"Australia/Sydney" ], // Link
+                  @"Australia/ACT": @[ @"AU", @-32.13333, @151.21667, @"Australia/Sydney" ],
                   @"Australia/Adelaide": @[ @"AU", @-33.08333, @138.58333 ], // South Australia
                   @"Australia/Brisbane": @[ @"AU", @-26.53333, @153.03333 ], // Queensland - most locations
                   @"Australia/Broken_Hill": @[ @"AU", @-30.05000, @141.45000 ], // New South Wales - Yancowinna
-                  @"Australia/Canberra": @[ @"AU", @-32.13333, @151.21667, @"Australia/Sydney" ], // Link
+                  @"Australia/Canberra": @[ @"AU", @-32.13333, @151.21667, @"Australia/Sydney" ],
                   @"Australia/Currie": @[ @"AU", @-38.06667, @143.86667 ], // Tasmania - King Island
                   @"Australia/Darwin": @[ @"AU", @-11.53333, @130.83333 ], // Northern Territory
                   @"Australia/Eucla": @[ @"AU", @-30.28333, @128.86667 ], // Western Australia - Eucla area
                   @"Australia/Hobart": @[ @"AU", @-41.11667, @147.31667 ], // Tasmania - most locations
-                  @"Australia/LHI": @[ @"AU", @-30.45000, @159.08333, @"Australia/Lord_Howe" ], // Link
+                  @"Australia/LHI": @[ @"AU", @-30.45000, @159.08333, @"Australia/Lord_Howe" ],
                   @"Australia/Lindeman": @[ @"AU", @-19.73333, @149.00000 ], // Queensland - Holiday Islands
                   @"Australia/Lord_Howe": @[ @"AU", @-30.45000, @159.08333 ], // Lord Howe Island
                   @"Australia/Melbourne": @[ @"AU", @-36.18333, @144.96667 ], // Victoria
-                  @"Australia/NSW": @[ @"AU", @-32.13333, @151.21667, @"Australia/Sydney" ], // Link
-                  @"Australia/North": @[ @"AU", @-11.53333, @130.83333, @"Australia/Darwin" ], // Link
+                  @"Australia/NSW": @[ @"AU", @-32.13333, @151.21667, @"Australia/Sydney" ],
+                  @"Australia/North": @[ @"AU", @-11.53333, @130.83333, @"Australia/Darwin" ],
                   @"Australia/Perth": @[ @"AU", @-30.05000, @115.85000 ], // Western Australia - most locations
-                  @"Australia/Queensland": @[ @"AU", @-26.53333, @153.03333, @"Australia/Brisbane" ], // Link
-                  @"Australia/South": @[ @"AU", @-33.08333, @138.58333, @"Australia/Adelaide" ], // Link
+                  @"Australia/Queensland": @[ @"AU", @-26.53333, @153.03333, @"Australia/Brisbane" ],
+                  @"Australia/South": @[ @"AU", @-33.08333, @138.58333, @"Australia/Adelaide" ],
                   @"Australia/Sydney": @[ @"AU", @-32.13333, @151.21667 ], // New South Wales - most locations
-                  @"Australia/Tasmania": @[ @"AU", @-41.11667, @147.31667, @"Australia/Hobart" ], // Link
-                  @"Australia/Victoria": @[ @"AU", @-36.18333, @144.96667, @"Australia/Melbourne" ], // Link
-                  @"Australia/West": @[ @"AU", @-30.05000, @115.85000, @"Australia/Perth" ], // Link
-                  @"Australia/Yancowinna": @[ @"AU", @-30.05000, @141.45000, @"Australia/Broken_Hill" ], // Link
-                  @"Brazil/Acre": @[ @"BR", @-8.03333, @-66.20000, @"America/Rio_Branco" ], // Link
-                  @"Brazil/DeNoronha": @[ @"BR", @-2.15000, @-31.58333, @"America/Noronha" ], // Link
-                  @"Brazil/East": @[ @"BR", @-22.46667, @-45.38333, @"America/Sao_Paulo" ], // Link
-                  @"Brazil/West": @[ @"BR", @-2.86667, @-59.98333, @"America/Manaus" ], // Link
-                  @"Canada/Atlantic": @[ @"CA", @44.65000, @-62.40000, @"America/Halifax" ], // Link
-                  @"Canada/Central": @[ @"CA", @49.88333, @-96.85000, @"America/Winnipeg" ], // Link
-                  @"Canada/East-Saskatchewan": @[ @"CA", @50.40000, @-103.35000, @"America/Regina" ], // Link
-                  @"Canada/Eastern": @[ @"CA", @43.65000, @-78.61667, @"America/Toronto" ], // Link
-                  @"Canada/Mountain": @[ @"CA", @53.55000, @-112.53333, @"America/Edmonton" ], // Link
-                  @"Canada/Newfoundland": @[ @"CA", @47.56667, @-51.28333, @"America/St_Johns" ], // Link
-                  @"Canada/Pacific": @[ @"CA", @49.26667, @-122.88333, @"America/Vancouver" ], // Link
-                  @"Canada/Saskatchewan": @[ @"CA", @50.40000, @-103.35000, @"America/Regina" ], // Link
-                  @"Canada/Yukon": @[ @"CA", @60.71667, @-134.95000, @"America/Whitehorse" ], // Link
-                  @"Chile/Continental": @[ @"CL", @-32.55000, @-69.33333, @"America/Santiago" ], // Link
-                  @"Chile/EasterIsland": @[ @"CL", @-26.85000, @-108.56667, @"Pacific/Easter" ], // Link
-                  @"Cuba": @[ @"CU", @23.13333, @-81.63333, @"America/Havana" ], // Link
-                  @"Egypt": @[ @"EG", @30.05000, @31.25000, @"Africa/Cairo" ], // Link
-                  @"Eire": @[ @"IE", @53.33333, @-5.75000, @"Europe/Dublin" ], // Link
+                  @"Australia/Tasmania": @[ @"AU", @-41.11667, @147.31667, @"Australia/Hobart" ],
+                  @"Australia/Victoria": @[ @"AU", @-36.18333, @144.96667, @"Australia/Melbourne" ],
+                  @"Australia/West": @[ @"AU", @-30.05000, @115.85000, @"Australia/Perth" ],
+                  @"Australia/Yancowinna": @[ @"AU", @-30.05000, @141.45000, @"Australia/Broken_Hill" ],
+                  @"Brazil/Acre": @[ @"BR", @-8.03333, @-66.20000, @"America/Rio_Branco" ],
+                  @"Brazil/DeNoronha": @[ @"BR", @-2.15000, @-31.58333, @"America/Noronha" ],
+                  @"Brazil/East": @[ @"BR", @-22.46667, @-45.38333, @"America/Sao_Paulo" ],
+                  @"Brazil/West": @[ @"BR", @-2.86667, @-59.98333, @"America/Manaus" ],
+                  @"Canada/Atlantic": @[ @"CA", @44.65000, @-62.40000, @"America/Halifax" ],
+                  @"Canada/Central": @[ @"CA", @49.88333, @-96.85000, @"America/Winnipeg" ],
+                  @"Canada/East-Saskatchewan": @[ @"CA", @50.40000, @-103.35000, @"America/Regina" ],
+                  @"Canada/Eastern": @[ @"CA", @43.65000, @-78.61667, @"America/Toronto" ],
+                  @"Canada/Mountain": @[ @"CA", @53.55000, @-112.53333, @"America/Edmonton" ],
+                  @"Canada/Newfoundland": @[ @"CA", @47.56667, @-51.28333, @"America/St_Johns" ],
+                  @"Canada/Pacific": @[ @"CA", @49.26667, @-122.88333, @"America/Vancouver" ],
+                  @"Canada/Saskatchewan": @[ @"CA", @50.40000, @-103.35000, @"America/Regina" ],
+                  @"Canada/Yukon": @[ @"CA", @60.71667, @-134.95000, @"America/Whitehorse" ],
+                  @"Chile/Continental": @[ @"CL", @-32.55000, @-69.33333, @"America/Santiago" ],
+                  @"Chile/EasterIsland": @[ @"CL", @-26.85000, @-108.56667, @"Pacific/Easter" ],
+                  @"Cuba": @[ @"CU", @23.13333, @-81.63333, @"America/Havana" ],
+                  @"Egypt": @[ @"EG", @30.05000, @31.25000, @"Africa/Cairo" ],
+                  @"Eire": @[ @"IE", @53.33333, @-5.75000, @"Europe/Dublin" ],
                   @"Europe/Amsterdam": @[ @"NL", @52.36667, @4.90000 ],
                   @"Europe/Andorra": @[ @"AD", @42.50000, @1.51667 ],
                   @"Europe/Athens": @[ @"GR", @37.96667, @23.71667 ],
-                  @"Europe/Belfast": @[ @"GB", @51.50833, @0.12528, @"Europe/London" ], // Link
+                  @"Europe/Belfast": @[ @"GB", @51.50833, @0.12528, @"Europe/London" ],
                   @"Europe/Belgrade": @[ @"RS", @44.83333, @20.50000 ],
                   @"Europe/Berlin": @[ @"DE", @52.50000, @13.36667 ], // most locations
                   @"Europe/Bratislava": @[ @"SK", @48.15000, @17.11667 ],
@@ -487,7 +487,7 @@
                   @"Europe/Stockholm": @[ @"SE", @59.33333, @18.05000 ],
                   @"Europe/Tallinn": @[ @"EE", @59.41667, @24.75000 ],
                   @"Europe/Tirane": @[ @"AL", @41.33333, @19.83333 ],
-                  @"Europe/Tiraspol": @[ @"MD", @47.00000, @28.83333, @"Europe/Chisinau" ], // Link
+                  @"Europe/Tiraspol": @[ @"MD", @47.00000, @28.83333, @"Europe/Chisinau" ],
                   @"Europe/Uzhgorod": @[ @"UA", @48.61667, @22.30000 ], // Ruthenia
                   @"Europe/Vaduz": @[ @"LI", @47.15000, @9.51667 ],
                   @"Europe/Vatican": @[ @"VA", @41.90222, @12.45306 ],
@@ -498,10 +498,10 @@
                   @"Europe/Zagreb": @[ @"HR", @45.80000, @15.96667 ],
                   @"Europe/Zaporozhye": @[ @"UA", @47.83333, @35.16667 ], // Zaporozh'ye, E Lugansk / Zaporizhia, E Luhansk
                   @"Europe/Zurich": @[ @"CH", @47.38333, @8.53333 ],
-                  @"GB": @[ @"GB", @51.50833, @0.12528, @"Europe/London" ], // Link
-                  @"GB-Eire": @[ @"GB", @51.50833, @0.12528, @"Europe/London" ], // Link
-                  @"Hongkong": @[ @"HK", @22.28333, @114.15000, @"Asia/Hong_Kong" ], // Link
-                  @"Iceland": @[ @"IS", @64.15000, @-20.15000, @"Atlantic/Reykjavik" ], // Link
+                  @"GB": @[ @"GB", @51.50833, @0.12528, @"Europe/London" ],
+                  @"GB-Eire": @[ @"GB", @51.50833, @0.12528, @"Europe/London" ],
+                  @"Hongkong": @[ @"HK", @22.28333, @114.15000, @"Asia/Hong_Kong" ],
+                  @"Iceland": @[ @"IS", @64.15000, @-20.15000, @"Atlantic/Reykjavik" ],
                   @"Indian/Antananarivo": @[ @"MG", @-17.08333, @47.51667 ],
                   @"Indian/Chagos": @[ @"IO", @-6.66667, @72.41667 ],
                   @"Indian/Christmas": @[ @"CX", @-9.58333, @105.71667 ],
@@ -513,19 +513,19 @@
                   @"Indian/Mauritius": @[ @"MU", @-19.83333, @57.50000 ],
                   @"Indian/Mayotte": @[ @"YT", @-11.21667, @45.23333 ],
                   @"Indian/Reunion": @[ @"RE", @-19.13333, @55.46667 ],
-                  @"Iran": @[ @"IR", @35.66667, @51.43333, @"Asia/Tehran" ], // Link
-                  @"Israel": @[ @"IL", @31.78056, @35.22389, @"Asia/Jerusalem" ], // Link
-                  @"Jamaica": @[ @"JM", @17.96806, @-75.20667, @"America/Jamaica" ], // Link
-                  @"Japan": @[ @"JP", @35.65444, @139.74472, @"Asia/Tokyo" ], // Link
-                  @"Kwajalein": @[ @"MH", @9.08333, @167.33333, @"Pacific/Kwajalein" ], // Link
-                  @"Libya": @[ @"LY", @32.90000, @13.18333, @"Africa/Tripoli" ], // Link
-                  @"Mexico/BajaNorte": @[ @"MX", @32.53333, @-116.98333, @"America/Tijuana" ], // Link
-                  @"Mexico/BajaSur": @[ @"MX", @23.21667, @-105.58333, @"America/Mazatlan" ], // Link
-                  @"Mexico/General": @[ @"MX", @19.40000, @-98.85000, @"America/Mexico_City" ], // Link
-                  @"NZ": @[ @"NZ", @-35.13333, @174.76667, @"Pacific/Auckland" ], // Link
-                  @"NZ-CHAT": @[ @"NZ", @-42.05000, @-175.45000, @"Pacific/Chatham" ], // Link
-                  @"Navajo": @[ @"US", @39.73917, @-103.01583, @"America/Denver" ], // Link
-                  @"PRC": @[ @"CN", @31.23333, @121.46667, @"Asia/Shanghai" ], // Link
+                  @"Iran": @[ @"IR", @35.66667, @51.43333, @"Asia/Tehran" ],
+                  @"Israel": @[ @"IL", @31.78056, @35.22389, @"Asia/Jerusalem" ],
+                  @"Jamaica": @[ @"JM", @17.96806, @-75.20667, @"America/Jamaica" ],
+                  @"Japan": @[ @"JP", @35.65444, @139.74472, @"Asia/Tokyo" ],
+                  @"Kwajalein": @[ @"MH", @9.08333, @167.33333, @"Pacific/Kwajalein" ],
+                  @"Libya": @[ @"LY", @32.90000, @13.18333, @"Africa/Tripoli" ],
+                  @"Mexico/BajaNorte": @[ @"MX", @32.53333, @-116.98333, @"America/Tijuana" ],
+                  @"Mexico/BajaSur": @[ @"MX", @23.21667, @-105.58333, @"America/Mazatlan" ],
+                  @"Mexico/General": @[ @"MX", @19.40000, @-98.85000, @"America/Mexico_City" ],
+                  @"NZ": @[ @"NZ", @-35.13333, @174.76667, @"Pacific/Auckland" ],
+                  @"NZ-CHAT": @[ @"NZ", @-42.05000, @-175.45000, @"Pacific/Chatham" ],
+                  @"Navajo": @[ @"US", @39.73917, @-103.01583, @"America/Denver" ],
+                  @"PRC": @[ @"CN", @31.23333, @121.46667, @"Asia/Shanghai" ],
                   @"Pacific/Apia": @[ @"WS", @-12.16667, @-170.26667 ],
                   @"Pacific/Auckland": @[ @"NZ", @-35.13333, @174.76667 ], // most locations
                   @"Pacific/Bougainville": @[ @"PG", @-5.78333, @155.56667 ], // Bougainville
@@ -557,37 +557,37 @@
                   @"Pacific/Palau": @[ @"PW", @7.33333, @134.48333 ],
                   @"Pacific/Pitcairn": @[ @"PN", @-24.93333, @-129.91667 ],
                   @"Pacific/Pohnpei": @[ @"FM", @6.96667, @158.21667 ], // Pohnpei (Ponape)
-                  @"Pacific/Ponape": @[ @"FM", @6.96667, @158.21667, @"Pacific/Pohnpei" ], // Link
+                  @"Pacific/Ponape": @[ @"FM", @6.96667, @158.21667, @"Pacific/Pohnpei" ],
                   @"Pacific/Port_Moresby": @[ @"PG", @-8.50000, @147.16667 ], // most locations
                   @"Pacific/Rarotonga": @[ @"CK", @-20.76667, @-158.23333 ],
                   @"Pacific/Saipan": @[ @"MP", @15.20000, @145.75000 ],
-                  @"Pacific/Samoa": @[ @"AS", @-13.73333, @-169.30000, @"Pacific/Pago_Pago" ], // Link
+                  @"Pacific/Samoa": @[ @"AS", @-13.73333, @-169.30000, @"Pacific/Pago_Pago" ],
                   @"Pacific/Tahiti": @[ @"PF", @-16.46667, @-148.43333 ], // Society Islands
                   @"Pacific/Tarawa": @[ @"KI", @1.41667, @173.00000 ], // Gilbert Islands
                   @"Pacific/Tongatapu": @[ @"TO", @-20.83333, @-174.83333 ],
-                  @"Pacific/Truk": @[ @"FM", @7.41667, @151.78333, @"Pacific/Chuuk" ], // Link
+                  @"Pacific/Truk": @[ @"FM", @7.41667, @151.78333, @"Pacific/Chuuk" ],
                   @"Pacific/Wake": @[ @"UM", @19.28333, @166.61667 ], // Wake Island
                   @"Pacific/Wallis": @[ @"WF", @-12.70000, @-175.83333 ],
-                  @"Pacific/Yap": @[ @"FM", @7.41667, @151.78333, @"Pacific/Chuuk" ], // Link
-                  @"Poland": @[ @"PL", @52.25000, @21.00000, @"Europe/Warsaw" ], // Link
-                  @"Portugal": @[ @"PT", @38.71667, @-8.86667, @"Europe/Lisbon" ], // Link
-                  @"ROC": @[ @"TW", @25.05000, @121.50000, @"Asia/Taipei" ], // Link
-                  @"ROK": @[ @"KR", @37.55000, @126.96667, @"Asia/Seoul" ], // Link
-                  @"Singapore": @[ @"SG", @1.28333, @103.85000, @"Asia/Singapore" ], // Link
-                  @"Turkey": @[ @"TR", @41.01667, @28.96667, @"Europe/Istanbul" ], // Link
-                  @"US/Alaska": @[ @"US", @61.21806, @-148.09972, @"America/Anchorage" ], // Link
-                  @"US/Aleutian": @[ @"US", @51.88000, @-175.34194, @"America/Adak" ], // Link
-                  @"US/Arizona": @[ @"US", @33.44833, @-111.92667, @"America/Phoenix" ], // Link
-                  @"US/Central": @[ @"US", @41.85000, @-86.35000, @"America/Chicago" ], // Link
-                  @"US/East-Indiana": @[ @"US", @39.76833, @-85.84194, @"America/Indiana/Indianapolis" ], // Link
-                  @"US/Eastern": @[ @"US", @40.71417, @-73.99361, @"America/New_York" ], // Link
-                  @"US/Hawaii": @[ @"US", @21.30694, @-156.14167, @"Pacific/Honolulu" ], // Link
-                  @"US/Indiana-Starke": @[ @"US", @41.29583, @-85.37500, @"America/Indiana/Knox" ], // Link
-                  @"US/Michigan": @[ @"US", @42.33139, @-82.95417, @"America/Detroit" ], // Link
-                  @"US/Mountain": @[ @"US", @39.73917, @-103.01583, @"America/Denver" ], // Link
-                  @"US/Pacific": @[ @"US", @34.05222, @-117.75722, @"America/Los_Angeles" ], // Link
-                  @"US/Samoa": @[ @"AS", @-13.73333, @-169.30000, @"Pacific/Pago_Pago" ], // Link
-                  @"W-SU": @[ @"RU", @55.75583, @37.61778, @"Europe/Moscow" ], // Link
+                  @"Pacific/Yap": @[ @"FM", @7.41667, @151.78333, @"Pacific/Chuuk" ],
+                  @"Poland": @[ @"PL", @52.25000, @21.00000, @"Europe/Warsaw" ],
+                  @"Portugal": @[ @"PT", @38.71667, @-8.86667, @"Europe/Lisbon" ],
+                  @"ROC": @[ @"TW", @25.05000, @121.50000, @"Asia/Taipei" ],
+                  @"ROK": @[ @"KR", @37.55000, @126.96667, @"Asia/Seoul" ],
+                  @"Singapore": @[ @"SG", @1.28333, @103.85000, @"Asia/Singapore" ],
+                  @"Turkey": @[ @"TR", @41.01667, @28.96667, @"Europe/Istanbul" ],
+                  @"US/Alaska": @[ @"US", @61.21806, @-148.09972, @"America/Anchorage" ],
+                  @"US/Aleutian": @[ @"US", @51.88000, @-175.34194, @"America/Adak" ],
+                  @"US/Arizona": @[ @"US", @33.44833, @-111.92667, @"America/Phoenix" ],
+                  @"US/Central": @[ @"US", @41.85000, @-86.35000, @"America/Chicago" ],
+                  @"US/East-Indiana": @[ @"US", @39.76833, @-85.84194, @"America/Indiana/Indianapolis" ],
+                  @"US/Eastern": @[ @"US", @40.71417, @-73.99361, @"America/New_York" ],
+                  @"US/Hawaii": @[ @"US", @21.30694, @-156.14167, @"Pacific/Honolulu" ],
+                  @"US/Indiana-Starke": @[ @"US", @41.29583, @-85.37500, @"America/Indiana/Knox" ],
+                  @"US/Michigan": @[ @"US", @42.33139, @-82.95417, @"America/Detroit" ],
+                  @"US/Mountain": @[ @"US", @39.73917, @-103.01583, @"America/Denver" ],
+                  @"US/Pacific": @[ @"US", @34.05222, @-117.75722, @"America/Los_Angeles" ],
+                  @"US/Samoa": @[ @"AS", @-13.73333, @-169.30000, @"Pacific/Pago_Pago" ],
+                  @"W-SU": @[ @"RU", @55.75583, @37.61778, @"Europe/Moscow" ],
                   };
     });
     return codes;
