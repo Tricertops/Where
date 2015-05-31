@@ -49,7 +49,7 @@
                 [zonesByRegion setObject:zones forKey:region];
             }
             NSTimeZone *zone = [NSTimeZone timeZoneWithName:identifier];
-            [zones addObject:zone];
+            if (zone) [zones addObject:zone];
         }];
     });
     return zonesByRegion;
