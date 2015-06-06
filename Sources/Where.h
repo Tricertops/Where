@@ -18,8 +18,6 @@
 /*! This small framework provides a way to locate the user of the current device.
  *  Location is detected using multiple sources of regional data, but only the country (or region) is detected, not the
  *  exact position of the user.
- *
- *  This framework doesn’t use CoreLocation and doesn’t need Location Services permissions.
  */
 
 #if DEBUG
