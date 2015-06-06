@@ -3,6 +3,8 @@ Where <a href="https://flattr.com/submit/auto?user_id=Tricertops&url=https%3A%2F
 
 Detect user’s location without Location Services. There are several ways to approximate user’s location and this little framework provides unified interface for all of them.
 
+> Created for this app: [Geography of the World](https://itunes.apple.com/app/geography-of-the-world/id391081388?mt=8)
+
 ## Interface
 
 There are two main methods on class `Where`:
@@ -52,6 +54,10 @@ Framework uses categories on `NSLocale` and `NSTimeZone` with some generaly usef
   - **Canonize** region ISO codes to 2-letter uppercase form.
   - Lookup **coordinates** for region or time zone.
   - Get all time zones for given **region**.
+
+## Try
+
+Project includes demo app **_Where Am I_** which demonstrates usage of all features. To see the framework in real app, check out [Geography of the World](https://itunes.apple.com/app/geography-of-the-world/id391081388?mt=8) app. Thanks.
 
 ---
 The MIT License (MIT)  
