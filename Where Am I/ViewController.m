@@ -114,7 +114,7 @@
 
 - (NSString *)sourceTitle:(WhereSource)source {
     switch (source) {
-        case WhereSourceNone: return @"Unwnown";
+        case WhereSourceNone: return @"Unknown";
         case WhereSourceLocale: return @"Locale";
         case WhereSourceCarrier: return @"Carrier";
         case WhereSourceCellularIPAddress: return @"Cellular IP";

@@ -24,8 +24,8 @@ Both of these return instance of `Where` class, which contains this info:
   - **Carrier** – Used to detect users’s residence, since carrier does’t change while roaming abroad.
   - **Cellular IP** – Similar to Carrier source, used to detect user’s residence.
   - **Wi-Fi IP** – When connected to Wi-Fi, external IP should tell us in which country is the user.
-  - **Time Zone** – This is the **most important** source of location information. iOS uses Location Services when travelling to detect current time zone. This time zone is then available to apps and by checking `tz` database, we can get country and middle coordinate of the time zone.
-  - **Location Services** – Finally, CoreLocation is integrated, but turned off by default. When enabled (see _Options_) it detect exact location, geocodes the region and then turns itself off.
+  - **Time Zone** – This is the **most important** source of location information. iOS uses Location Services when travelling to detect current time zone. This time zone is then available to apps and by checking `tz` database, we can get country and middle coordinate of the time zone. In addition, it’s instantly available (in contrast to Wi-Fi IP or Location Services).
+  - **Location Services** – Finally, CoreLocation is integrated, but turned off by default. When enabled (see _Options_) it detects exact location, geocodes the region and then turns itself off.
 
 To get latest instance for given source, call `+[Where forSource:]`
 
@@ -34,7 +34,7 @@ To get latest instance for given source, call `+[Where forSource:]`
 You can customize behavior of the framework by calling `+[Where detectWithOptions:]` and passing one or more of these options:
 
   - `UpdateContinuously` – In addition to providing location once, the framework **observes** all sources and updates the detected location until cancelled. Notification `WhereDidUpdateNotification` is posted every time any source is updated. This is **the default**.
-  - `UseInternet` – Enables use of **Cellular IP** and **Wi-Fi IP** sources
+  - `UseInternet` – Enables use of **Cellular IP** and **Wi-Fi IP** sources.
   - `UseLocationServices` – Enables use of CoreLocation, implies `UseInternet`, because it needs geocoding.
   - `AskForPermission` – In addition to `UseLocationServices` (which it implies) also asks the user for permission to use CoreLocation. If you don’t pass this option, you have to gain permission yourself.
   

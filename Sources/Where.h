@@ -37,7 +37,7 @@ FOUNDATION_EXPORT const unsigned char WhereVersionString[];
 
 #pragma mark - Location
 
-/*! These are all possible sources of location data used by this framework. Alcual values are important, because they
+/*! These are all possible sources of location data used by this framework. Actual values are important, because they
  *  represent relative quality. The higher, the better. */
 typedef enum : NSUInteger {
     /*! The source is unknown. */
