@@ -48,14 +48,14 @@
     NSString *canonized = [self canonizeRegionCode:regionCode];
     if ( ! canonized.length) return kCLLocationCoordinate2DInvalid;
     
-    NSArray *array = [[self regionCoordinates] objectForKey:canonized];
+    NSArray<NSNumber *> *array = [[self regionCoordinates] objectForKey:canonized];
     if (array.count != 2) return kCLLocationCoordinate2DInvalid;
     
     return CLLocationCoordinate2DMake([array[0] doubleValue], [array[1] doubleValue]);
 }
 
-+ (NSDictionary *)regionCoordinates {
-    static NSDictionary *coordinates = nil;
++ (NSDictionary<NSString *, NSArray<NSNumber *> *> *)regionCoordinates {
+    static NSDictionary<NSString *, NSArray<NSNumber *> *> *coordinates = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         coordinates = @{

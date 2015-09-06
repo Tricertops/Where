@@ -313,7 +313,7 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
     id JSON = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
     if ( ! [JSON isKindOfClass:[NSDictionary class]]) return NO;
     
-    NSDictionary *dictionary = JSON[@"geobytes"];
+    NSDictionary<NSString *, id> *dictionary = JSON[@"geobytes"];
     if ( ! [dictionary isKindOfClass:[NSDictionary class]]) return NO;
     
     NSString *regionCode = dictionary[@"iso2"];
@@ -352,7 +352,7 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
     }
 }
 
-+ (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
++ (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     CLLocation *location = locations.lastObject;
     
     BOOL isAccurate = (location.horizontalAccuracy <= manager.desiredAccuracy);
@@ -403,7 +403,7 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
 + (void)startGeocoding:(CLLocation *)location {
     NSLog(@"Geocoding your current location...");
     [[self geocoder] cancelGeocode];
-    [[self geocoder] reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+    [[self geocoder] reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> *placemarks, NSError *error) {
         if ([error.domain isEqualToString:kCLErrorDomain] && error.code == kCLErrorGeocodeCanceled) return;
         
         CLPlacemark *placemark = placemarks.firstObject;
@@ -437,8 +437,8 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
     [[NSNotificationCenter defaultCenter] postNotificationName:WhereDidUpdateNotification object:nil];
 }
 
-+ (NSMutableDictionary *)bySource {
-    static NSMutableDictionary *dictionary = nil;
++ (NSMutableDictionary<NSNumber *, Where *> *)bySource {
+    static NSMutableDictionary<NSNumber *, Where *> *dictionary = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         dictionary = [NSMutableDictionary dictionaryWithCapacity:6];

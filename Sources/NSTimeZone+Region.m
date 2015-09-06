@@ -14,18 +14,18 @@
 
 
 - (NSString *)regionCode {
-    NSArray *components = [[self.class timeZoneRegionComponents] objectForKey:self.name];
+    NSArray<id> *components = [[self.class timeZoneRegionComponents] objectForKey:self.name];
     return components.firstObject;
 }
 
 
 - (CLLocationCoordinate2D)coordinate {
-    NSArray *components = [[self.class timeZoneRegionComponents] objectForKey:self.name];
+    NSArray<id> *components = [[self.class timeZoneRegionComponents] objectForKey:self.name];
     return CLLocationCoordinate2DMake([components[1] doubleValue], [components[2] doubleValue]);
 }
 
 
-+ (NSArray *)timeZonesForRegion:(NSString *)code {
++ (NSArray<NSTimeZone *> *)timeZonesForRegion:(NSString *)code {
     code = [NSLocale canonizeRegionCode:code];
     if ( ! code) return nil;
     
@@ -34,16 +34,16 @@
 
 
 //! Dictionary whose keys are region ISO codes and values are arrays of time zone identifiers, excluding links.
-+ (NSDictionary *)timeZonesByRegionCode {
-    static NSMutableDictionary *zonesByRegion = nil;
++ (NSDictionary<NSString *, NSArray<NSTimeZone *> *> *)timeZonesByRegionCode {
+    static NSMutableDictionary<NSString *, NSMutableArray<NSTimeZone *> *> *zonesByRegion = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         zonesByRegion = [NSMutableDictionary dictionaryWithCapacity: 250];
-        [[self.class timeZoneRegionComponents] enumerateKeysAndObjectsUsingBlock:^(NSString *identifier, NSArray *components, BOOL *stop) {
+        [[self.class timeZoneRegionComponents] enumerateKeysAndObjectsUsingBlock:^(NSString *identifier, NSArray<id> *components, BOOL *stop) {
             if (components.count >= 4) return; // continue
             
             NSString *region = components.firstObject;
-            NSMutableArray *zones = [zonesByRegion objectForKey:region];
+            NSMutableArray<NSTimeZone *> *zones = [zonesByRegion objectForKey:region];
             if ( ! zones) {
                 zones = [NSMutableArray new];
                 [zonesByRegion setObject:zones forKey:region];
@@ -59,8 +59,8 @@
 #pragma mark -
 
 //! Dictionary whose keys are time zone identifiers and values are heterogenous arrays. The array contains: region ISO code, latitude, longitude and optional time zone identifier to which it is linked.
-+ (NSDictionary *)timeZoneRegionComponents {
-    static NSDictionary *codes = nil;
++ (NSDictionary<NSString *, NSArray<id> *> *)timeZoneRegionComponents {
+    static NSDictionary<NSString *, NSArray<id> *> *codes = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         codes = @{

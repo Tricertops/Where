@@ -19,7 +19,7 @@
 - (CLLocationCoordinate2D)coordinate;
 
 //! Returns all time zones associated with given region.
-+ (NSArray *)timeZonesForRegion:(NSString *)code;
++ (NSArray<NSTimeZone *> *)timeZonesForRegion:(NSString *)code;
 
 @end
 
