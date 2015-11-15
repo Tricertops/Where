@@ -295,7 +295,7 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
     SCNetworkReachabilityGetFlags([self reachability], &flags);
     BOOL viaWiFi = (flags & kSCNetworkReachabilityFlagsIsWWAN) == 0;
     
-    NSURL *geobytesURL = [NSURL URLWithString:@"http://www.geobytes.com/IpLocator.htm?GetLocation&template=json.txt"];
+    NSURL *geobytesURL = [NSURL URLWithString:@"https://freegeoip.net/json"];
     [[[NSURLSession sharedSession] dataTaskWithURL:geobytesURL
                                  completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                      [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -310,18 +310,15 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
 + (BOOL)finishDetectionUsingIPAddressWithResponse:(NSData *)response WiFi:(BOOL)viaWiFi {
     if ( ! response.length) return NO;
     
-    id JSON = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    NSDictionary<NSString *, id> *JSON = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
     if ( ! [JSON isKindOfClass:[NSDictionary class]]) return NO;
     
-    NSDictionary<NSString *, id> *dictionary = JSON[@"geobytes"];
-    if ( ! [dictionary isKindOfClass:[NSDictionary class]]) return NO;
-    
-    NSString *regionCode = dictionary[@"iso2"];
+    NSString *regionCode = JSON[@"country_code"];
     if ( ! [regionCode isKindOfClass:[NSString class]]) return NO;
     
     CLLocationCoordinate2D coord = kCLLocationCoordinate2DInvalid;
-    NSNumber *lat = dictionary[@"latitude"];
-    NSNumber *lng = dictionary[@"longitude"];
+    NSNumber *lat = JSON[@"latitude"];
+    NSNumber *lng = JSON[@"longitude"];
     if ([lat isKindOfClass:[NSNumber class]] && [lng isKindOfClass:[NSNumber class]]) {
         coord = CLLocationCoordinate2DMake(lat.doubleValue, lng.doubleValue);
     }
