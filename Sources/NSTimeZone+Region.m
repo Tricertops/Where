@@ -175,6 +175,7 @@
                   @"America/Eirunepe": @[ @"BR", @-5.33333, @-68.13333 ], // Amazonas (west)
                   @"America/El_Salvador": @[ @"SV", @13.70000, @-88.80000 ],
                   @"America/Ensenada": @[ @"MX", @32.53333, @-116.98333, @"America/Tijuana" ],
+                  @"America/Fort_Nelson": @[ @"CA", @58.80000, @-121.30000 ], // MST - BC (Ft Nelson)
                   @"America/Fort_Wayne": @[ @"US", @39.76833, @-85.84194, @"America/Indiana/Indianapolis" ],
                   @"America/Fortaleza": @[ @"BR", @-2.28333, @-37.50000 ], // Brazil (northeast: MA, PI, CE, RN, PB)
                   @"America/Glace_Bay": @[ @"CA", @46.20000, @-58.05000 ], // Atlantic - NS (Cape Breton)
@@ -303,10 +304,12 @@
                   @"Asia/Aqtobe": @[ @"KZ", @50.28333, @57.16667 ], // Aqtobe/Aktobe
                   @"Asia/Ashgabat": @[ @"TM", @37.95000, @58.38333 ],
                   @"Asia/Ashkhabad": @[ @"TM", @37.95000, @58.38333, @"Asia/Ashgabat" ],
+                  @"Asia/Atyrau": @[ @"KZ", @47.11667, @51.93333 ], // Atyrau/Atirau/Gur'yev
                   @"Asia/Baghdad": @[ @"IQ", @33.35000, @44.41667 ],
                   @"Asia/Bahrain": @[ @"BH", @26.38333, @50.58333 ],
                   @"Asia/Baku": @[ @"AZ", @40.38333, @49.85000 ],
                   @"Asia/Bangkok": @[ @"TH", @13.75000, @100.51667 ],
+                  @"Asia/Barnaul": @[ @"RU", @53.36667, @83.75000 ], // MSK+04 - Altai
                   @"Asia/Beirut": @[ @"LB", @33.88333, @35.50000 ],
                   @"Asia/Bishkek": @[ @"KG", @42.90000, @74.60000 ],
                   @"Asia/Brunei": @[ @"BN", @4.93333, @114.91667 ],
@@ -322,6 +325,7 @@
                   @"Asia/Dili": @[ @"TL", @-7.45000, @125.58333 ],
                   @"Asia/Dubai": @[ @"AE", @25.30000, @55.30000 ],
                   @"Asia/Dushanbe": @[ @"TJ", @38.58333, @68.80000 ],
+                  @"Asia/Famagusta": @[ @"CY", @35.11667, @33.95000 ], // Northern Cyprus
                   @"Asia/Gaza": @[ @"PS", @31.50000, @34.46667 ], // Gaza Strip
                   @"Asia/Harbin": @[ @"CN", @31.23333, @121.46667, @"Asia/Shanghai" ],
                   @"Asia/Hebron": @[ @"PS", @31.53333, @35.09500 ], // West Bank
@@ -377,6 +381,7 @@
                   @"Asia/Thimbu": @[ @"BT", @27.46667, @89.65000, @"Asia/Thimphu" ],
                   @"Asia/Thimphu": @[ @"BT", @27.46667, @89.65000 ],
                   @"Asia/Tokyo": @[ @"JP", @35.65444, @139.74472 ],
+                  @"Asia/Tomsk": @[ @"RU", @56.50000, @84.96667 ], // MSK+04 - Tomsk
                   @"Asia/Ujung_Pandang": @[ @"ID", @-4.88333, @119.40000, @"Asia/Makassar" ],
                   @"Asia/Ulaanbaatar": @[ @"MN", @47.91667, @106.88333 ], // Mongolia (most areas)
                   @"Asia/Ulan_Bator": @[ @"MN", @47.91667, @106.88333, @"Asia/Ulaanbaatar" ],
@@ -385,6 +390,7 @@
                   @"Asia/Vientiane": @[ @"LA", @17.96667, @102.60000 ],
                   @"Asia/Vladivostok": @[ @"RU", @43.16667, @131.93333 ], // MSK+07 - Amur River
                   @"Asia/Yakutsk": @[ @"RU", @62.00000, @129.66667 ], // MSK+06 - Lena River
+                  @"Asia/Yangon": @[ @"MM", @16.78333, @96.16667 ],
                   @"Asia/Yekaterinburg": @[ @"RU", @56.85000, @60.60000 ], // MSK+02 - Urals
                   @"Asia/Yerevan": @[ @"AM", @40.18333, @44.50000 ],
                   @"Atlantic/Azores": @[ @"PT", @37.73333, @-24.33333 ], // Azores
@@ -442,6 +448,7 @@
                   @"Eire": @[ @"IE", @53.33333, @-5.75000, @"Europe/Dublin" ],
                   @"Europe/Amsterdam": @[ @"NL", @52.36667, @4.90000 ],
                   @"Europe/Andorra": @[ @"AD", @42.50000, @1.51667 ],
+                  @"Europe/Astrakhan": @[ @"RU", @46.35000, @48.05000 ], // MSK+01 - Astrakhan
                   @"Europe/Athens": @[ @"GR", @37.96667, @23.71667 ],
                   @"Europe/Belfast": @[ @"GB", @51.50833, @0.12528, @"Europe/London" ],
                   @"Europe/Belgrade": @[ @"RS", @44.83333, @20.50000 ],
@@ -462,6 +469,7 @@
                   @"Europe/Jersey": @[ @"JE", @49.20000, @-1.88333 ],
                   @"Europe/Kaliningrad": @[ @"RU", @54.71667, @20.50000 ], // MSK-01 - Kaliningrad
                   @"Europe/Kiev": @[ @"UA", @50.43333, @30.51667 ], // Ukraine (most areas)
+                  @"Europe/Kirov": @[ @"RU", @58.60000, @49.65000 ], // MSK+00 - Kirov
                   @"Europe/Lisbon": @[ @"PT", @38.71667, @-8.86667 ], // Portugal (mainland)
                   @"Europe/Ljubljana": @[ @"SI", @46.05000, @14.51667 ],
                   @"Europe/London": @[ @"GB", @51.50833, @0.12528 ],
@@ -481,6 +489,7 @@
                   @"Europe/Samara": @[ @"RU", @53.20000, @50.15000 ], // MSK+01 - Samara, Udmurtia
                   @"Europe/San_Marino": @[ @"SM", @43.91667, @12.46667 ],
                   @"Europe/Sarajevo": @[ @"BA", @43.86667, @18.41667 ],
+                  @"Europe/Saratov": @[ @"RU", @51.56667, @46.03333 ], // MSK+01 - Saratov
                   @"Europe/Simferopol": @[ @"RU", @44.95000, @34.10000 ], // MSK+00 - Crimea
                   @"Europe/Skopje": @[ @"MK", @41.98333, @21.43333 ],
                   @"Europe/Sofia": @[ @"BG", @42.68333, @23.31667 ],
@@ -488,6 +497,7 @@
                   @"Europe/Tallinn": @[ @"EE", @59.41667, @24.75000 ],
                   @"Europe/Tirane": @[ @"AL", @41.33333, @19.83333 ],
                   @"Europe/Tiraspol": @[ @"MD", @47.00000, @28.83333, @"Europe/Chisinau" ],
+                  @"Europe/Ulyanovsk": @[ @"RU", @54.33333, @48.40000 ], // MSK+01 - Ulyanovsk
                   @"Europe/Uzhgorod": @[ @"UA", @48.61667, @22.30000 ], // Ruthenia
                   @"Europe/Vaduz": @[ @"LI", @47.15000, @9.51667 ],
                   @"Europe/Vatican": @[ @"VA", @41.90222, @12.45306 ],
