@@ -147,7 +147,8 @@ int main(int argc, const char * argv[]) {
         
         [lines addObject:line];
     }
-    NSLog(@"Code: \n%@", [lines componentsJoinedByString:@"\n"]);
+    NSString* message = [NSString stringWithFormat: @"Code: \n%@", [lines componentsJoinedByString:@"\n"]];
+    printf("%s\n", message.UTF8String);
 }
 
 
