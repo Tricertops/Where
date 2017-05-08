@@ -249,6 +249,7 @@
                   @"America/Porto_Acre": @[ @"BR", @-8.03333, @-66.20000, @"America/Rio_Branco" ],
                   @"America/Porto_Velho": @[ @"BR", @-7.23333, @-62.10000 ], // Rondonia
                   @"America/Puerto_Rico": @[ @"PR", @18.46833, @-65.89389 ],
+                  @"America/Punta_Arenas": @[ @"CL", @-52.85000, @-69.08333 ], // Region of Magallanes
                   @"America/Rainy_River": @[ @"CA", @48.71667, @-93.43333 ], // Central - ON (Rainy R, Ft Frances)
                   @"America/Rankin_Inlet": @[ @"CA", @62.81667, @-91.91694 ], // Central - NU (central)
                   @"America/Recife": @[ @"BR", @-7.95000, @-33.10000 ], // Pernambuco
@@ -552,7 +553,7 @@
                   @"Pacific/Guadalcanal": @[ @"SB", @-8.46667, @160.20000 ],
                   @"Pacific/Guam": @[ @"GU", @13.46667, @144.75000 ],
                   @"Pacific/Honolulu": @[ @"US", @21.30694, @-156.14167 ], // Hawaii
-                  @"Pacific/Johnston": @[ @"UM", @16.75000, @-168.48333 ], // Johnston Atoll
+                  @"Pacific/Johnston": @[ @"US", @21.30694, @-156.14167, @"Pacific/Honolulu" ],
                   @"Pacific/Kiritimati": @[ @"KI", @1.86667, @-156.66667 ], // Line Islands
                   @"Pacific/Kosrae": @[ @"FM", @5.31667, @162.98333 ], // Kosrae
                   @"Pacific/Kwajalein": @[ @"MH", @9.08333, @167.33333 ], // Kwajalein
