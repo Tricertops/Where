@@ -1,4 +1,4 @@
-Where <a href="https://flattr.com/submit/auto?user_id=Tricertops&url=https%3A%2F%2Fgithub.com%2FiMartinKiss%2FWhere" target="_blank"><img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a>
+Where
 =============================
 
 Detect user’s location without Location Services. There are several ways to approximate user’s location and this little framework provides unified interface for all of them.
@@ -23,7 +23,7 @@ Both of these return instance of `Where` class, which contains this info:
 ## Sources
 
   - **Locale** – Used to detect user’s residence, since that’s how you typically choose locale.
-  - **Carrier** – Used to detect users’s residence, since carrier does’t change while roaming abroad.
+  - **Carrier** – Used to detect users’s residence, since carrier doesn’t change while roaming abroad.
   - **Cellular IP** – Similar to Carrier source, used to detect user’s residence.
   - **Wi-Fi IP** – When connected to Wi-Fi, external IP should tell us in which country is the user.
   - **Time Zone** – This is the **most important** source of location information. iOS uses Location Services when travelling to detect current time zone. This time zone is then available to apps and by checking `tz` database, we can get country and middle coordinate of the time zone. In addition, it’s instantly available (in contrast to Wi-Fi IP or Location Services).
