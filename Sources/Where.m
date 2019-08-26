@@ -19,7 +19,9 @@ static NSString * WhereSourceDescription(WhereSource source) {
         case WhereSourceCellularIPAddress: return @"Cellular IP Address";
         case WhereSourceTimeZone: return @"Time Zone";
         case WhereSourceWiFiIPAddress: return @"Wi-Fi IP Address";
+#if WHERE_COMPILE_LOCATION_SERVICES
         case WhereSourceLocationServices: return @"Location Services";
+#endif
     }
     return @"Other";
 }
@@ -175,6 +177,7 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
         dispatch_queue_t queue = (useInternet && shouldObserve ? dispatch_get_main_queue() : nil);
         SCNetworkReachabilitySetDispatchQueue([self reachability], queue);
     }
+#if WHERE_COMPILE_LOCATION_SERVICES
     {
         // Location Services
         if (WhereHasOption(currentOptions, WhereOptionAskForPermission)) {
@@ -201,6 +204,7 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
             [self clear:WhereSourceLocationServices];
         }
     }
+#endif
     
     previousOptions = currentOptions;
 }
@@ -232,6 +236,7 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
     return reachability;
 }
 
+#if WHERE_COMPILE_LOCATION_SERVICES
 + (CLLocationManager *)locationManager {
     static CLLocationManager *locationManager = nil;
     static dispatch_once_t onceToken;
@@ -251,6 +256,7 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
     });
     return geocoder;
 }
+#endif
 
 
 #pragma mark Sources
@@ -349,6 +355,7 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
     }
 }
 
+#if WHERE_COMPILE_LOCATION_SERVICES
 + (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     CLLocation *location = locations.lastObject;
     
@@ -416,6 +423,7 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
         }
     }];
 }
+#endif
 
 
 #pragma mark Storage
@@ -452,7 +460,9 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
 
 + (Where *)amI {
     return [self detectDebugging]
+#if WHERE_COMPILE_LOCATION_SERVICES
         ?: [self forSource:WhereSourceLocationServices]
+#endif
         ?: [self forSource:WhereSourceTimeZone]
         ?: [self forSource:WhereSourceWiFiIPAddress];
 }

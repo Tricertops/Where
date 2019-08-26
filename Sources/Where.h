@@ -20,6 +20,10 @@
  *  exact position of the user.
  */
 
+/*! Referencing CoreLocation APIs may trigger an App Store detection system.
+ */
+#define WHERE_COMPILE_LOCATION_SERVICES  1
+
 #if DEBUG
 /*! Pass “-WhereDebug” as a launch argument, with a value as ISO code or a Time Zone identifier to test specific
  *  location. When specified, the framework will ignore any other detection mechanisms and the source of the instances
@@ -73,12 +77,14 @@ typedef enum : NSUInteger {
      *  The system time zone may be changed by the user manually, in which case it may be incorrect. */
     WhereSourceTimeZone = 5,
     
+#if WHERE_COMPILE_LOCATION_SERVICES
     /*! CLLocationManager was used.
      *  The associated location is the current region/country of the user.
      *  This is the most reliable source of data, but requires user’s permission and locating takes significant time.
      *  This source is disabled by default, pass UseLocationServices to enable.
      *  Pass AskForPermission option to let the framework ask the user for permission. */
     WhereSourceLocationServices = 6,
+#endif
     
 } WhereSource;
 
@@ -128,6 +134,7 @@ typedef enum : NSUInteger {
      *  is posted. */
     WhereOptionUseInternet = 2,
     
+#if WHERE_COMPILE_LOCATION_SERVICES
     /*! Enables use of LocationServices source, which will use CoreLocation and needs user’s permission. Your app is 
      *  responsible for requesting the permission, or also pass AskForPermission option.
      *  Location will be detected with a limited accuracy and then geolocated to a country code, thus this option
@@ -141,6 +148,7 @@ typedef enum : NSUInteger {
      *  To make this option actualy work, you have to include NSLocationWhenInUseUsageDescription key in application’s
      *  Info.plist with appropriate usage description string. */
     WhereOptionAskForPermission = 8 | WhereOptionUseLocationServices,
+#endif
     
 } WhereOptions;
 
