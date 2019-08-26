@@ -22,7 +22,7 @@
 
 /*! Referencing CoreLocation APIs may trigger an App Store detection system.
  */
-#define WHERE_COMPILE_LOCATION_SERVICES  1
+#define WHERE_COMPILE_LOCATION_SERVICES  0
 
 #if DEBUG
 /*! Pass “-WhereDebug” as a launch argument, with a value as ISO code or a Time Zone identifier to test specific
