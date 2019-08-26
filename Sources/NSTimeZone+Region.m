@@ -90,7 +90,7 @@
                   @"Africa/Gaborone": @[ @"BW", @-23.35000, @25.91667 ],
                   @"Africa/Harare": @[ @"ZW", @-16.16667, @31.05000 ],
                   @"Africa/Johannesburg": @[ @"ZA", @-25.75000, @28.00000 ],
-                  @"Africa/Juba": @[ @"SS", @4.85000, @31.60000 ],
+                  @"Africa/Juba": @[ @"SS", @4.85000, @31.61667 ],
                   @"Africa/Kampala": @[ @"UG", @0.31667, @32.41667 ],
                   @"Africa/Khartoum": @[ @"SD", @15.60000, @32.53333 ],
                   @"Africa/Kigali": @[ @"RW", @-0.05000, @30.06667 ],
@@ -228,7 +228,7 @@
                   @"America/Miquelon": @[ @"PM", @47.05000, @-55.66667 ],
                   @"America/Moncton": @[ @"CA", @46.10000, @-63.21667 ], // Atlantic - New Brunswick
                   @"America/Monterrey": @[ @"MX", @25.66667, @-99.68333 ], // Central Time - Durango; Coahuila, Nuevo Leon, Tamaulipas (most areas)
-                  @"America/Montevideo": @[ @"UY", @-33.11667, @-55.81667 ],
+                  @"America/Montevideo": @[ @"UY", @-33.09083, @-55.78750 ],
                   @"America/Montreal": @[ @"CA", @43.65000, @-78.61667, @"America/Toronto" ],
                   @"America/Montserrat": @[ @"MS", @16.71667, @-61.78333 ],
                   @"America/Nassau": @[ @"BS", @25.08333, @-76.65000 ],
@@ -349,8 +349,8 @@
                   @"Asia/Kuala_Lumpur": @[ @"MY", @3.16667, @101.70000 ], // Malaysia (peninsula)
                   @"Asia/Kuching": @[ @"MY", @1.55000, @110.33333 ], // Sabah, Sarawak
                   @"Asia/Kuwait": @[ @"KW", @29.33333, @47.98333 ],
-                  @"Asia/Macao": @[ @"MO", @22.23333, @113.58333, @"Asia/Macau" ],
-                  @"Asia/Macau": @[ @"MO", @22.23333, @113.58333 ],
+                  @"Asia/Macao": @[ @"MO", @22.19722, @113.54167, @"Asia/Macau" ],
+                  @"Asia/Macau": @[ @"MO", @22.19722, @113.54167 ],
                   @"Asia/Magadan": @[ @"RU", @59.56667, @150.80000 ], // MSK+08 - Magadan
                   @"Asia/Makassar": @[ @"ID", @-4.88333, @119.40000 ], // Borneo (east, south); Sulawesi/Celebes, Bali, Nusa Tengarra; Timor (west)
                   @"Asia/Manila": @[ @"PH", @14.58333, @121.00000 ],
@@ -364,6 +364,7 @@
                   @"Asia/Pontianak": @[ @"ID", @0.03333, @109.33333 ], // Borneo (west, central)
                   @"Asia/Pyongyang": @[ @"KP", @39.01667, @125.75000 ],
                   @"Asia/Qatar": @[ @"QA", @25.28333, @51.53333 ],
+                  @"Asia/Qostanay": @[ @"KZ", @53.20000, @63.61667 ], // Qostanay/Kostanay/Kustanay
                   @"Asia/Qyzylorda": @[ @"KZ", @44.80000, @65.46667 ], // Qyzylorda/Kyzylorda/Kzyl-Orda
                   @"Asia/Rangoon": @[ @"MM", @16.78333, @96.16667, @"Asia/Yangon" ],
                   @"Asia/Riyadh": @[ @"SA", @24.63333, @46.71667 ],
@@ -435,7 +436,6 @@
                   @"Brazil/West": @[ @"BR", @-2.86667, @-59.98333, @"America/Manaus" ],
                   @"Canada/Atlantic": @[ @"CA", @44.65000, @-62.40000, @"America/Halifax" ],
                   @"Canada/Central": @[ @"CA", @49.88333, @-96.85000, @"America/Winnipeg" ],
-                  @"Canada/East-Saskatchewan": @[ @"CA", @50.40000, @-103.35000, @"America/Regina" ],
                   @"Canada/Eastern": @[ @"CA", @43.65000, @-78.61667, @"America/Toronto" ],
                   @"Canada/Mountain": @[ @"CA", @53.55000, @-112.53333, @"America/Edmonton" ],
                   @"Canada/Newfoundland": @[ @"CA", @47.56667, @-51.28333, @"America/St_Johns" ],
@@ -463,11 +463,11 @@
                   @"Europe/Copenhagen": @[ @"DK", @55.66667, @12.58333 ],
                   @"Europe/Dublin": @[ @"IE", @53.33333, @-5.75000 ],
                   @"Europe/Gibraltar": @[ @"GI", @36.13333, @-4.65000 ],
-                  @"Europe/Guernsey": @[ @"GG", @49.45000, @-1.46667 ],
+                  @"Europe/Guernsey": @[ @"GG", @49.45472, @-1.46389 ],
                   @"Europe/Helsinki": @[ @"FI", @60.16667, @24.96667 ],
                   @"Europe/Isle_of_Man": @[ @"IM", @54.15000, @-3.53333 ],
                   @"Europe/Istanbul": @[ @"TR", @41.01667, @28.96667 ],
-                  @"Europe/Jersey": @[ @"JE", @49.20000, @-1.88333 ],
+                  @"Europe/Jersey": @[ @"JE", @49.18361, @-1.89333 ],
                   @"Europe/Kaliningrad": @[ @"RU", @54.71667, @20.50000 ], // MSK-01 - Kaliningrad
                   @"Europe/Kiev": @[ @"UA", @50.43333, @30.51667 ], // Ukraine (most areas)
                   @"Europe/Kirov": @[ @"RU", @58.60000, @49.65000 ], // MSK+00 - Kirov
@@ -491,7 +491,7 @@
                   @"Europe/San_Marino": @[ @"SM", @43.91667, @12.46667 ],
                   @"Europe/Sarajevo": @[ @"BA", @43.86667, @18.41667 ],
                   @"Europe/Saratov": @[ @"RU", @51.56667, @46.03333 ], // MSK+01 - Saratov
-                  @"Europe/Simferopol": @[ @"RU", @44.95000, @34.10000 ], // MSK+00 - Crimea
+                  @"Europe/Simferopol": @[ @"UA", @44.95000, @34.10000 ], // MSK+00 - Crimea
                   @"Europe/Skopje": @[ @"MK", @41.98333, @21.43333 ],
                   @"Europe/Sofia": @[ @"BG", @42.68333, @23.31667 ],
                   @"Europe/Stockholm": @[ @"SE", @59.33333, @18.05000 ],
@@ -504,7 +504,7 @@
                   @"Europe/Vatican": @[ @"VA", @41.90222, @12.45306 ],
                   @"Europe/Vienna": @[ @"AT", @48.21667, @16.33333 ],
                   @"Europe/Vilnius": @[ @"LT", @54.68333, @25.31667 ],
-                  @"Europe/Volgograd": @[ @"RU", @48.73333, @44.41667 ], // MSK+00 - Volgograd
+                  @"Europe/Volgograd": @[ @"RU", @48.73333, @44.41667 ], // MSK+01 - Volgograd
                   @"Europe/Warsaw": @[ @"PL", @52.25000, @21.00000 ],
                   @"Europe/Zagreb": @[ @"HR", @45.80000, @15.96667 ],
                   @"Europe/Zaporozhye": @[ @"UA", @47.83333, @35.16667 ], // Zaporozh'ye/Zaporizhia; Lugansk/Luhansk (east)
