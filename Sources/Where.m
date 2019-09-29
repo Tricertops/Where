@@ -137,13 +137,13 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
         if ( ! isUpToDate) {
             [self detectUsingCarrier];
             if (shouldObserve) {
-                [[self network] setSubscriberCellularProviderDidUpdateNotifier:^(CTCarrier *carrier) {
+                [[self network] setServiceSubscriberCellularProvidersDidUpdateNotifier:^(NSString *carrier) {
                     [self detectUsingCarrier];
                 }];
             }
         }
         else if ( ! shouldObserve) {
-            [[self network] setSubscriberCellularProviderDidUpdateNotifier:nil];
+            [[self network] setServiceSubscriberCellularProvidersDidUpdateNotifier:nil];
         }
     }
     {
@@ -273,7 +273,9 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
 }
 
 + (void)detectUsingCarrier {
-    NSString *regionCode = [self network].subscriberCellularProvider.isoCountryCode;
+    //TODO: Multiple SIM cards allow for multiple location guesses.
+    CTCarrier *carrier = [self network].serviceSubscriberCellularProviders.allValues.firstObject;
+    NSString *regionCode = carrier.isoCountryCode;
     Where *instance = [Where instanceWithSource:WhereSourceCarrier
                                          region:regionCode
                                      coordinate:[NSLocale coordinateForRegion:regionCode]];
