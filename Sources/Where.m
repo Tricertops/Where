@@ -133,6 +133,7 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
         }
     }
     {
+        #if !TARGET_OS_MACCATALYST
         // Carrier
         if ( ! isUpToDate) {
             [self detectUsingCarrier];
@@ -145,6 +146,7 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
         else if ( ! shouldObserve) {
             [[self network] setServiceSubscriberCellularProvidersDidUpdateNotifier:nil];
         }
+        #endif
     }
     {
         // Time Zone
@@ -212,6 +214,8 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
 
 #pragma mark State
 
+#if !TARGET_OS_MACCATALYST
+
 + (CTTelephonyNetworkInfo *)network {
     static CTTelephonyNetworkInfo *network = nil;
     static dispatch_once_t onceToken;
@@ -220,6 +224,8 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
     });
     return network;
 }
+
+#endif
 
 + (SCNetworkReachabilityRef)reachability {
     static SCNetworkReachabilityRef reachability = NULL;
@@ -273,6 +279,7 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
 }
 
 + (void)detectUsingCarrier {
+    #if !TARGET_OS_MACCATALYST
     //TODO: Multiple SIM cards allow for multiple location guesses.
     CTCarrier *carrier = [self network].serviceSubscriberCellularProviders.allValues.firstObject;
     NSString *regionCode = carrier.isoCountryCode;
@@ -283,6 +290,7 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
         NSLog(@"Your cellular carrier is from %@.", instance.regionName);
         [self update:instance];
     }
+    #endif
 }
 
 + (void)detectUsingTimeZone {
