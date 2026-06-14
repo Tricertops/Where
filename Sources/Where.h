@@ -52,23 +52,6 @@ typedef enum : NSUInteger {
      *  or residence. */
     WhereSourceLocale = 1,
     
-    /*! CTCarrier was used.
-     *  The associated location is the region/country of the issuer of inserted SIM card (if present) and may be
-     *  interpreted as the region/country of residence.
-     *  The value of this source _doesn’t_ change when the user uses roaming while travelling. */
-    WhereSourceCarrier = 2,
-    
-    /*! Cellular external IP address was used.
-     *  The associated location is the region/country of user’s home carrier.
-     *  When the user uses roaming while travelling, the location from this source _doesn’t_ change.
-     *  This source is asynchronous and therefore disabled by default, pass UseInternet option to enable. */
-    WhereSourceCellularIPAddress = 3,
-    
-    /*! Wi-Fi external IP address was used.
-     *  The associated location is the region/country of the Intrnet Service Provider.
-     *  This source is asynchronous and therefore disabled by default, pass UseInternet option to enable. */
-    WhereSourceWiFiIPAddress = 4,
-    
     /*! NSTimeZone was used.
      *  The associated location is the region/country of the actual position of the user. This is the most reliable
      *  source of data available offline.

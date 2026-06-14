@@ -15,10 +15,7 @@ static NSString * WhereSourceDescription(WhereSource source) {
     switch (source) {
         case WhereSourceNone: return @"Unwnown";
         case WhereSourceLocale: return @"Locale";
-        case WhereSourceCarrier: return @"Carrier";
-        case WhereSourceCellularIPAddress: return @"Cellular IP Address";
         case WhereSourceTimeZone: return @"Time Zone";
-        case WhereSourceWiFiIPAddress: return @"Wi-Fi IP Address";
 #if WHERE_COMPILE_LOCATION_SERVICES
         case WhereSourceLocationServices: return @"Location Services";
 #endif
@@ -133,22 +130,6 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
         }
     }
     {
-        #if !TARGET_OS_MACCATALYST
-        // Carrier
-        if ( ! isUpToDate) {
-            [self detectUsingCarrier];
-            if (shouldObserve) {
-                [[self network] setServiceSubscriberCellularProvidersDidUpdateNotifier:^(NSString *carrier) {
-                    [self detectUsingCarrier];
-                }];
-            }
-        }
-        else if ( ! shouldObserve) {
-            [[self network] setServiceSubscriberCellularProvidersDidUpdateNotifier:nil];
-        }
-        #endif
-    }
-    {
         // Time Zone
         if ( ! isUpToDate) {
             [self detectUsingTimeZone];
@@ -162,22 +143,6 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
         else if ( ! shouldObserve) {
             [[NSNotificationCenter defaultCenter] removeObserver:self name:NSSystemTimeZoneDidChangeNotification object:nil];
         }
-    }
-    {
-        // IP Address
-        BOOL useInternet = WhereHasOption(currentOptions, WhereOptionUseInternet);
-        if (useInternet) {
-            BOOL wasUsingInternet = WhereHasOption(previousOptions, WhereOptionUseInternet);
-            if ( ! wasUsingInternet || ! isUpToDate) {
-                [self startDetectionUsingIPAddress];
-            }
-        }
-        else {
-            [self clear:WhereSourceCellularIPAddress];
-            [self clear:WhereSourceWiFiIPAddress];
-        }
-        dispatch_queue_t queue = (useInternet && shouldObserve ? dispatch_get_main_queue() : nil);
-        SCNetworkReachabilitySetDispatchQueue([self reachability], queue);
     }
 #if WHERE_COMPILE_LOCATION_SERVICES
     {
@@ -213,34 +178,6 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
 
 
 #pragma mark State
-
-#if !TARGET_OS_MACCATALYST
-
-+ (CTTelephonyNetworkInfo *)network {
-    static CTTelephonyNetworkInfo *network = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        network = [CTTelephonyNetworkInfo new];
-    });
-    return network;
-}
-
-#endif
-
-+ (SCNetworkReachabilityRef)reachability {
-    static SCNetworkReachabilityRef reachability = NULL;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        struct sockaddr_in zeroAddress;
-        bzero(&zeroAddress, sizeof(zeroAddress));
-        zeroAddress.sin_len = sizeof(zeroAddress);
-        zeroAddress.sin_family = AF_INET;
-        
-        reachability = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
-        SCNetworkReachabilitySetCallback(reachability, &WhereReachabilityCallback, NULL);
-    });
-    return reachability;
-}
 
 #if WHERE_COMPILE_LOCATION_SERVICES
 + (CLLocationManager *)locationManager {
@@ -278,21 +215,6 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
     }
 }
 
-+ (void)detectUsingCarrier {
-    #if !TARGET_OS_MACCATALYST
-    //TODO: Multiple SIM cards allow for multiple location guesses.
-    CTCarrier *carrier = [self network].serviceSubscriberCellularProviders.allValues.firstObject;
-    NSString *regionCode = carrier.isoCountryCode;
-    Where *instance = [Where instanceWithSource:WhereSourceCarrier
-                                         region:regionCode
-                                     coordinate:[NSLocale coordinateForRegion:regionCode]];
-    if (instance) {
-        NSLog(@"Your cellular carrier is from %@.", instance.regionName);
-        [self update:instance];
-    }
-    #endif
-}
-
 + (void)detectUsingTimeZone {
     NSTimeZone *zone = [NSTimeZone systemTimeZone];
     Where *instance = [Where instanceWithSource:WhereSourceTimeZone
@@ -301,67 +223,6 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
     if (instance) {
         NSLog(@"You are in a time zone of %@.", instance.regionName);
         [self update:instance];
-    }
-}
-
-+ (void)startDetectionUsingIPAddress {
-    NSLog(@"Let me check the Internet...");
-    
-    SCNetworkReachabilityFlags flags = 0;
-    SCNetworkReachabilityGetFlags([self reachability], &flags);
-    BOOL viaWiFi = (flags & kSCNetworkReachabilityFlagsIsWWAN) == 0;
-    
-    NSURL *geobytesURL = [NSURL URLWithString:@"https://freegeoip.net/json"];
-    [[[NSURLSession sharedSession] dataTaskWithURL:geobytesURL
-                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                         BOOL ok = [self finishDetectionUsingIPAddressWithResponse:data WiFi:viaWiFi];
-                                         if ( ! ok) {
-                                             NSLog(@"Failed to check the Internet :(");
-                                         }
-                                     }];
-                                 }] resume];
-}
-
-+ (BOOL)finishDetectionUsingIPAddressWithResponse:(NSData *)response WiFi:(BOOL)viaWiFi {
-    if ( ! response.length) return NO;
-    
-    NSDictionary<NSString *, id> *JSON = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-    if ( ! [JSON isKindOfClass:[NSDictionary class]]) return NO;
-    
-    NSString *regionCode = JSON[@"country_code"];
-    if ( ! [regionCode isKindOfClass:[NSString class]]) return NO;
-    
-    CLLocationCoordinate2D coord = kCLLocationCoordinate2DInvalid;
-    NSNumber *lat = JSON[@"latitude"];
-    NSNumber *lng = JSON[@"longitude"];
-    if ([lat isKindOfClass:[NSNumber class]] && [lng isKindOfClass:[NSNumber class]]) {
-        coord = CLLocationCoordinate2DMake(lat.doubleValue, lng.doubleValue);
-    }
-    else {
-        // Fallback
-        coord = [NSLocale coordinateForRegion:regionCode];
-    }
-    
-    [self clear:(viaWiFi? WhereSourceCellularIPAddress : WhereSourceWiFiIPAddress)];
-    
-    WhereSource source = (viaWiFi? WhereSourceWiFiIPAddress : WhereSourceCellularIPAddress);
-    Where *instance = [Where instanceWithSource:source
-                                         region:regionCode
-                                     coordinate:coord];
-    if (instance) {
-        NSLog(@"You are connected to the Internet via %@ in %@.", (viaWiFi? @"Wi-Fi" : @"cellular"), instance.regionName);
-        [self update:instance];
-        return YES;
-    }
-    return NO;
-}
-
-static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void *info) {
-    BOOL isReachable = (flags & kSCNetworkReachabilityFlagsReachable) != 0;
-    
-    if (isReachable) {
-        [Where startDetectionUsingIPAddress];
     }
 }
 
@@ -463,8 +324,6 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
 
 + (Where *)isHome {
     return [self detectDebugging]
-        ?: [self forSource:WhereSourceCellularIPAddress]
-        ?: [self forSource:WhereSourceCarrier]
         ?: [self forSource:WhereSourceLocale];
 }
 
@@ -473,8 +332,7 @@ static void WhereReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
 #if WHERE_COMPILE_LOCATION_SERVICES
         ?: [self forSource:WhereSourceLocationServices]
 #endif
-        ?: [self forSource:WhereSourceTimeZone]
-        ?: [self forSource:WhereSourceWiFiIPAddress];
+        ?: [self forSource:WhereSourceTimeZone];
 }
 
 + (Where *)forSource:(WhereSource)source {
