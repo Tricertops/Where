@@ -207,7 +207,7 @@ static BOOL WhereHasOption(WhereOptions mask, WhereOptions option) {
 + (void)detectUsingLocale {
     NSLocale *locale = [NSLocale currentLocale];
     Where *instance = [Where instanceWithSource:WhereSourceLocale
-                                         region:[locale regionCode]
+                                         region:[locale objectForKey:NSLocaleCountryCode]
                                      coordinate:[locale regionCoordinate]];
     if (instance) {
         NSLog(@"You prefer region of %@.", instance.regionName);

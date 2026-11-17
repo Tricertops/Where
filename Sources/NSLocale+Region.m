@@ -21,10 +21,6 @@
 
 #pragma mark Region
 
-- (NSString *)regionCode {
-    return [self objectForKey:NSLocaleCountryCode];
-}
-
 + (NSString *)canonizeRegionCode:(NSString *)regionCode {
     if ( ! regionCode) return nil;
     NSString *identifier = [NSLocale localeIdentifierFromComponents:@{ NSLocaleCountryCode: regionCode }];
@@ -41,7 +37,7 @@
 #pragma mark Coordinates
 
 - (CLLocationCoordinate2D)regionCoordinate {
-    return [NSLocale coordinateForRegion:self.regionCode];
+    return [NSLocale coordinateForRegion:[self objectForKey:NSLocaleCountryCode]];
 }
 
 + (CLLocationCoordinate2D)coordinateForRegion:(NSString *)regionCode {
